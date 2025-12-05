@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://qontrek.com/schemas/solar/quotation_builder.schema.json",
   "title": "Quotation Builder Schema",
   "description": "Schema for generating professional solar installation quotations with multiple output formats and Qontrek Document Factory integration",
@@ -25,6 +25,370 @@
       "type": "string",
       "format": "uuid",
       "description": "Reference to site inspection record"
+    },
+    "customer_profile": {
+      "type": "object",
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "description": "Customer name"
+        },
+        "customer_type": {
+          "type": "string",
+          "enum": ["individual", "company", "government"],
+          "description": "Type of customer"
+        },
+        "company_name": {
+          "type": "string",
+          "description": "Company name if applicable"
+        },
+        "billing_address": {
+          "type": "string",
+          "description": "Billing address"
+        },
+        "installation_address": {
+          "type": "string",
+          "description": "Installation site address"
+        },
+        "contact_person": {
+          "type": "string",
+          "description": "Primary contact person"
+        },
+        "contact_phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address"
+        },
+        "income_range": {
+          "type": "string",
+          "description": "Customer income range"
+        },
+        "property_type": {
+          "type": "string",
+          "description": "Type of property"
+        },
+        "monthly_electricity_bill_myr": {
+          "type": "number",
+          "description": "Current monthly electricity bill"
+        }
+      },
+      "description": "Customer profile and contact information"
+    },
+    "roi_model": {
+      "type": "object",
+      "properties": {
+        "system_size_kwp": {
+          "type": "number",
+          "description": "System size in kWp"
+        },
+        "estimated_annual_generation_kwh": {
+          "type": "number",
+          "description": "Annual energy generation"
+        },
+        "estimated_annual_savings_myr": {
+          "type": "number",
+          "description": "Annual cost savings"
+        },
+        "payback_period_years": {
+          "type": "number",
+          "description": "Simple payback period"
+        },
+        "roi_percentage": {
+          "type": "number",
+          "description": "Return on investment"
+        },
+        "lifetime_savings_myr": {
+          "type": "number",
+          "description": "25-year lifetime savings"
+        },
+        "carbon_offset_tonnes_year": {
+          "type": "number",
+          "description": "Annual CO2 offset"
+        },
+        "npv_myr": {
+          "type": "number",
+          "description": "Net present value"
+        },
+        "irr_percentage": {
+          "type": "number",
+          "description": "Internal rate of return"
+        }
+      },
+      "description": "ROI calculation model summary"
+    },
+    "package_options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "package_id": {
+            "type": "string",
+            "description": "Unique package identifier"
+          },
+          "package_name": {
+            "type": "string",
+            "description": "Package display name"
+          },
+          "package_tier": {
+            "type": "string",
+            "enum": ["basic", "standard", "premium", "enterprise"],
+            "description": "Package tier level"
+          },
+          "system_size_kwp": {
+            "type": "number",
+            "description": "System size in kWp"
+          },
+          "panel_brand": {
+            "type": "string",
+            "description": "Solar panel brand"
+          },
+          "panel_model": {
+            "type": "string",
+            "description": "Solar panel model"
+          },
+          "panel_count": {
+            "type": "integer",
+            "description": "Number of panels"
+          },
+          "inverter_brand": {
+            "type": "string",
+            "description": "Inverter brand"
+          },
+          "inverter_model": {
+            "type": "string",
+            "description": "Inverter model"
+          },
+          "includes_battery": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether battery is included"
+          },
+          "battery_capacity_kwh": {
+            "type": "number",
+            "description": "Battery capacity if included"
+          },
+          "warranty_years": {
+            "type": "integer",
+            "description": "Warranty period in years"
+          },
+          "base_price_myr": {
+            "type": "number",
+            "description": "Base package price"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Package features list"
+          },
+          "is_recommended": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this is the recommended package"
+          }
+        }
+      },
+      "description": "Available package options for the customer"
+    },
+    "add_ons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "addon_id": {
+            "type": "string",
+            "description": "Add-on identifier"
+          },
+          "addon_name": {
+            "type": "string",
+            "description": "Add-on display name"
+          },
+          "addon_category": {
+            "type": "string",
+            "enum": ["monitoring", "storage", "protection", "maintenance", "smart_home", "other"],
+            "description": "Add-on category"
+          },
+          "description": {
+            "type": "string",
+            "description": "Add-on description"
+          },
+          "price_myr": {
+            "type": "number",
+            "description": "Add-on price"
+          },
+          "is_one_time": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether this is a one-time or recurring cost"
+          },
+          "recurring_period": {
+            "type": "string",
+            "enum": ["monthly", "quarterly", "annually"],
+            "description": "Recurring period if not one-time"
+          },
+          "is_selected": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether add-on is selected"
+          }
+        }
+      },
+      "description": "Available add-ons and extras"
+    },
+    "discounts": {
+      "type": "object",
+      "properties": {
+        "discount_type": {
+          "type": "string",
+          "enum": ["percentage", "fixed", "tiered"],
+          "description": "Type of discount"
+        },
+        "discount_value": {
+          "type": "number",
+          "description": "Discount value (percentage or fixed amount)"
+        },
+        "discount_code": {
+          "type": "string",
+          "description": "Promo/discount code if applicable"
+        },
+        "discount_reason": {
+          "type": "string",
+          "description": "Reason for discount"
+        },
+        "discount_amount_myr": {
+          "type": "number",
+          "description": "Calculated discount amount in MYR"
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date",
+          "description": "Discount validity date"
+        },
+        "terms_conditions": {
+          "type": "string",
+          "description": "Discount terms and conditions"
+        },
+        "stacked_discounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "discount_name": {
+                "type": "string"
+              },
+              "discount_type": {
+                "type": "string",
+                "enum": ["percentage", "fixed"]
+              },
+              "discount_value": {
+                "type": "number"
+              },
+              "discount_amount_myr": {
+                "type": "number"
+              }
+            }
+          },
+          "description": "Multiple stacked discounts if applicable"
+        }
+      },
+      "description": "Discount information"
+    },
+    "payment_plan": {
+      "type": "object",
+      "properties": {
+        "payment_method": {
+          "type": "string",
+          "enum": ["cash", "loan", "lease", "ppa", "installment"],
+          "description": "Payment method"
+        },
+        "financing_partner": {
+          "type": "string",
+          "description": "Financing partner name"
+        },
+        "loan_tenure_months": {
+          "type": "integer",
+          "description": "Loan tenure in months"
+        },
+        "interest_rate_annual": {
+          "type": "number",
+          "description": "Annual interest rate"
+        },
+        "monthly_installment_myr": {
+          "type": "number",
+          "description": "Monthly installment amount"
+        },
+        "down_payment_myr": {
+          "type": "number",
+          "description": "Down payment amount"
+        },
+        "down_payment_percentage": {
+          "type": "number",
+          "description": "Down payment as percentage"
+        },
+        "payment_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "milestone": {
+                "type": "string",
+                "enum": [
+                  "deposit",
+                  "equipment_delivery",
+                  "installation_start",
+                  "installation_complete",
+                  "commissioning",
+                  "final"
+                ],
+                "description": "Payment milestone"
+              },
+              "percentage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Percentage of total"
+              },
+              "amount_myr": {
+                "type": "number",
+                "description": "Payment amount"
+              },
+              "due_description": {
+                "type": "string",
+                "description": "When payment is due"
+              }
+            }
+          },
+          "description": "Payment schedule milestones"
+        },
+        "accepted_payment_methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["bank_transfer", "cheque", "credit_card", "fpx", "cash", "ewallet"]
+          },
+          "description": "Accepted payment methods"
+        },
+        "bank_details": {
+          "type": "object",
+          "properties": {
+            "bank_name": {
+              "type": "string"
+            },
+            "account_name": {
+              "type": "string"
+            },
+            "account_number": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "description": "Payment plan and financing details"
     },
     "quote_details": {
       "type": "object",
@@ -62,40 +426,6 @@
           "enum": ["MYR", "SGD", "USD"],
           "default": "MYR",
           "description": "Currency for pricing"
-        }
-      }
-    },
-    "customer_details": {
-      "type": "object",
-      "properties": {
-        "customer_name": {
-          "type": "string",
-          "description": "Customer name"
-        },
-        "company_name": {
-          "type": "string",
-          "description": "Company name if applicable"
-        },
-        "billing_address": {
-          "type": "string",
-          "description": "Billing address"
-        },
-        "installation_address": {
-          "type": "string",
-          "description": "Installation site address"
-        },
-        "contact_person": {
-          "type": "string",
-          "description": "Primary contact person"
-        },
-        "contact_phone": {
-          "type": "string",
-          "description": "Contact phone number"
-        },
-        "contact_email": {
-          "type": "string",
-          "format": "email",
-          "description": "Contact email address"
         }
       }
     },
@@ -222,30 +552,6 @@
               "description": "Mounting system brand"
             }
           }
-        },
-        "additional_components": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "component_name": {
-                "type": "string"
-              },
-              "brand": {
-                "type": "string"
-              },
-              "model": {
-                "type": "string"
-              },
-              "quantity": {
-                "type": "integer"
-              },
-              "description": {
-                "type": "string"
-              }
-            }
-          },
-          "description": "Additional system components"
         }
       }
     },
@@ -294,27 +600,9 @@
           "type": "number",
           "description": "Subtotal before discounts and tax"
         },
-        "discount": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["percentage", "fixed"],
-              "description": "Discount type"
-            },
-            "value": {
-              "type": "number",
-              "description": "Discount value"
-            },
-            "reason": {
-              "type": "string",
-              "description": "Reason for discount"
-            },
-            "amount_myr": {
-              "type": "number",
-              "description": "Calculated discount amount"
-            }
-          }
+        "total_discount_myr": {
+          "type": "number",
+          "description": "Total discount amount"
         },
         "tax": {
           "type": "object",
@@ -342,132 +630,6 @@
         "price_per_kwp_myr": {
           "type": "number",
           "description": "Price per kWp for comparison"
-        }
-      }
-    },
-    "custom_pricing": {
-      "type": "object",
-      "description": "Custom pricing overrides",
-      "properties": {
-        "override_total": {
-          "type": "number",
-          "description": "Override total amount"
-        },
-        "custom_line_items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "description": {
-                "type": "string"
-              },
-              "amount_myr": {
-                "type": "number"
-              }
-            }
-          }
-        }
-      }
-    },
-    "payment_terms": {
-      "type": "object",
-      "properties": {
-        "payment_schedule": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "milestone": {
-                "type": "string",
-                "enum": [
-                  "deposit",
-                  "equipment_delivery",
-                  "installation_start",
-                  "installation_complete",
-                  "commissioning",
-                  "final"
-                ],
-                "description": "Payment milestone"
-              },
-              "percentage": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100,
-                "description": "Percentage of total"
-              },
-              "amount_myr": {
-                "type": "number",
-                "description": "Payment amount"
-              },
-              "due_description": {
-                "type": "string",
-                "description": "When payment is due"
-              }
-            }
-          },
-          "description": "Payment schedule milestones"
-        },
-        "accepted_payment_methods": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["bank_transfer", "cheque", "credit_card", "fpx", "cash"]
-          },
-          "description": "Accepted payment methods"
-        },
-        "bank_details": {
-          "type": "object",
-          "properties": {
-            "bank_name": {
-              "type": "string"
-            },
-            "account_name": {
-              "type": "string"
-            },
-            "account_number": {
-              "type": "string"
-            }
-          }
-        },
-        "financing_available": {
-          "type": "boolean",
-          "description": "Whether financing options are available"
-        },
-        "financing_partners": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Available financing partners"
-        }
-      }
-    },
-    "roi_summary": {
-      "type": "object",
-      "properties": {
-        "estimated_annual_generation_kwh": {
-          "type": "number",
-          "description": "Annual energy generation"
-        },
-        "estimated_annual_savings_myr": {
-          "type": "number",
-          "description": "Annual cost savings"
-        },
-        "payback_period_years": {
-          "type": "number",
-          "description": "Simple payback period"
-        },
-        "roi_percentage": {
-          "type": "number",
-          "description": "Return on investment"
-        },
-        "lifetime_savings_myr": {
-          "type": "number",
-          "description": "25-year lifetime savings"
-        },
-        "carbon_offset_tonnes_year": {
-          "type": "number",
-          "description": "Annual CO2 offset"
         }
       }
     },
@@ -630,34 +792,6 @@
         }
       }
     },
-    "template_id": {
-      "type": "string",
-      "default": "standard",
-      "description": "Template ID (shorthand access)"
-    },
-    "output_formats": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": ["pdf", "docx", "pptx", "xlsx"]
-      },
-      "default": ["pdf"],
-      "description": "Output formats (shorthand access)"
-    },
-    "include_sections": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "executive_summary",
-          "technical_specs",
-          "roi_analysis",
-          "terms_conditions",
-          "payment_schedule"
-        ]
-      },
-      "description": "Sections to include (shorthand access)"
-    },
     "generated_documents": {
       "type": "object",
       "properties": {
@@ -728,24 +862,6 @@
       },
       "description": "Generated document URLs"
     },
-    "document_urls": {
-      "type": "object",
-      "properties": {
-        "pdf": {
-          "type": "string",
-          "format": "uri"
-        },
-        "docx": {
-          "type": "string",
-          "format": "uri"
-        },
-        "pptx": {
-          "type": "string",
-          "format": "uri"
-        }
-      },
-      "description": "Document URLs (shorthand access)"
-    },
     "quotation_status": {
       "type": "object",
       "properties": {
@@ -785,59 +901,6 @@
           "description": "Customer feedback or response notes"
         }
       }
-    },
-    "approval_workflow": {
-      "type": "object",
-      "properties": {
-        "requires_approval": {
-          "type": "boolean",
-          "default": false,
-          "description": "Whether manager approval is required"
-        },
-        "approval_threshold_myr": {
-          "type": "number",
-          "description": "Threshold above which approval is required"
-        },
-        "approver_id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "approval_status": {
-          "type": "string",
-          "enum": ["pending", "approved", "rejected"]
-        },
-        "approval_date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "approval_notes": {
-          "type": "string"
-        }
-      }
-    },
-    "qontrek_integration": {
-      "type": "object",
-      "properties": {
-        "document_factory_job_id": {
-          "type": "string",
-          "description": "Qontrek Document Factory job ID"
-        },
-        "template_repository": {
-          "type": "string",
-          "description": "Template repository reference"
-        },
-        "generation_status": {
-          "type": "string",
-          "enum": ["pending", "processing", "completed", "failed"],
-          "description": "Document generation status"
-        },
-        "callback_url": {
-          "type": "string",
-          "format": "uri",
-          "description": "Webhook callback URL"
-        }
-      },
-      "description": "Qontrek Document Factory integration details"
     },
     "metadata": {
       "type": "object",

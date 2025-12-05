@@ -1,99 +1,131 @@
 {
   "name": "roi_calculator",
+  "type": "function",
   "version": "1.0.0",
   "description": "Calculates return on investment, payback period, and comprehensive financial projections for solar installations. Accepts site inspection data or manual input to produce detailed ROI models including sensitivity analysis and year-by-year projections.",
   "category": "solar",
   "tags": ["solar", "roi", "finance", "payback", "savings", "calculator"],
-  "inputSchema": {
+  "arguments": [
+    {
+      "name": "site_inspection_id",
+      "type": "string",
+      "required": false,
+      "description": "Reference to site inspection record (UUID format)"
+    },
+    {
+      "name": "upfront_cost",
+      "type": "number",
+      "required": false,
+      "description": "Total upfront cost of the solar system installation in MYR"
+    },
+    {
+      "name": "annual_savings",
+      "type": "number",
+      "required": false,
+      "description": "Estimated annual electricity savings in MYR (calculated if not provided)"
+    },
+    {
+      "name": "payback_years",
+      "type": "number",
+      "required": false,
+      "description": "Simple payback period in years (calculated if not provided)"
+    },
+    {
+      "name": "inverter_cost",
+      "type": "number",
+      "required": false,
+      "description": "Cost of inverter equipment in MYR"
+    },
+    {
+      "name": "panel_rating_kw",
+      "type": "number",
+      "required": false,
+      "description": "Individual panel power rating in kW (e.g., 0.55 for 550W panel)"
+    },
+    {
+      "name": "system_size_kw",
+      "type": "number",
+      "required": true,
+      "description": "Total system size in kilowatts"
+    },
+    {
+      "name": "tnb_tariff",
+      "type": "object",
+      "required": false,
+      "description": "TNB electricity tariff structure including tariff_category, tariff_rate_myr_kwh, nem_export_rate_myr_kwh"
+    },
+    {
+      "name": "assumptions",
+      "type": "object",
+      "required": false,
+      "description": "Calculation assumptions including annual_irradiance_kwh_m2, performance_ratio, degradation_rate, electricity_price_escalation"
+    },
+    {
+      "name": "monthly_bill_myr",
+      "type": "number",
+      "required": false,
+      "description": "Current monthly electricity bill in MYR"
+    },
+    {
+      "name": "installation_cost_per_kwp",
+      "type": "number",
+      "required": false,
+      "description": "Installation cost per kWp in MYR",
+      "default": 3800
+    }
+  ],
+  "input_schema": {
     "$ref": "../schemas/roi_calculator.schema.json",
-    "required": ["system_size_kwp"],
+    "required": ["system_size_kw"],
     "properties": {
       "site_inspection_id": {
         "type": "string",
         "format": "uuid",
-        "description": "Reference to site inspection record (optional if manual input)"
+        "description": "Reference to site inspection record"
       },
-      "system_size_kwp": {
+      "upfront_cost": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Total upfront cost of the solar system installation in MYR"
+      },
+      "annual_savings": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Estimated annual electricity savings in MYR"
+      },
+      "payback_years": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Simple payback period in years"
+      },
+      "inverter_cost": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Cost of inverter equipment in MYR"
+      },
+      "panel_rating_kw": {
+        "type": "number",
+        "minimum": 0.1,
+        "maximum": 1,
+        "description": "Individual panel power rating in kW"
+      },
+      "system_size_kw": {
         "type": "number",
         "minimum": 1,
         "maximum": 1000,
-        "description": "Total system size in kilowatt-peak"
+        "description": "Total system size in kilowatts"
       },
-      "monthly_bill_myr": {
-        "type": "number",
-        "minimum": 0,
-        "description": "Current monthly electricity bill in MYR"
+      "tnb_tariff": {
+        "type": "object",
+        "description": "TNB electricity tariff structure"
       },
-      "tariff_rate_myr_kwh": {
-        "type": "number",
-        "minimum": 0,
-        "default": 0.57,
-        "description": "Effective electricity tariff rate in MYR/kWh"
-      },
-      "installation_cost_per_kwp": {
-        "type": "number",
-        "minimum": 0,
-        "default": 3800,
-        "description": "Installation cost per kWp in MYR"
-      },
-      "annual_degradation_rate": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 0.02,
-        "default": 0.005,
-        "description": "Annual panel degradation rate"
-      },
-      "projection_years": {
-        "type": "integer",
-        "minimum": 10,
-        "maximum": 30,
-        "default": 25,
-        "description": "Number of years for financial projection"
-      },
-      "discount_rate": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 0.25,
-        "default": 0.06,
-        "description": "Discount rate for NPV calculation"
-      },
-      "electricity_price_escalation": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 0.15,
-        "default": 0.04,
-        "description": "Expected annual electricity price increase"
-      },
-      "self_consumption_ratio": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 1,
-        "default": 0.7,
-        "description": "Estimated ratio of solar generation consumed on-site"
-      },
-      "nem_export_rate_myr_kwh": {
-        "type": "number",
-        "minimum": 0,
-        "default": 0.31,
-        "description": "NEM export rate for excess generation"
-      },
-      "shading_factor": {
-        "type": "number",
-        "minimum": 0,
-        "maximum": 1,
-        "default": 0,
-        "description": "Shading loss factor from site inspection"
-      },
-      "orientation_factor": {
-        "type": "number",
-        "minimum": 0.5,
-        "maximum": 1,
-        "default": 1,
-        "description": "Orientation efficiency factor"
+      "assumptions": {
+        "type": "object",
+        "description": "Calculation assumptions"
       }
     }
   },
-  "outputSchema": {
+  "output_schema": {
     "type": "object",
     "properties": {
       "roi_id": {
@@ -109,7 +141,7 @@
       "system_specifications": {
         "type": "object",
         "properties": {
-          "system_size_kwp": {
+          "system_size_kw": {
             "type": "number"
           },
           "estimated_panels": {
@@ -123,7 +155,7 @@
       "financial_summary": {
         "type": "object",
         "properties": {
-          "total_cost_myr": {
+          "upfront_cost_myr": {
             "type": "number"
           },
           "first_year_savings_myr": {
@@ -230,7 +262,7 @@
           }
         }
       },
-      "assumptions": {
+      "assumptions_used": {
         "type": "object",
         "description": "All assumptions used in calculation"
       },
@@ -246,85 +278,98 @@
     },
     "required": ["roi_id", "financial_summary", "next_step"]
   },
-  "examples": [
-    {
-      "name": "Standard ROI Calculation",
-      "description": "ROI calculation for typical residential installation",
-      "input": {
-        "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
-        "system_size_kwp": 17.6,
-        "monthly_bill_myr": 800,
-        "tariff_rate_myr_kwh": 0.57,
-        "installation_cost_per_kwp": 3800,
-        "shading_factor": 0.15,
-        "orientation_factor": 0.95
+  "sample_request": {
+    "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+    "system_size_kw": 17.6,
+    "panel_rating_kw": 0.55,
+    "upfront_cost": 66880,
+    "inverter_cost": 8000,
+    "tnb_tariff": {
+      "tariff_category": "domestic",
+      "tariff_rate_myr_kwh": 0.57,
+      "nem_export_rate_myr_kwh": 0.31
+    },
+    "assumptions": {
+      "annual_irradiance_kwh_m2": 1600,
+      "performance_ratio": 0.8,
+      "shading_factor": 0.15,
+      "orientation_factor": 0.95,
+      "annual_degradation_rate": 0.005,
+      "electricity_price_escalation": 0.04,
+      "discount_rate": 0.06,
+      "projection_years": 25
+    },
+    "monthly_bill_myr": 800
+  },
+  "sample_response": {
+    "roi_id": "770e8400-e29b-41d4-a716-446655440002",
+    "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+    "system_specifications": {
+      "system_size_kw": 17.6,
+      "estimated_panels": 32,
+      "annual_generation_kwh": 19894
+    },
+    "financial_summary": {
+      "upfront_cost_myr": 66880,
+      "first_year_savings_myr": 11340,
+      "annual_savings_myr": 11340,
+      "lifetime_savings_myr": 425000,
+      "simple_payback_years": 5.9,
+      "discounted_payback_years": 7.2,
+      "npv_myr": 125000,
+      "irr_percentage": 18.5,
+      "roi_percentage": 535,
+      "lcoe_myr_kwh": 0.18
+    },
+    "environmental_impact": {
+      "carbon_offset_tonnes_year": 13.9,
+      "lifetime_carbon_offset_tonnes": 347.5,
+      "trees_equivalent": 580
+    },
+    "year_by_year_projection": [
+      {
+        "year": 1,
+        "generation_kwh": 19894,
+        "savings_myr": 11340,
+        "cumulative_savings_myr": 11340,
+        "cumulative_net_benefit_myr": -55540
       },
-      "output": {
-        "roi_id": "770e8400-e29b-41d4-a716-446655440002",
-        "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
-        "system_specifications": {
-          "system_size_kwp": 17.6,
-          "estimated_panels": 32,
-          "annual_generation_kwh": 19894
-        },
-        "financial_summary": {
-          "total_cost_myr": 66880,
-          "first_year_savings_myr": 11340,
-          "annual_savings_myr": 11340,
-          "lifetime_savings_myr": 425000,
-          "simple_payback_years": 5.9,
-          "discounted_payback_years": 7.2,
-          "npv_myr": 125000,
-          "irr_percentage": 18.5,
-          "roi_percentage": 535,
-          "lcoe_myr_kwh": 0.18
-        },
-        "environmental_impact": {
-          "carbon_offset_tonnes_year": 13.9,
-          "lifetime_carbon_offset_tonnes": 347.5,
-          "trees_equivalent": 580
-        },
-        "year_by_year_projection": [
-          {
-            "year": 1,
-            "generation_kwh": 19894,
-            "savings_myr": 11340,
-            "cumulative_savings_myr": 11340,
-            "cumulative_net_benefit_myr": -55540
-          },
-          {
-            "year": 2,
-            "generation_kwh": 19794,
-            "savings_myr": 11794,
-            "cumulative_savings_myr": 23134,
-            "cumulative_net_benefit_myr": -43746
-          }
-        ],
-        "sensitivity_analysis": {
-          "conservative": {
-            "payback_years": 7.4,
-            "lifetime_savings_myr": 340000
-          },
-          "base": {
-            "payback_years": 5.9,
-            "lifetime_savings_myr": 425000
-          },
-          "optimistic": {
-            "payback_years": 4.8,
-            "lifetime_savings_myr": 520000
-          }
-        },
-        "assumptions": {
-          "annual_irradiance_kwh_m2": 1600,
-          "performance_ratio": 0.8,
-          "inflation_rate": 0.03,
-          "electricity_escalation": 0.04
-        },
-        "next_step": "quotation_builder",
-        "created_at": "2025-12-05T10:35:00Z"
+      {
+        "year": 2,
+        "generation_kwh": 19794,
+        "savings_myr": 11794,
+        "cumulative_savings_myr": 23134,
+        "cumulative_net_benefit_myr": -43746
       }
-    }
-  ],
+    ],
+    "sensitivity_analysis": {
+      "conservative": {
+        "payback_years": 7.4,
+        "lifetime_savings_myr": 340000
+      },
+      "base": {
+        "payback_years": 5.9,
+        "lifetime_savings_myr": 425000
+      },
+      "optimistic": {
+        "payback_years": 4.8,
+        "lifetime_savings_myr": 520000
+      }
+    },
+    "assumptions_used": {
+      "annual_irradiance_kwh_m2": 1600,
+      "performance_ratio": 0.8,
+      "inflation_rate": 0.03,
+      "electricity_escalation": 0.04
+    },
+    "next_step": "quotation_builder",
+    "created_at": "2025-12-05T10:35:00Z"
+  },
+  "downstream_dependency": {
+    "tool": "quotation_builder",
+    "description": "ROI calculation results feed into quotation builder for professional quote generation. The roi_id, financial_summary, and system_specifications are passed to create customer-facing quotation documents.",
+    "required_fields": ["roi_id", "financial_summary", "system_specifications"]
+  },
   "dependencies": {
     "upstream": ["site_inspection"],
     "downstream": ["quotation_builder"]

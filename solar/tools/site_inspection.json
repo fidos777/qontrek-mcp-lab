@@ -1,17 +1,93 @@
 {
   "name": "site_inspection",
+  "type": "function",
   "version": "1.0.0",
   "description": "Captures technical details of a solar installation site including roof specifications, panel layout recommendations, shading analysis, and structural assessment. This tool processes site survey data to produce standardized inspection reports that feed into ROI calculations.",
   "category": "solar",
   "tags": ["solar", "inspection", "roof", "survey", "assessment"],
-  "inputSchema": {
+  "arguments": [
+    {
+      "name": "lead_id",
+      "type": "string",
+      "required": true,
+      "description": "Reference to the lead/customer record (UUID format)"
+    },
+    {
+      "name": "images",
+      "type": "array",
+      "required": false,
+      "description": "Array of image URLs or base64 encoded images from site inspection"
+    },
+    {
+      "name": "roof_type",
+      "type": "string",
+      "required": true,
+      "description": "Type of roof material and structure",
+      "enum": ["concrete_flat", "concrete_pitched", "metal_deck", "clay_tile", "asphalt_shingle", "standing_seam", "corrugated_metal"]
+    },
+    {
+      "name": "roof_angle",
+      "type": "number",
+      "required": false,
+      "description": "Roof tilt angle in degrees from horizontal (0-60)",
+      "default": 15
+    },
+    {
+      "name": "usable_area_m2",
+      "type": "number",
+      "required": true,
+      "description": "Usable area for panel installation in square meters"
+    },
+    {
+      "name": "shading_score",
+      "type": "number",
+      "required": false,
+      "description": "Shading score from 0 (fully shaded) to 100 (no shading)"
+    },
+    {
+      "name": "electricity_bill",
+      "type": "object",
+      "required": false,
+      "description": "Electricity bill and consumption details"
+    },
+    {
+      "name": "address",
+      "type": "object",
+      "required": true,
+      "description": "Property address details including full_address, city, state, postcode"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "required": false,
+      "description": "Free-form notes from the inspector"
+    },
+    {
+      "name": "roof_orientation",
+      "type": "string",
+      "required": false,
+      "description": "Primary orientation of the roof surface",
+      "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"]
+    },
+    {
+      "name": "panel_layout",
+      "type": "object",
+      "required": false,
+      "description": "Recommended panel layout configuration including rows, columns, panel_model, panel_wattage"
+    }
+  ],
+  "input_schema": {
     "$ref": "../schemas/site_inspection.schema.json",
-    "required": ["lead_id", "roof_type", "roof_area_sqm"],
+    "required": ["lead_id", "roof_type", "usable_area_m2", "address"],
     "properties": {
       "lead_id": {
         "type": "string",
         "format": "uuid",
         "description": "Reference to the lead/customer record"
+      },
+      "images": {
+        "type": "array",
+        "description": "Photos captured during site inspection (URLs or base64 encoded)"
       },
       "roof_type": {
         "type": "string",
@@ -26,68 +102,50 @@
         ],
         "description": "Type of roof material and structure"
       },
-      "roof_area_sqm": {
-        "type": "number",
-        "minimum": 10,
-        "maximum": 10000,
-        "description": "Total roof area in square meters"
-      },
-      "roof_orientation": {
-        "type": "string",
-        "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"],
-        "description": "Primary orientation of the roof surface"
-      },
-      "roof_tilt_degrees": {
+      "roof_angle": {
         "type": "number",
         "minimum": 0,
         "maximum": 60,
         "default": 15,
         "description": "Roof tilt angle in degrees from horizontal"
       },
-      "shading_factor": {
+      "usable_area_m2": {
         "type": "number",
         "minimum": 0,
-        "maximum": 1,
-        "description": "Overall shading factor (0 = no shading, 1 = fully shaded)"
+        "description": "Usable area for panel installation in square meters"
       },
-      "panel_layout": {
+      "shading_score": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Shading score from 0 (fully shaded) to 100 (no shading)"
+      },
+      "electricity_bill": {
         "type": "object",
-        "properties": {
-          "rows": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "columns": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "panel_model": {
-            "type": "string"
-          },
-          "panel_wattage": {
-            "type": "integer",
-            "minimum": 100,
-            "maximum": 800
-          }
-        },
-        "description": "Recommended panel layout configuration"
+        "description": "Electricity bill and consumption details"
       },
-      "images": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "format": "uri"
-        },
-        "description": "URLs of photos captured during site inspection"
+      "address": {
+        "type": "object",
+        "required": ["full_address"],
+        "description": "Property address details"
       },
-      "inspector_notes": {
+      "notes": {
         "type": "string",
         "maxLength": 5000,
         "description": "Free-form notes from the inspector"
+      },
+      "roof_orientation": {
+        "type": "string",
+        "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"],
+        "description": "Primary orientation of the roof surface"
+      },
+      "panel_layout": {
+        "type": "object",
+        "description": "Recommended panel layout configuration"
       }
     }
   },
-  "outputSchema": {
+  "output_schema": {
     "type": "object",
     "properties": {
       "inspection_id": {
@@ -100,13 +158,13 @@
         "format": "uuid",
         "description": "Reference to the lead/customer record"
       },
-      "usable_roof_area_sqm": {
+      "usable_roof_area_m2": {
         "type": "number",
-        "description": "Calculated usable area for panel installation"
+        "description": "Calculated usable area for panel installation in square meters"
       },
-      "recommended_system_size_kwp": {
+      "recommended_system_size_kw": {
         "type": "number",
-        "description": "Recommended system size in kilowatt-peak"
+        "description": "Recommended system size in kilowatts"
       },
       "recommended_panels": {
         "type": "integer",
@@ -169,57 +227,73 @@
         "format": "date-time"
       }
     },
-    "required": ["inspection_id", "lead_id", "usable_roof_area_sqm", "recommended_system_size_kwp", "recommended_panels", "next_step"]
+    "required": ["inspection_id", "lead_id", "usable_roof_area_m2", "recommended_system_size_kw", "recommended_panels", "next_step"]
   },
-  "examples": [
-    {
-      "name": "Residential Site Inspection",
-      "description": "Typical residential roof inspection",
-      "input": {
-        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
-        "roof_type": "concrete_flat",
-        "roof_area_sqm": 150.5,
-        "roof_orientation": "south",
-        "roof_tilt_degrees": 10,
-        "shading_factor": 0.15,
-        "panel_layout": {
-          "rows": 4,
-          "columns": 8,
-          "panel_model": "JA Solar 550W",
-          "panel_wattage": 550
-        },
-        "images": [
-          "https://storage.example.com/inspections/roof_001.jpg",
-          "https://storage.example.com/inspections/meter_001.jpg"
-        ],
-        "inspector_notes": "Roof in excellent condition. Minor shading from neighbor's water tank in late afternoon."
+  "sample_request": {
+    "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+    "images": [
+      {
+        "url": "https://storage.example.com/inspections/roof_001.jpg",
+        "image_type": "roof_overview"
       },
-      "output": {
-        "inspection_id": "660e8400-e29b-41d4-a716-446655440001",
-        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
-        "usable_roof_area_sqm": 127.9,
-        "recommended_system_size_kwp": 17.6,
-        "recommended_panels": 32,
-        "panel_layout": {
-          "rows": 4,
-          "columns": 8,
-          "total_panels": 32,
-          "panel_model": "JA Solar 550W",
-          "panel_wattage": 550
-        },
-        "efficiency_factors": {
-          "orientation_factor": 0.95,
-          "tilt_factor": 0.98,
-          "shading_factor": 0.85,
-          "combined_efficiency": 0.79
-        },
-        "installation_complexity": "simple",
-        "special_requirements": [],
-        "next_step": "roi_calculator",
-        "created_at": "2025-12-05T10:30:00Z"
+      {
+        "url": "https://storage.example.com/inspections/meter_001.jpg",
+        "image_type": "meter"
       }
+    ],
+    "roof_type": "concrete_flat",
+    "roof_angle": 10,
+    "usable_area_m2": 127.9,
+    "shading_score": 85,
+    "electricity_bill": {
+      "monthly_amount_myr": 650,
+      "monthly_consumption_kwh": 1140,
+      "tariff_category": "domestic"
+    },
+    "address": {
+      "full_address": "123 Jalan Maju, Taman Sentosa, 47810 Petaling Jaya, Selangor",
+      "city": "Petaling Jaya",
+      "state": "Selangor",
+      "postcode": "47810"
+    },
+    "notes": "Roof in excellent condition. Minor shading from neighbor's water tank in late afternoon.",
+    "roof_orientation": "south",
+    "panel_layout": {
+      "rows": 4,
+      "columns": 8,
+      "panel_model": "JA Solar 550W",
+      "panel_wattage": 550
     }
-  ],
+  },
+  "sample_response": {
+    "inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+    "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+    "usable_roof_area_m2": 127.9,
+    "recommended_system_size_kw": 17.6,
+    "recommended_panels": 32,
+    "panel_layout": {
+      "rows": 4,
+      "columns": 8,
+      "total_panels": 32,
+      "panel_model": "JA Solar 550W",
+      "panel_wattage": 550
+    },
+    "efficiency_factors": {
+      "orientation_factor": 0.95,
+      "tilt_factor": 0.98,
+      "shading_factor": 0.85,
+      "combined_efficiency": 0.79
+    },
+    "installation_complexity": "simple",
+    "special_requirements": [],
+    "next_step": "roi_calculator",
+    "created_at": "2025-12-05T10:30:00Z"
+  },
+  "downstream_dependency": {
+    "tool": "roi_calculator",
+    "description": "Site inspection data feeds into ROI calculator for financial projections. The inspection_id and calculated system parameters are passed to roi_calculator for accurate savings and payback calculations.",
+    "required_fields": ["inspection_id", "recommended_system_size_kw", "efficiency_factors"]
+  },
   "dependencies": {
     "upstream": ["lead_intake"],
     "downstream": ["roi_calculator"]

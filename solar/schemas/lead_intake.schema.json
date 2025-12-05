@@ -1,19 +1,95 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://qontrek.com/schemas/solar/lead_intake.schema.json",
   "title": "Lead Intake Schema",
   "description": "Schema for capturing and qualifying solar installation leads including customer information, property details, and qualification scoring",
   "type": "object",
-  "required": ["customer_name", "address"],
+  "required": ["name", "address"],
   "properties": {
     "lead_id": {
       "type": "string",
       "format": "uuid",
       "description": "Unique identifier for the lead"
     },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 200,
+      "description": "Full name of the customer or company"
+    },
+    "phone": {
+      "type": "string",
+      "pattern": "^\\+?[0-9\\-\\s]{8,20}$",
+      "description": "Primary contact phone number"
+    },
+    "address": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "Full property address"
+    },
+    "income_range": {
+      "type": "string",
+      "enum": [
+        "below_3000",
+        "3000_5000",
+        "5000_10000",
+        "10000_20000",
+        "above_20000",
+        "not_specified"
+      ],
+      "description": "Monthly household income range in MYR"
+    },
+    "home_type": {
+      "type": "string",
+      "enum": [
+        "bungalow",
+        "semi_detached",
+        "terrace",
+        "townhouse",
+        "apartment",
+        "condo",
+        "shophouse",
+        "factory",
+        "warehouse",
+        "other"
+      ],
+      "description": "Type of home/property"
+    },
+    "interest_level": {
+      "type": "string",
+      "enum": [
+        "very_high",
+        "high",
+        "medium",
+        "low",
+        "just_browsing"
+      ],
+      "description": "Level of interest in solar installation"
+    },
+    "source_channel": {
+      "type": "string",
+      "enum": [
+        "website",
+        "facebook",
+        "instagram",
+        "google_ads",
+        "referral",
+        "walk_in",
+        "phone_inquiry",
+        "exhibition",
+        "partner",
+        "tiktok",
+        "youtube",
+        "linkedin",
+        "email_campaign",
+        "sms_campaign",
+        "other"
+      ],
+      "description": "Marketing channel/source of the lead"
+    },
     "customer_information": {
       "type": "object",
-      "required": ["customer_name"],
       "properties": {
         "customer_name": {
           "type": "string",
@@ -44,12 +120,6 @@
           "description": "Job title/designation of contact person"
         }
       }
-    },
-    "customer_name": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 200,
-      "description": "Full name of the customer (shorthand access)"
     },
     "contact_details": {
       "type": "object",
@@ -93,20 +163,10 @@
         }
       }
     },
-    "contact_phone": {
-      "type": "string",
-      "description": "Primary phone (shorthand access)"
-    },
-    "contact_email": {
-      "type": "string",
-      "format": "email",
-      "description": "Email (shorthand access)"
-    },
     "property_details": {
       "type": "object",
-      "required": ["address"],
       "properties": {
-        "address": {
+        "full_address": {
           "type": "string",
           "minLength": 10,
           "maxLength": 500,
@@ -202,16 +262,6 @@
         }
       }
     },
-    "address": {
-      "type": "string",
-      "minLength": 10,
-      "description": "Full property address (shorthand access)"
-    },
-    "property_type": {
-      "type": "string",
-      "enum": ["residential", "commercial", "industrial"],
-      "description": "Property type (shorthand access)"
-    },
     "electricity_information": {
       "type": "object",
       "properties": {
@@ -261,11 +311,6 @@
           "description": "URL to uploaded electricity bill image"
         }
       }
-    },
-    "monthly_electricity_bill_myr": {
-      "type": "number",
-      "minimum": 0,
-      "description": "Monthly bill (shorthand access)"
     },
     "solar_interest": {
       "type": "object",
@@ -329,10 +374,6 @@
           "description": "Number of competitor quotes received"
         }
       }
-    },
-    "preferred_contact_time": {
-      "type": "string",
-      "description": "Preferred contact time (shorthand access)"
     },
     "lead_source": {
       "type": "object",

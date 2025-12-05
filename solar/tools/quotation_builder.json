@@ -1,10 +1,85 @@
 {
   "name": "quotation_builder",
+  "type": "function",
   "version": "1.0.0",
   "description": "Transforms ROI calculations into professional quotation documents. Generates PDF, DOCX, and PPTX formats with customizable templates, pricing breakdowns, and terms. Integrates with Qontrek Document Factory for high-quality document generation.",
   "category": "solar",
   "tags": ["solar", "quotation", "quote", "document", "pdf", "proposal", "sales"],
-  "inputSchema": {
+  "arguments": [
+    {
+      "name": "roi_calculation_id",
+      "type": "string",
+      "required": true,
+      "description": "Reference to the ROI calculation record (UUID format)"
+    },
+    {
+      "name": "customer_profile",
+      "type": "object",
+      "required": false,
+      "description": "Customer profile including customer_name, customer_type, billing_address, installation_address, contact details"
+    },
+    {
+      "name": "roi_model",
+      "type": "object",
+      "required": false,
+      "description": "ROI model summary including system_size_kwp, annual_savings, payback_period, lifetime_savings"
+    },
+    {
+      "name": "package_options",
+      "type": "array",
+      "required": false,
+      "description": "Array of package options with different configurations and pricing"
+    },
+    {
+      "name": "add_ons",
+      "type": "array",
+      "required": false,
+      "description": "Array of available add-ons like monitoring, battery storage, maintenance plans"
+    },
+    {
+      "name": "discounts",
+      "type": "object",
+      "required": false,
+      "description": "Discount information including discount_type, discount_value, discount_reason"
+    },
+    {
+      "name": "payment_plan",
+      "type": "object",
+      "required": false,
+      "description": "Payment plan details including payment_method, financing_partner, installment details"
+    },
+    {
+      "name": "output_formats",
+      "type": "array",
+      "required": false,
+      "description": "Output document formats to generate",
+      "default": ["pdf"],
+      "enum": ["pdf", "docx", "pptx", "xlsx"]
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": false,
+      "description": "Template to use for document generation",
+      "default": "standard"
+    },
+    {
+      "name": "validity_days",
+      "type": "integer",
+      "required": false,
+      "description": "Number of days quote is valid",
+      "default": 30
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": false,
+      "description": "Document language",
+      "default": "en",
+      "enum": ["en", "ms", "zh"]
+    }
+  ],
+  "input_schema": {
     "$ref": "../schemas/quotation_builder.schema.json",
     "required": ["roi_calculation_id"],
     "properties": {
@@ -12,6 +87,30 @@
         "type": "string",
         "format": "uuid",
         "description": "Reference to the ROI calculation record"
+      },
+      "customer_profile": {
+        "type": "object",
+        "description": "Customer profile and contact information"
+      },
+      "roi_model": {
+        "type": "object",
+        "description": "ROI calculation model summary"
+      },
+      "package_options": {
+        "type": "array",
+        "description": "Available package options for the customer"
+      },
+      "add_ons": {
+        "type": "array",
+        "description": "Available add-ons and extras"
+      },
+      "discounts": {
+        "type": "object",
+        "description": "Discount information"
+      },
+      "payment_plan": {
+        "type": "object",
+        "description": "Payment plan and financing details"
       },
       "output_formats": {
         "type": "array",
@@ -27,36 +126,6 @@
         "default": "standard",
         "description": "Template to use for document generation"
       },
-      "include_sections": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "enum": [
-            "cover_page",
-            "executive_summary",
-            "company_profile",
-            "system_overview",
-            "technical_specs",
-            "roi_analysis",
-            "pricing_breakdown",
-            "payment_schedule",
-            "project_timeline",
-            "warranty_info",
-            "terms_conditions",
-            "appendix"
-          ]
-        },
-        "default": [
-          "cover_page",
-          "executive_summary",
-          "system_overview",
-          "technical_specs",
-          "roi_analysis",
-          "pricing_breakdown",
-          "terms_conditions"
-        ],
-        "description": "Sections to include in the document"
-      },
       "validity_days": {
         "type": "integer",
         "minimum": 7,
@@ -64,73 +133,15 @@
         "default": 30,
         "description": "Number of days quote is valid"
       },
-      "custom_pricing": {
-        "type": "object",
-        "properties": {
-          "override_total": {
-            "type": "number",
-            "description": "Override calculated total"
-          },
-          "discount_percentage": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 50,
-            "description": "Discount percentage to apply"
-          },
-          "discount_reason": {
-            "type": "string",
-            "description": "Reason for discount"
-          },
-          "additional_items": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string"
-                },
-                "amount_myr": {
-                  "type": "number"
-                }
-              }
-            }
-          }
-        },
-        "description": "Custom pricing adjustments"
-      },
-      "branding": {
-        "type": "object",
-        "properties": {
-          "company_name": {
-            "type": "string"
-          },
-          "logo_url": {
-            "type": "string",
-            "format": "uri"
-          },
-          "primary_color": {
-            "type": "string",
-            "pattern": "^#[0-9A-Fa-f]{6}$"
-          }
-        },
-        "description": "Custom branding options"
-      },
       "language": {
         "type": "string",
         "enum": ["en", "ms", "zh"],
         "default": "en",
         "description": "Document language"
-      },
-      "special_conditions": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Special conditions to include"
       }
     }
   },
-  "outputSchema": {
+  "output_schema": {
     "type": "object",
     "properties": {
       "quotation_id": {
@@ -160,7 +171,7 @@
       "system_summary": {
         "type": "object",
         "properties": {
-          "system_size_kwp": {
+          "system_size_kw": {
             "type": "number"
           },
           "panel_count": {
@@ -189,7 +200,7 @@
           "total_amount_myr": {
             "type": "number"
           },
-          "price_per_kwp_myr": {
+          "price_per_kw_myr": {
             "type": "number"
           }
         }
@@ -278,132 +289,124 @@
     },
     "required": ["quotation_id", "quote_number", "pricing_summary", "document_urls", "status"]
   },
-  "examples": [
-    {
-      "name": "Standard Quote Generation",
-      "description": "Generate PDF quote with standard template",
-      "input": {
-        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
-        "output_formats": ["pdf", "docx"],
-        "template_id": "standard",
-        "include_sections": [
-          "cover_page",
-          "executive_summary",
-          "system_overview",
-          "technical_specs",
-          "roi_analysis",
-          "pricing_breakdown",
-          "payment_schedule",
-          "terms_conditions"
-        ],
-        "validity_days": 30,
-        "language": "en"
-      },
-      "output": {
-        "quotation_id": "880e8400-e29b-41d4-a716-446655440004",
-        "quote_number": "QT-2025-00042",
-        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
-        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
-        "customer_name": "Ahmad bin Abdullah",
-        "system_summary": {
-          "system_size_kwp": 17.6,
-          "panel_count": 32,
-          "panel_brand": "JA Solar",
-          "inverter_brand": "Huawei"
-        },
-        "pricing_summary": {
-          "subtotal_myr": 66880,
-          "discount_myr": 0,
-          "tax_myr": 0,
-          "total_amount_myr": 66880,
-          "price_per_kwp_myr": 3800
-        },
-        "roi_highlights": {
-          "payback_years": 5.9,
-          "annual_savings_myr": 11340,
-          "lifetime_savings_myr": 425000
-        },
-        "validity": {
-          "quote_date": "2025-12-05",
-          "valid_until": "2026-01-04",
-          "validity_days": 30
-        },
-        "document_urls": {
-          "pdf": "https://storage.qontrek.com/quotes/QT-2025-00042.pdf",
-          "docx": "https://storage.qontrek.com/quotes/QT-2025-00042.docx"
-        },
-        "qontrek_job_id": "job_abc123xyz",
-        "status": "generated",
-        "shareable_link": "https://quotes.qontrek.com/v/QT-2025-00042",
-        "next_steps": [
-          "Send quote to customer via email or WhatsApp",
-          "Schedule follow-up call in 3 days",
-          "Prepare answers for common objections"
-        ],
-        "created_at": "2025-12-05T10:45:00Z"
-      }
+  "sample_request": {
+    "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+    "customer_profile": {
+      "customer_name": "Ahmad bin Abdullah",
+      "customer_type": "individual",
+      "billing_address": "123 Jalan Maju, Taman Sentosa, 47810 Petaling Jaya, Selangor",
+      "installation_address": "123 Jalan Maju, Taman Sentosa, 47810 Petaling Jaya, Selangor",
+      "contact_phone": "+60123456789",
+      "contact_email": "ahmad@example.com"
     },
-    {
-      "name": "Discounted Quote with Custom Pricing",
-      "description": "Generate quote with promotional discount",
-      "input": {
-        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
-        "output_formats": ["pdf"],
-        "template_id": "premium",
-        "validity_days": 14,
-        "custom_pricing": {
-          "discount_percentage": 10,
-          "discount_reason": "Year-end promotion"
-        },
-        "special_conditions": [
-          "Discount valid for orders confirmed by 31 Dec 2025",
-          "Free system monitoring for 1 year"
-        ]
-      },
-      "output": {
-        "quotation_id": "880e8400-e29b-41d4-a716-446655440005",
-        "quote_number": "QT-2025-00043",
-        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
-        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
-        "customer_name": "Ahmad bin Abdullah",
-        "system_summary": {
-          "system_size_kwp": 17.6,
-          "panel_count": 32,
-          "panel_brand": "JA Solar",
-          "inverter_brand": "Huawei"
-        },
-        "pricing_summary": {
-          "subtotal_myr": 66880,
-          "discount_myr": 6688,
-          "tax_myr": 0,
-          "total_amount_myr": 60192,
-          "price_per_kwp_myr": 3420
-        },
-        "roi_highlights": {
-          "payback_years": 5.3,
-          "annual_savings_myr": 11340,
-          "lifetime_savings_myr": 431688
-        },
-        "validity": {
-          "quote_date": "2025-12-05",
-          "valid_until": "2025-12-19",
-          "validity_days": 14
-        },
-        "document_urls": {
-          "pdf": "https://storage.qontrek.com/quotes/QT-2025-00043.pdf"
-        },
-        "qontrek_job_id": "job_def456uvw",
-        "status": "generated",
-        "shareable_link": "https://quotes.qontrek.com/v/QT-2025-00043",
-        "next_steps": [
-          "Emphasize limited-time discount validity",
-          "Send quote immediately",
-          "Schedule follow-up within 1 week"
-        ],
-        "created_at": "2025-12-05T11:00:00Z"
+    "roi_model": {
+      "system_size_kwp": 17.6,
+      "estimated_annual_generation_kwh": 19894,
+      "estimated_annual_savings_myr": 11340,
+      "payback_period_years": 5.9,
+      "roi_percentage": 535,
+      "lifetime_savings_myr": 425000
+    },
+    "package_options": [
+      {
+        "package_id": "pkg-standard",
+        "package_name": "Standard Package",
+        "package_tier": "standard",
+        "system_size_kwp": 17.6,
+        "panel_brand": "JA Solar",
+        "panel_count": 32,
+        "inverter_brand": "Huawei",
+        "base_price_myr": 66880,
+        "is_recommended": true
       }
-    }
-  ],
+    ],
+    "add_ons": [
+      {
+        "addon_id": "addon-monitoring",
+        "addon_name": "Smart Monitoring System",
+        "addon_category": "monitoring",
+        "price_myr": 1500,
+        "is_selected": true
+      }
+    ],
+    "discounts": {
+      "discount_type": "percentage",
+      "discount_value": 5,
+      "discount_reason": "Early bird promotion",
+      "discount_amount_myr": 3344
+    },
+    "payment_plan": {
+      "payment_method": "installment",
+      "financing_partner": "Maybank",
+      "loan_tenure_months": 60,
+      "interest_rate_annual": 4.5,
+      "monthly_installment_myr": 1180,
+      "down_payment_myr": 10000
+    },
+    "output_formats": ["pdf", "docx"],
+    "template_id": "standard",
+    "validity_days": 30,
+    "language": "en"
+  },
+  "sample_response": {
+    "quotation_id": "880e8400-e29b-41d4-a716-446655440004",
+    "quote_number": "QT-2025-00042",
+    "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+    "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+    "customer_name": "Ahmad bin Abdullah",
+    "system_summary": {
+      "system_size_kw": 17.6,
+      "panel_count": 32,
+      "panel_brand": "JA Solar",
+      "inverter_brand": "Huawei"
+    },
+    "pricing_summary": {
+      "subtotal_myr": 68380,
+      "discount_myr": 3344,
+      "tax_myr": 0,
+      "total_amount_myr": 65036,
+      "price_per_kw_myr": 3695
+    },
+    "roi_highlights": {
+      "payback_years": 5.7,
+      "annual_savings_myr": 11340,
+      "lifetime_savings_myr": 428344
+    },
+    "validity": {
+      "quote_date": "2025-12-05",
+      "valid_until": "2026-01-04",
+      "validity_days": 30
+    },
+    "document_urls": {
+      "pdf": "https://storage.qontrek.com/quotes/QT-2025-00042.pdf",
+      "docx": "https://storage.qontrek.com/quotes/QT-2025-00042.docx"
+    },
+    "qontrek_job_id": "job_abc123xyz",
+    "status": "generated",
+    "shareable_link": "https://quotes.qontrek.com/v/QT-2025-00042",
+    "next_steps": [
+      "Send quote to customer via email or WhatsApp",
+      "Schedule follow-up call in 3 days",
+      "Prepare answers for common objections"
+    ],
+    "created_at": "2025-12-05T10:45:00Z"
+  },
+  "downstream_dependency": {
+    "tool": null,
+    "description": "Quotation builder is the final step in the solar sales workflow. Generated quotations are sent to customers and tracked for acceptance. No downstream MCP tools are invoked, but webhooks notify external systems on quote events.",
+    "external_integrations": [
+      {
+        "name": "Qontrek Document Factory",
+        "type": "api",
+        "description": "Document generation service for PDF/DOCX/PPTX output"
+      },
+      {
+        "name": "Email/WhatsApp Service",
+        "type": "webhook",
+        "description": "Notification service for quote delivery"
+      }
+    ]
+  },
   "dependencies": {
     "upstream": ["roi_calculator"],
     "downstream": [],

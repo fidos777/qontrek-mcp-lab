@@ -1,10 +1,10 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://qontrek.com/schemas/solar/roi_calculator.schema.json",
   "title": "ROI Calculator Schema",
   "description": "Schema for solar ROI calculation including financial projections, payback analysis, and sensitivity modeling",
   "type": "object",
-  "required": ["system_size_kwp"],
+  "required": ["system_size_kw"],
   "properties": {
     "site_inspection_id": {
       "type": "string",
@@ -15,6 +15,161 @@
       "type": "string",
       "format": "uuid",
       "description": "Reference to the lead/customer record"
+    },
+    "upfront_cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total upfront cost of the solar system installation in MYR"
+    },
+    "annual_savings": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated annual electricity savings in MYR"
+    },
+    "payback_years": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Simple payback period in years"
+    },
+    "inverter_cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost of inverter equipment in MYR"
+    },
+    "panel_rating_kw": {
+      "type": "number",
+      "minimum": 0.1,
+      "maximum": 1,
+      "description": "Individual panel power rating in kW (e.g., 0.55 for 550W panel)"
+    },
+    "system_size_kw": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 1000,
+      "description": "Total system size in kilowatts"
+    },
+    "tnb_tariff": {
+      "type": "object",
+      "properties": {
+        "tariff_category": {
+          "type": "string",
+          "enum": ["domestic", "commercial_low", "commercial_medium", "industrial"],
+          "default": "domestic",
+          "description": "TNB tariff category"
+        },
+        "tariff_rate_myr_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.57,
+          "description": "Effective electricity tariff rate in MYR/kWh"
+        },
+        "nem_export_rate_myr_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.31,
+          "description": "NEM export rate for excess generation"
+        },
+        "demand_charge_myr_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum demand charge (commercial/industrial)"
+        },
+        "tariff_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from_kwh": {
+                "type": "number"
+              },
+              "to_kwh": {
+                "type": "number"
+              },
+              "rate_myr_kwh": {
+                "type": "number"
+              }
+            }
+          },
+          "description": "Tiered tariff blocks for detailed calculation"
+        }
+      },
+      "description": "TNB electricity tariff structure"
+    },
+    "assumptions": {
+      "type": "object",
+      "properties": {
+        "annual_irradiance_kwh_m2": {
+          "type": "number",
+          "minimum": 800,
+          "maximum": 2500,
+          "default": 1600,
+          "description": "Annual solar irradiance in kWh/m2"
+        },
+        "performance_ratio": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1,
+          "default": 0.8,
+          "description": "System performance ratio accounting for losses"
+        },
+        "shading_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0,
+          "description": "Shading loss factor (0 = no loss, 1 = full loss)"
+        },
+        "orientation_factor": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1,
+          "default": 1,
+          "description": "Orientation efficiency factor"
+        },
+        "annual_degradation_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.02,
+          "default": 0.005,
+          "description": "Annual panel degradation rate"
+        },
+        "inflation_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.15,
+          "default": 0.03,
+          "description": "Expected annual inflation rate"
+        },
+        "electricity_price_escalation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.15,
+          "default": 0.04,
+          "description": "Expected annual electricity price increase"
+        },
+        "discount_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.25,
+          "default": 0.06,
+          "description": "Discount rate for NPV calculation"
+        },
+        "projection_years": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 30,
+          "default": 25,
+          "description": "Number of years for financial projection"
+        },
+        "self_consumption_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.7,
+          "description": "Estimated ratio of solar generation consumed on-site"
+        }
+      },
+      "description": "Assumptions used in ROI calculation"
     },
     "system_specifications": {
       "type": "object",
@@ -57,12 +212,6 @@
       },
       "required": ["system_size_kwp"]
     },
-    "system_size_kwp": {
-      "type": "number",
-      "minimum": 1,
-      "maximum": 1000,
-      "description": "Total system size in kilowatt-peak (shorthand access)"
-    },
     "location_factors": {
       "type": "object",
       "properties": {
@@ -75,7 +224,7 @@
           "minimum": 800,
           "maximum": 2500,
           "default": 1600,
-          "description": "Annual solar irradiance in kWh/m²"
+          "description": "Annual solar irradiance in kWh/m2"
         },
         "performance_ratio": {
           "type": "number",
@@ -129,53 +278,6 @@
         }
       },
       "description": "Customer electricity consumption details"
-    },
-    "tariff_structure": {
-      "type": "object",
-      "properties": {
-        "tariff_category": {
-          "type": "string",
-          "enum": ["domestic", "commercial_low", "commercial_medium", "industrial"],
-          "default": "domestic",
-          "description": "TNB tariff category"
-        },
-        "tariff_rate_myr_kwh": {
-          "type": "number",
-          "minimum": 0,
-          "default": 0.57,
-          "description": "Effective electricity tariff rate in MYR/kWh"
-        },
-        "nem_export_rate_myr_kwh": {
-          "type": "number",
-          "minimum": 0,
-          "default": 0.31,
-          "description": "NEM export rate for excess generation"
-        },
-        "demand_charge_myr_kw": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Maximum demand charge (commercial/industrial)"
-        },
-        "tariff_blocks": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "from_kwh": {
-                "type": "number"
-              },
-              "to_kwh": {
-                "type": "number"
-              },
-              "rate_myr_kwh": {
-                "type": "number"
-              }
-            }
-          },
-          "description": "Tiered tariff blocks for detailed calculation"
-        }
-      },
-      "description": "Electricity tariff structure"
     },
     "cost_assumptions": {
       "type": "object",

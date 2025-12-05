@@ -1,15 +1,86 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://qontrek.com/schemas/solar/site_inspection.schema.json",
   "title": "Site Inspection Schema",
-  "description": "Schema for solar site inspection data capture including roof specifications, panel layout, and shading analysis",
+  "description": "Schema for solar site inspection data capture including roof specifications, panel layout, shading analysis, and imagery",
   "type": "object",
-  "required": ["lead_id", "roof_type", "roof_area_sqm"],
+  "required": ["lead_id", "roof_type", "usable_area_m2", "address"],
   "properties": {
     "lead_id": {
       "type": "string",
       "format": "uuid",
       "description": "Reference to the lead/customer record"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL to the uploaded image"
+              },
+              "image_type": {
+                "type": "string",
+                "enum": [
+                  "roof_overview",
+                  "roof_surface",
+                  "meter",
+                  "electrical_panel",
+                  "inverter_location",
+                  "shading_source",
+                  "access_point",
+                  "other"
+                ]
+              },
+              "description": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["url", "image_type"]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "base64": {
+                "type": "string",
+                "contentEncoding": "base64",
+                "contentMediaType": "image/*",
+                "description": "Base64 encoded image data"
+              },
+              "image_type": {
+                "type": "string",
+                "enum": [
+                  "roof_overview",
+                  "roof_surface",
+                  "meter",
+                  "electrical_panel",
+                  "inverter_location",
+                  "shading_source",
+                  "access_point",
+                  "other"
+                ]
+              },
+              "description": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["base64", "image_type"]
+          }
+        ]
+      },
+      "description": "Photos captured during site inspection (URLs or base64 encoded)"
     },
     "roof_type": {
       "type": "string",
@@ -24,16 +95,131 @@
       ],
       "description": "Type of roof material and structure"
     },
+    "roof_angle": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 60,
+      "default": 15,
+      "description": "Roof tilt angle in degrees from horizontal"
+    },
+    "usable_area_m2": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Usable area for panel installation in square meters after accounting for obstructions"
+    },
+    "shading_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Shading score from 0 (fully shaded) to 100 (no shading)"
+    },
+    "electricity_bill": {
+      "type": "object",
+      "properties": {
+        "monthly_amount_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current monthly electricity bill in MYR"
+        },
+        "monthly_consumption_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Monthly electricity consumption in kWh"
+        },
+        "tariff_category": {
+          "type": "string",
+          "enum": ["domestic", "commercial_low", "commercial_medium", "industrial"],
+          "description": "TNB tariff category"
+        },
+        "account_number": {
+          "type": "string",
+          "description": "TNB account number"
+        },
+        "bill_image_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to uploaded electricity bill image"
+        }
+      },
+      "description": "Electricity bill and consumption details"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "full_address": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500,
+          "description": "Full property address"
+        },
+        "street_line_1": {
+          "type": "string",
+          "description": "Street address line 1"
+        },
+        "street_line_2": {
+          "type": "string",
+          "description": "Street address line 2"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Johor",
+            "Kedah",
+            "Kelantan",
+            "Melaka",
+            "Negeri Sembilan",
+            "Pahang",
+            "Penang",
+            "Perak",
+            "Perlis",
+            "Sabah",
+            "Sarawak",
+            "Selangor",
+            "Terengganu",
+            "Kuala Lumpur",
+            "Labuan",
+            "Putrajaya"
+          ],
+          "description": "Malaysian state"
+        },
+        "postcode": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$",
+          "description": "5-digit postcode"
+        },
+        "gps_coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            }
+          }
+        }
+      },
+      "required": ["full_address"],
+      "description": "Property address details"
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Free-form notes from the inspector"
+    },
     "roof_area_sqm": {
       "type": "number",
       "minimum": 10,
       "maximum": 10000,
       "description": "Total roof area in square meters"
-    },
-    "usable_area_sqm": {
-      "type": "number",
-      "minimum": 0,
-      "description": "Usable area for panel installation after accounting for obstructions"
     },
     "roof_orientation": {
       "type": "string",
@@ -48,13 +234,6 @@
         "southwest"
       ],
       "description": "Primary orientation of the roof surface"
-    },
-    "roof_tilt_degrees": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 60,
-      "default": 15,
-      "description": "Roof tilt angle in degrees from horizontal"
     },
     "shading_analysis": {
       "type": "object",
@@ -198,62 +377,6 @@
         }
       },
       "description": "Structural assessment of the roof"
-    },
-    "images": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "description": "URL to the uploaded image"
-          },
-          "image_type": {
-            "type": "string",
-            "enum": [
-              "roof_overview",
-              "roof_surface",
-              "meter",
-              "electrical_panel",
-              "inverter_location",
-              "shading_source",
-              "access_point",
-              "other"
-            ]
-          },
-          "description": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "required": ["url", "image_type"]
-      },
-      "description": "Photos captured during site inspection"
-    },
-    "gps_coordinates": {
-      "type": "object",
-      "properties": {
-        "latitude": {
-          "type": "number",
-          "minimum": -90,
-          "maximum": 90
-        },
-        "longitude": {
-          "type": "number",
-          "minimum": -180,
-          "maximum": 180
-        }
-      },
-      "description": "GPS coordinates of the installation site"
-    },
-    "inspector_notes": {
-      "type": "string",
-      "maxLength": 5000,
-      "description": "Free-form notes from the inspector"
     },
     "recommendations": {
       "type": "object",
