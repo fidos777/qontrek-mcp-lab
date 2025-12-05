@@ -1,0 +1,360 @@
+{
+  "name": "roi_calculator",
+  "version": "1.0.0",
+  "description": "Calculates return on investment, payback period, and comprehensive financial projections for solar installations. Accepts site inspection data or manual input to produce detailed ROI models including sensitivity analysis and year-by-year projections.",
+  "category": "solar",
+  "tags": ["solar", "roi", "finance", "payback", "savings", "calculator"],
+  "inputSchema": {
+    "$ref": "../schemas/roi_calculator.schema.json",
+    "required": ["system_size_kwp"],
+    "properties": {
+      "site_inspection_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to site inspection record (optional if manual input)"
+      },
+      "system_size_kwp": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 1000,
+        "description": "Total system size in kilowatt-peak"
+      },
+      "monthly_bill_myr": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Current monthly electricity bill in MYR"
+      },
+      "tariff_rate_myr_kwh": {
+        "type": "number",
+        "minimum": 0,
+        "default": 0.57,
+        "description": "Effective electricity tariff rate in MYR/kWh"
+      },
+      "installation_cost_per_kwp": {
+        "type": "number",
+        "minimum": 0,
+        "default": 3800,
+        "description": "Installation cost per kWp in MYR"
+      },
+      "annual_degradation_rate": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 0.02,
+        "default": 0.005,
+        "description": "Annual panel degradation rate"
+      },
+      "projection_years": {
+        "type": "integer",
+        "minimum": 10,
+        "maximum": 30,
+        "default": 25,
+        "description": "Number of years for financial projection"
+      },
+      "discount_rate": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 0.25,
+        "default": 0.06,
+        "description": "Discount rate for NPV calculation"
+      },
+      "electricity_price_escalation": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 0.15,
+        "default": 0.04,
+        "description": "Expected annual electricity price increase"
+      },
+      "self_consumption_ratio": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "default": 0.7,
+        "description": "Estimated ratio of solar generation consumed on-site"
+      },
+      "nem_export_rate_myr_kwh": {
+        "type": "number",
+        "minimum": 0,
+        "default": 0.31,
+        "description": "NEM export rate for excess generation"
+      },
+      "shading_factor": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "default": 0,
+        "description": "Shading loss factor from site inspection"
+      },
+      "orientation_factor": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 1,
+        "default": 1,
+        "description": "Orientation efficiency factor"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "roi_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this ROI calculation"
+      },
+      "site_inspection_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to site inspection if provided"
+      },
+      "system_specifications": {
+        "type": "object",
+        "properties": {
+          "system_size_kwp": {
+            "type": "number"
+          },
+          "estimated_panels": {
+            "type": "integer"
+          },
+          "annual_generation_kwh": {
+            "type": "number"
+          }
+        }
+      },
+      "financial_summary": {
+        "type": "object",
+        "properties": {
+          "total_cost_myr": {
+            "type": "number"
+          },
+          "first_year_savings_myr": {
+            "type": "number"
+          },
+          "annual_savings_myr": {
+            "type": "number"
+          },
+          "lifetime_savings_myr": {
+            "type": "number"
+          },
+          "simple_payback_years": {
+            "type": "number"
+          },
+          "discounted_payback_years": {
+            "type": "number"
+          },
+          "npv_myr": {
+            "type": "number"
+          },
+          "irr_percentage": {
+            "type": "number"
+          },
+          "roi_percentage": {
+            "type": "number"
+          },
+          "lcoe_myr_kwh": {
+            "type": "number"
+          }
+        }
+      },
+      "environmental_impact": {
+        "type": "object",
+        "properties": {
+          "carbon_offset_tonnes_year": {
+            "type": "number"
+          },
+          "lifetime_carbon_offset_tonnes": {
+            "type": "number"
+          },
+          "trees_equivalent": {
+            "type": "integer"
+          }
+        }
+      },
+      "year_by_year_projection": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": "integer"
+            },
+            "generation_kwh": {
+              "type": "number"
+            },
+            "savings_myr": {
+              "type": "number"
+            },
+            "cumulative_savings_myr": {
+              "type": "number"
+            },
+            "cumulative_net_benefit_myr": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "sensitivity_analysis": {
+        "type": "object",
+        "properties": {
+          "conservative": {
+            "type": "object",
+            "properties": {
+              "payback_years": {
+                "type": "number"
+              },
+              "lifetime_savings_myr": {
+                "type": "number"
+              }
+            }
+          },
+          "base": {
+            "type": "object",
+            "properties": {
+              "payback_years": {
+                "type": "number"
+              },
+              "lifetime_savings_myr": {
+                "type": "number"
+              }
+            }
+          },
+          "optimistic": {
+            "type": "object",
+            "properties": {
+              "payback_years": {
+                "type": "number"
+              },
+              "lifetime_savings_myr": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "assumptions": {
+        "type": "object",
+        "description": "All assumptions used in calculation"
+      },
+      "next_step": {
+        "type": "string",
+        "const": "quotation_builder",
+        "description": "Downstream tool to invoke"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": ["roi_id", "financial_summary", "next_step"]
+  },
+  "examples": [
+    {
+      "name": "Standard ROI Calculation",
+      "description": "ROI calculation for typical residential installation",
+      "input": {
+        "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+        "system_size_kwp": 17.6,
+        "monthly_bill_myr": 800,
+        "tariff_rate_myr_kwh": 0.57,
+        "installation_cost_per_kwp": 3800,
+        "shading_factor": 0.15,
+        "orientation_factor": 0.95
+      },
+      "output": {
+        "roi_id": "770e8400-e29b-41d4-a716-446655440002",
+        "site_inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+        "system_specifications": {
+          "system_size_kwp": 17.6,
+          "estimated_panels": 32,
+          "annual_generation_kwh": 19894
+        },
+        "financial_summary": {
+          "total_cost_myr": 66880,
+          "first_year_savings_myr": 11340,
+          "annual_savings_myr": 11340,
+          "lifetime_savings_myr": 425000,
+          "simple_payback_years": 5.9,
+          "discounted_payback_years": 7.2,
+          "npv_myr": 125000,
+          "irr_percentage": 18.5,
+          "roi_percentage": 535,
+          "lcoe_myr_kwh": 0.18
+        },
+        "environmental_impact": {
+          "carbon_offset_tonnes_year": 13.9,
+          "lifetime_carbon_offset_tonnes": 347.5,
+          "trees_equivalent": 580
+        },
+        "year_by_year_projection": [
+          {
+            "year": 1,
+            "generation_kwh": 19894,
+            "savings_myr": 11340,
+            "cumulative_savings_myr": 11340,
+            "cumulative_net_benefit_myr": -55540
+          },
+          {
+            "year": 2,
+            "generation_kwh": 19794,
+            "savings_myr": 11794,
+            "cumulative_savings_myr": 23134,
+            "cumulative_net_benefit_myr": -43746
+          }
+        ],
+        "sensitivity_analysis": {
+          "conservative": {
+            "payback_years": 7.4,
+            "lifetime_savings_myr": 340000
+          },
+          "base": {
+            "payback_years": 5.9,
+            "lifetime_savings_myr": 425000
+          },
+          "optimistic": {
+            "payback_years": 4.8,
+            "lifetime_savings_myr": 520000
+          }
+        },
+        "assumptions": {
+          "annual_irradiance_kwh_m2": 1600,
+          "performance_ratio": 0.8,
+          "inflation_rate": 0.03,
+          "electricity_escalation": 0.04
+        },
+        "next_step": "quotation_builder",
+        "created_at": "2025-12-05T10:35:00Z"
+      }
+    }
+  ],
+  "dependencies": {
+    "upstream": ["site_inspection"],
+    "downstream": ["quotation_builder"]
+  },
+  "execution": {
+    "timeout_ms": 5000,
+    "retry_policy": {
+      "max_retries": 2,
+      "backoff_ms": 500
+    },
+    "idempotent": true,
+    "cacheable": true,
+    "cache_ttl_seconds": 3600
+  },
+  "validation": {
+    "strict_mode": true,
+    "coerce_types": true,
+    "allow_partial_input": true
+  },
+  "permissions": {
+    "required_scopes": ["solar:roi:write", "solar:inspection:read"],
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "requests_per_day": 1000
+    }
+  },
+  "metadata": {
+    "author": "Qontrek MCP Lab",
+    "created_at": "2025-12-05",
+    "updated_at": "2025-12-05",
+    "documentation_url": "https://docs.qontrek.com/solar/tools/roi_calculator"
+  }
+}

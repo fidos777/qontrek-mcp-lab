@@ -1,0 +1,612 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qontrek.com/schemas/solar/lead_intake.schema.json",
+  "title": "Lead Intake Schema",
+  "description": "Schema for capturing and qualifying solar installation leads including customer information, property details, and qualification scoring",
+  "type": "object",
+  "required": ["customer_name", "address"],
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the lead"
+    },
+    "customer_information": {
+      "type": "object",
+      "required": ["customer_name"],
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 200,
+          "description": "Full name of the customer or company"
+        },
+        "customer_type": {
+          "type": "string",
+          "enum": ["individual", "company", "government"],
+          "default": "individual",
+          "description": "Type of customer"
+        },
+        "company_name": {
+          "type": "string",
+          "description": "Company name if applicable"
+        },
+        "company_registration_number": {
+          "type": "string",
+          "description": "Business registration number"
+        },
+        "contact_person": {
+          "type": "string",
+          "description": "Contact person name (for companies)"
+        },
+        "designation": {
+          "type": "string",
+          "description": "Job title/designation of contact person"
+        }
+      }
+    },
+    "customer_name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 200,
+      "description": "Full name of the customer (shorthand access)"
+    },
+    "contact_details": {
+      "type": "object",
+      "properties": {
+        "contact_phone": {
+          "type": "string",
+          "pattern": "^\\+?[0-9\\-\\s]{8,20}$",
+          "description": "Primary contact phone number"
+        },
+        "contact_phone_alt": {
+          "type": "string",
+          "pattern": "^\\+?[0-9\\-\\s]{8,20}$",
+          "description": "Alternative phone number"
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address"
+        },
+        "whatsapp_number": {
+          "type": "string",
+          "description": "WhatsApp contact number"
+        },
+        "preferred_contact_method": {
+          "type": "string",
+          "enum": ["phone", "email", "whatsapp", "sms"],
+          "default": "phone",
+          "description": "Preferred method of contact"
+        },
+        "preferred_contact_time": {
+          "type": "string",
+          "enum": ["morning", "afternoon", "evening", "anytime"],
+          "default": "anytime",
+          "description": "Preferred time for contact"
+        },
+        "preferred_language": {
+          "type": "string",
+          "enum": ["english", "malay", "mandarin", "tamil"],
+          "default": "english",
+          "description": "Preferred communication language"
+        }
+      }
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Primary phone (shorthand access)"
+    },
+    "contact_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email (shorthand access)"
+    },
+    "property_details": {
+      "type": "object",
+      "required": ["address"],
+      "properties": {
+        "address": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500,
+          "description": "Full property address"
+        },
+        "address_line_1": {
+          "type": "string",
+          "description": "Street address line 1"
+        },
+        "address_line_2": {
+          "type": "string",
+          "description": "Street address line 2"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "Johor",
+            "Kedah",
+            "Kelantan",
+            "Melaka",
+            "Negeri Sembilan",
+            "Pahang",
+            "Penang",
+            "Perak",
+            "Perlis",
+            "Sabah",
+            "Sarawak",
+            "Selangor",
+            "Terengganu",
+            "Kuala Lumpur",
+            "Labuan",
+            "Putrajaya"
+          ],
+          "description": "Malaysian state"
+        },
+        "postcode": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$",
+          "description": "5-digit postcode"
+        },
+        "property_type": {
+          "type": "string",
+          "enum": [
+            "residential_landed",
+            "residential_highrise",
+            "commercial_shophouse",
+            "commercial_office",
+            "commercial_factory",
+            "industrial",
+            "agricultural"
+          ],
+          "description": "Type of property"
+        },
+        "property_subtype": {
+          "type": "string",
+          "enum": [
+            "bungalow",
+            "semi_detached",
+            "terrace",
+            "townhouse",
+            "apartment",
+            "condo",
+            "shophouse",
+            "office_lot",
+            "warehouse",
+            "factory"
+          ],
+          "description": "Property subtype"
+        },
+        "ownership_status": {
+          "type": "string",
+          "enum": ["owner", "tenant", "management"],
+          "description": "Customer's relationship to property"
+        },
+        "property_age_years": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Age of the property in years"
+        },
+        "floor_area_sqft": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Property floor area in square feet"
+        },
+        "roof_access": {
+          "type": "string",
+          "enum": ["yes", "no", "requires_permission"],
+          "description": "Whether roof is accessible for inspection"
+        }
+      }
+    },
+    "address": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Full property address (shorthand access)"
+    },
+    "property_type": {
+      "type": "string",
+      "enum": ["residential", "commercial", "industrial"],
+      "description": "Property type (shorthand access)"
+    },
+    "electricity_information": {
+      "type": "object",
+      "properties": {
+        "tnb_account_number": {
+          "type": "string",
+          "description": "TNB account number"
+        },
+        "monthly_bill_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average monthly electricity bill"
+        },
+        "monthly_bill_range": {
+          "type": "string",
+          "enum": [
+            "below_100",
+            "100_300",
+            "300_500",
+            "500_1000",
+            "1000_2000",
+            "above_2000"
+          ],
+          "description": "Monthly bill range bracket"
+        },
+        "monthly_consumption_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average monthly consumption in kWh"
+        },
+        "tariff_category": {
+          "type": "string",
+          "enum": ["domestic", "commercial_low", "commercial_medium", "industrial"],
+          "description": "TNB tariff category"
+        },
+        "meter_type": {
+          "type": "string",
+          "enum": ["single_phase", "three_phase"],
+          "description": "Current electrical meter type"
+        },
+        "has_recent_bill": {
+          "type": "boolean",
+          "description": "Customer can provide recent bill"
+        },
+        "bill_image_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to uploaded electricity bill image"
+        }
+      }
+    },
+    "monthly_electricity_bill_myr": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Monthly bill (shorthand access)"
+    },
+    "solar_interest": {
+      "type": "object",
+      "properties": {
+        "primary_motivation": {
+          "type": "string",
+          "enum": [
+            "cost_savings",
+            "environmental",
+            "energy_independence",
+            "property_value",
+            "government_incentive"
+          ],
+          "description": "Primary motivation for solar"
+        },
+        "budget_range_myr": {
+          "type": "string",
+          "enum": [
+            "below_15000",
+            "15000_30000",
+            "30000_50000",
+            "50000_100000",
+            "above_100000",
+            "not_specified"
+          ],
+          "description": "Budget range for installation"
+        },
+        "financing_interest": {
+          "type": "string",
+          "enum": ["cash", "loan", "undecided"],
+          "description": "Interest in financing options"
+        },
+        "timeline": {
+          "type": "string",
+          "enum": [
+            "immediate",
+            "within_1_month",
+            "within_3_months",
+            "within_6_months",
+            "just_exploring"
+          ],
+          "description": "Installation timeline expectation"
+        },
+        "decision_stage": {
+          "type": "string",
+          "enum": [
+            "researching",
+            "comparing_quotes",
+            "ready_to_buy",
+            "need_more_info"
+          ],
+          "description": "Current decision stage"
+        },
+        "previous_quotes": {
+          "type": "boolean",
+          "description": "Has received quotes from other providers"
+        },
+        "competitor_quotes_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of competitor quotes received"
+        }
+      }
+    },
+    "preferred_contact_time": {
+      "type": "string",
+      "description": "Preferred contact time (shorthand access)"
+    },
+    "lead_source": {
+      "type": "object",
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "website",
+            "facebook",
+            "instagram",
+            "google_ads",
+            "referral",
+            "walk_in",
+            "phone_inquiry",
+            "exhibition",
+            "partner",
+            "other"
+          ],
+          "description": "Source of the lead"
+        },
+        "source_detail": {
+          "type": "string",
+          "description": "Specific source details (campaign name, referrer name, etc.)"
+        },
+        "landing_page_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of landing page if web-sourced"
+        },
+        "utm_source": {
+          "type": "string",
+          "description": "UTM source parameter"
+        },
+        "utm_medium": {
+          "type": "string",
+          "description": "UTM medium parameter"
+        },
+        "utm_campaign": {
+          "type": "string",
+          "description": "UTM campaign parameter"
+        },
+        "referrer_customer_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Referrer customer ID if referral"
+        }
+      }
+    },
+    "lead_qualification": {
+      "type": "object",
+      "properties": {
+        "lead_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Calculated lead score"
+        },
+        "qualification_status": {
+          "type": "string",
+          "enum": ["hot", "warm", "cold", "disqualified"],
+          "description": "Lead qualification status"
+        },
+        "disqualification_reason": {
+          "type": "string",
+          "enum": [
+            "tenant_no_permission",
+            "budget_too_low",
+            "unsuitable_property",
+            "timeline_too_long",
+            "competitor_selected",
+            "not_interested",
+            "duplicate",
+            "spam"
+          ],
+          "description": "Reason for disqualification if applicable"
+        },
+        "score_breakdown": {
+          "type": "object",
+          "properties": {
+            "budget_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 25
+            },
+            "timeline_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 25
+            },
+            "property_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 25
+            },
+            "engagement_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 25
+            }
+          },
+          "description": "Breakdown of lead score components"
+        }
+      }
+    },
+    "lead_assignment": {
+      "type": "object",
+      "properties": {
+        "assigned_agent_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Assigned sales agent ID"
+        },
+        "assigned_agent_name": {
+          "type": "string",
+          "description": "Assigned sales agent name"
+        },
+        "assignment_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of assignment"
+        },
+        "team": {
+          "type": "string",
+          "description": "Sales team"
+        },
+        "region": {
+          "type": "string",
+          "description": "Geographic region assignment"
+        }
+      }
+    },
+    "lead_status": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "new",
+            "contacted",
+            "qualified",
+            "site_visit_scheduled",
+            "site_visit_completed",
+            "quote_sent",
+            "negotiating",
+            "won",
+            "lost",
+            "on_hold"
+          ],
+          "default": "new",
+          "description": "Current lead status"
+        },
+        "sub_status": {
+          "type": "string",
+          "description": "Detailed sub-status"
+        },
+        "last_contact_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of last contact"
+        },
+        "next_action": {
+          "type": "string",
+          "description": "Next action to take"
+        },
+        "next_action_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date for next action"
+        },
+        "lost_reason": {
+          "type": "string",
+          "enum": [
+            "price_too_high",
+            "competitor_selected",
+            "project_cancelled",
+            "no_response",
+            "unsuitable_property",
+            "financing_rejected",
+            "other"
+          ],
+          "description": "Reason if lead was lost"
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Free-form notes about the lead"
+    },
+    "interaction_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "interaction_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "interaction_type": {
+            "type": "string",
+            "enum": ["call", "email", "whatsapp", "sms", "meeting", "site_visit", "other"]
+          },
+          "direction": {
+            "type": "string",
+            "enum": ["inbound", "outbound"]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "outcome": {
+            "type": "string"
+          },
+          "agent_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "description": "History of customer interactions"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file_name": {
+            "type": "string"
+          },
+          "file_type": {
+            "type": "string",
+            "enum": ["electricity_bill", "property_document", "id_document", "other"]
+          },
+          "file_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "uploaded_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "description": "Attached documents"
+    },
+    "recommended_next_action": {
+      "type": "string",
+      "description": "AI-recommended next action"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "organization_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "description": "Record metadata"
+    }
+  },
+  "additionalProperties": false
+}

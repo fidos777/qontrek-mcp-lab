@@ -1,0 +1,330 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qontrek.com/schemas/solar/site_inspection.schema.json",
+  "title": "Site Inspection Schema",
+  "description": "Schema for solar site inspection data capture including roof specifications, panel layout, and shading analysis",
+  "type": "object",
+  "required": ["lead_id", "roof_type", "roof_area_sqm"],
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to the lead/customer record"
+    },
+    "roof_type": {
+      "type": "string",
+      "enum": [
+        "concrete_flat",
+        "concrete_pitched",
+        "metal_deck",
+        "clay_tile",
+        "asphalt_shingle",
+        "standing_seam",
+        "corrugated_metal"
+      ],
+      "description": "Type of roof material and structure"
+    },
+    "roof_area_sqm": {
+      "type": "number",
+      "minimum": 10,
+      "maximum": 10000,
+      "description": "Total roof area in square meters"
+    },
+    "usable_area_sqm": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Usable area for panel installation after accounting for obstructions"
+    },
+    "roof_orientation": {
+      "type": "string",
+      "enum": [
+        "north",
+        "south",
+        "east",
+        "west",
+        "northeast",
+        "northwest",
+        "southeast",
+        "southwest"
+      ],
+      "description": "Primary orientation of the roof surface"
+    },
+    "roof_tilt_degrees": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 60,
+      "default": 15,
+      "description": "Roof tilt angle in degrees from horizontal"
+    },
+    "shading_analysis": {
+      "type": "object",
+      "properties": {
+        "shading_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall shading factor (0 = no shading, 1 = fully shaded)"
+        },
+        "shading_sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_type": {
+                "type": "string",
+                "enum": ["tree", "building", "chimney", "antenna", "water_tank", "other"]
+              },
+              "direction": {
+                "type": "string",
+                "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"]
+              },
+              "impact_percentage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          },
+          "description": "Individual shading sources identified during inspection"
+        },
+        "morning_shade_hours": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "afternoon_shade_hours": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 6
+        }
+      },
+      "description": "Detailed shading analysis results"
+    },
+    "panel_layout": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of panel rows"
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of panel columns"
+        },
+        "total_panels": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total number of panels recommended"
+        },
+        "panel_model": {
+          "type": "string",
+          "description": "Recommended panel model/brand"
+        },
+        "panel_wattage": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 800,
+          "description": "Individual panel wattage in watts"
+        },
+        "layout_diagram_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to generated panel layout diagram"
+        }
+      },
+      "description": "Recommended panel layout configuration"
+    },
+    "electrical_assessment": {
+      "type": "object",
+      "properties": {
+        "existing_meter_type": {
+          "type": "string",
+          "enum": ["single_phase", "three_phase"],
+          "description": "Current electrical meter configuration"
+        },
+        "meter_location": {
+          "type": "string",
+          "description": "Description of meter location"
+        },
+        "main_switch_rating_amps": {
+          "type": "integer",
+          "description": "Main switch rating in amperes"
+        },
+        "inverter_location": {
+          "type": "string",
+          "description": "Proposed inverter installation location"
+        },
+        "cable_run_meters": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Estimated cable run distance in meters"
+        },
+        "earthing_status": {
+          "type": "string",
+          "enum": ["adequate", "needs_upgrade", "not_present"],
+          "description": "Status of existing earthing system"
+        }
+      },
+      "description": "Electrical infrastructure assessment"
+    },
+    "structural_assessment": {
+      "type": "object",
+      "properties": {
+        "roof_condition": {
+          "type": "string",
+          "enum": ["excellent", "good", "fair", "poor"],
+          "description": "Overall condition of the roof"
+        },
+        "roof_age_years": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Estimated age of the roof in years"
+        },
+        "load_bearing_capacity": {
+          "type": "string",
+          "enum": ["adequate", "needs_assessment", "insufficient"],
+          "description": "Roof load bearing capacity assessment"
+        },
+        "waterproofing_status": {
+          "type": "string",
+          "enum": ["good", "minor_issues", "needs_repair"],
+          "description": "Status of roof waterproofing"
+        },
+        "structural_notes": {
+          "type": "string",
+          "description": "Additional structural observations"
+        }
+      },
+      "description": "Structural assessment of the roof"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the uploaded image"
+          },
+          "image_type": {
+            "type": "string",
+            "enum": [
+              "roof_overview",
+              "roof_surface",
+              "meter",
+              "electrical_panel",
+              "inverter_location",
+              "shading_source",
+              "access_point",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["url", "image_type"]
+      },
+      "description": "Photos captured during site inspection"
+    },
+    "gps_coordinates": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      },
+      "description": "GPS coordinates of the installation site"
+    },
+    "inspector_notes": {
+      "type": "string",
+      "maxLength": 5000,
+      "description": "Free-form notes from the inspector"
+    },
+    "recommendations": {
+      "type": "object",
+      "properties": {
+        "system_size_kwp": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Recommended system size in kilowatt-peak"
+        },
+        "estimated_cost_range": {
+          "type": "object",
+          "properties": {
+            "min_myr": {
+              "type": "number"
+            },
+            "max_myr": {
+              "type": "number"
+            }
+          }
+        },
+        "installation_complexity": {
+          "type": "string",
+          "enum": ["simple", "moderate", "complex"],
+          "description": "Estimated installation complexity"
+        },
+        "special_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Special requirements or considerations"
+        }
+      },
+      "description": "Installer recommendations based on inspection"
+    },
+    "inspection_metadata": {
+      "type": "object",
+      "properties": {
+        "inspection_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "inspector_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "inspector_name": {
+          "type": "string"
+        },
+        "inspection_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "inspection_duration_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "weather_conditions": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Metadata about the inspection event"
+    }
+  },
+  "additionalProperties": false
+}

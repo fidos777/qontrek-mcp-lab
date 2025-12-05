@@ -1,0 +1,478 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qontrek.com/schemas/solar/roi_calculator.schema.json",
+  "title": "ROI Calculator Schema",
+  "description": "Schema for solar ROI calculation including financial projections, payback analysis, and sensitivity modeling",
+  "type": "object",
+  "required": ["system_size_kwp"],
+  "properties": {
+    "site_inspection_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to site inspection record (optional if manual input)"
+    },
+    "lead_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to the lead/customer record"
+    },
+    "system_specifications": {
+      "type": "object",
+      "properties": {
+        "system_size_kwp": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Total system size in kilowatt-peak"
+        },
+        "panel_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of solar panels"
+        },
+        "panel_wattage": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 800,
+          "description": "Individual panel wattage"
+        },
+        "inverter_type": {
+          "type": "string",
+          "enum": ["string", "micro", "hybrid"],
+          "description": "Type of inverter system"
+        },
+        "inverter_capacity_kw": {
+          "type": "number",
+          "description": "Inverter capacity in kilowatts"
+        },
+        "includes_battery": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether system includes battery storage"
+        },
+        "battery_capacity_kwh": {
+          "type": "number",
+          "description": "Battery storage capacity in kilowatt-hours"
+        }
+      },
+      "required": ["system_size_kwp"]
+    },
+    "system_size_kwp": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 1000,
+      "description": "Total system size in kilowatt-peak (shorthand access)"
+    },
+    "location_factors": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string",
+          "description": "Geographic region for solar irradiance lookup"
+        },
+        "annual_irradiance_kwh_m2": {
+          "type": "number",
+          "minimum": 800,
+          "maximum": 2500,
+          "default": 1600,
+          "description": "Annual solar irradiance in kWh/m²"
+        },
+        "performance_ratio": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1,
+          "default": 0.8,
+          "description": "System performance ratio accounting for losses"
+        },
+        "shading_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0,
+          "description": "Shading loss factor (0 = no loss, 1 = full loss)"
+        },
+        "orientation_factor": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1,
+          "default": 1,
+          "description": "Orientation efficiency factor"
+        }
+      },
+      "description": "Location-specific factors affecting generation"
+    },
+    "electricity_consumption": {
+      "type": "object",
+      "properties": {
+        "monthly_bill_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current monthly electricity bill in MYR"
+        },
+        "monthly_consumption_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Monthly electricity consumption in kWh"
+        },
+        "consumption_profile": {
+          "type": "string",
+          "enum": ["residential_daytime", "residential_evening", "commercial_daytime", "industrial_24h"],
+          "default": "residential_daytime",
+          "description": "Consumption pattern profile"
+        },
+        "self_consumption_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.7,
+          "description": "Estimated ratio of solar generation consumed on-site"
+        }
+      },
+      "description": "Customer electricity consumption details"
+    },
+    "tariff_structure": {
+      "type": "object",
+      "properties": {
+        "tariff_category": {
+          "type": "string",
+          "enum": ["domestic", "commercial_low", "commercial_medium", "industrial"],
+          "default": "domestic",
+          "description": "TNB tariff category"
+        },
+        "tariff_rate_myr_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.57,
+          "description": "Effective electricity tariff rate in MYR/kWh"
+        },
+        "nem_export_rate_myr_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.31,
+          "description": "NEM export rate for excess generation"
+        },
+        "demand_charge_myr_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum demand charge (commercial/industrial)"
+        },
+        "tariff_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from_kwh": {
+                "type": "number"
+              },
+              "to_kwh": {
+                "type": "number"
+              },
+              "rate_myr_kwh": {
+                "type": "number"
+              }
+            }
+          },
+          "description": "Tiered tariff blocks for detailed calculation"
+        }
+      },
+      "description": "Electricity tariff structure"
+    },
+    "cost_assumptions": {
+      "type": "object",
+      "properties": {
+        "installation_cost_per_kwp": {
+          "type": "number",
+          "minimum": 0,
+          "default": 3800,
+          "description": "Installation cost per kWp in MYR"
+        },
+        "total_system_cost_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total system cost (calculated or override)"
+        },
+        "annual_maintenance_cost_myr": {
+          "type": "number",
+          "minimum": 0,
+          "default": 200,
+          "description": "Annual maintenance cost in MYR"
+        },
+        "inverter_replacement_year": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 25,
+          "default": 12,
+          "description": "Expected year of inverter replacement"
+        },
+        "inverter_replacement_cost_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Inverter replacement cost"
+        },
+        "insurance_annual_myr": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0,
+          "description": "Annual insurance cost"
+        }
+      },
+      "description": "Cost assumptions for ROI calculation"
+    },
+    "financial_parameters": {
+      "type": "object",
+      "properties": {
+        "discount_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.25,
+          "default": 0.06,
+          "description": "Discount rate for NPV calculation"
+        },
+        "inflation_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.15,
+          "default": 0.03,
+          "description": "Expected annual inflation rate"
+        },
+        "electricity_price_escalation": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.15,
+          "default": 0.04,
+          "description": "Expected annual electricity price increase"
+        },
+        "projection_years": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 30,
+          "default": 25,
+          "description": "Number of years for financial projection"
+        },
+        "annual_degradation_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.02,
+          "default": 0.005,
+          "description": "Annual panel degradation rate"
+        }
+      },
+      "description": "Financial modeling parameters"
+    },
+    "financing_options": {
+      "type": "object",
+      "properties": {
+        "payment_method": {
+          "type": "string",
+          "enum": ["cash", "loan", "lease", "ppa"],
+          "default": "cash",
+          "description": "Payment/financing method"
+        },
+        "loan_amount_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Loan principal amount"
+        },
+        "loan_interest_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.25,
+          "description": "Annual loan interest rate"
+        },
+        "loan_tenure_years": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Loan tenure in years"
+        },
+        "down_payment_myr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Down payment amount"
+        }
+      },
+      "description": "Financing options if applicable"
+    },
+    "incentives": {
+      "type": "object",
+      "properties": {
+        "government_rebate_myr": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0,
+          "description": "Government rebate amount"
+        },
+        "tax_incentive_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0,
+          "description": "Tax incentive as percentage of cost"
+        },
+        "green_financing_rate_reduction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.05,
+          "default": 0,
+          "description": "Interest rate reduction for green financing"
+        }
+      },
+      "description": "Available incentives and rebates"
+    },
+    "calculation_results": {
+      "type": "object",
+      "properties": {
+        "roi_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this ROI calculation"
+        },
+        "estimated_annual_generation_kwh": {
+          "type": "number",
+          "description": "Estimated annual electricity generation"
+        },
+        "first_year_savings_myr": {
+          "type": "number",
+          "description": "First year electricity savings"
+        },
+        "annual_savings_myr": {
+          "type": "number",
+          "description": "Average annual savings"
+        },
+        "lifetime_savings_myr": {
+          "type": "number",
+          "description": "Total savings over system lifetime"
+        },
+        "total_cost_myr": {
+          "type": "number",
+          "description": "Total system cost including installation"
+        },
+        "net_cost_after_incentives_myr": {
+          "type": "number",
+          "description": "Net cost after rebates and incentives"
+        },
+        "simple_payback_years": {
+          "type": "number",
+          "description": "Simple payback period in years"
+        },
+        "discounted_payback_years": {
+          "type": "number",
+          "description": "Discounted payback period in years"
+        },
+        "npv_myr": {
+          "type": "number",
+          "description": "Net present value of investment"
+        },
+        "irr_percentage": {
+          "type": "number",
+          "description": "Internal rate of return"
+        },
+        "roi_percentage": {
+          "type": "number",
+          "description": "Return on investment percentage"
+        },
+        "lcoe_myr_kwh": {
+          "type": "number",
+          "description": "Levelized cost of electricity"
+        },
+        "carbon_offset_tonnes_year": {
+          "type": "number",
+          "description": "Annual carbon offset in tonnes CO2"
+        }
+      },
+      "description": "Calculated ROI metrics"
+    },
+    "year_by_year_projection": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer"
+          },
+          "generation_kwh": {
+            "type": "number"
+          },
+          "self_consumed_kwh": {
+            "type": "number"
+          },
+          "exported_kwh": {
+            "type": "number"
+          },
+          "savings_myr": {
+            "type": "number"
+          },
+          "export_income_myr": {
+            "type": "number"
+          },
+          "maintenance_cost_myr": {
+            "type": "number"
+          },
+          "net_benefit_myr": {
+            "type": "number"
+          },
+          "cumulative_benefit_myr": {
+            "type": "number"
+          }
+        }
+      },
+      "description": "Year-by-year financial projection"
+    },
+    "sensitivity_analysis": {
+      "type": "object",
+      "properties": {
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scenario_name": {
+                "type": "string",
+                "enum": ["conservative", "base", "optimistic"]
+              },
+              "generation_factor": {
+                "type": "number"
+              },
+              "tariff_escalation": {
+                "type": "number"
+              },
+              "payback_years": {
+                "type": "number"
+              },
+              "lifetime_savings_myr": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "breakeven_tariff_rate": {
+          "type": "number",
+          "description": "Minimum tariff rate for positive ROI"
+        },
+        "breakeven_generation": {
+          "type": "number",
+          "description": "Minimum annual generation for positive ROI"
+        }
+      },
+      "description": "Sensitivity analysis results"
+    },
+    "calculation_metadata": {
+      "type": "object",
+      "properties": {
+        "calculated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "calculation_version": {
+          "type": "string"
+        },
+        "assumptions_hash": {
+          "type": "string",
+          "description": "Hash of assumptions for change tracking"
+        }
+      },
+      "description": "Metadata about the calculation"
+    }
+  },
+  "additionalProperties": false
+}

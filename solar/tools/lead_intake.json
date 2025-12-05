@@ -1,0 +1,316 @@
+{
+  "name": "lead_intake",
+  "version": "1.0.0",
+  "description": "Captures and qualifies customer information for solar installation leads. Collects contact details, property information, electricity consumption data, and automatically scores leads based on qualification criteria. Can trigger downstream site inspection workflows.",
+  "category": "solar",
+  "tags": ["solar", "lead", "crm", "intake", "qualification", "sales"],
+  "inputSchema": {
+    "$ref": "../schemas/lead_intake.schema.json",
+    "required": ["customer_name", "address"],
+    "properties": {
+      "customer_name": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 200,
+        "description": "Full name of the customer or company"
+      },
+      "address": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 500,
+        "description": "Full property address"
+      },
+      "contact_phone": {
+        "type": "string",
+        "pattern": "^\\+?[0-9\\-\\s]{8,20}$",
+        "description": "Primary contact phone number"
+      },
+      "contact_email": {
+        "type": "string",
+        "format": "email",
+        "description": "Email address"
+      },
+      "property_type": {
+        "type": "string",
+        "enum": ["residential", "commercial", "industrial"],
+        "default": "residential",
+        "description": "Type of property"
+      },
+      "monthly_electricity_bill_myr": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Average monthly electricity bill in MYR"
+      },
+      "preferred_contact_time": {
+        "type": "string",
+        "enum": ["morning", "afternoon", "evening", "anytime"],
+        "default": "anytime",
+        "description": "Preferred time for contact"
+      },
+      "preferred_contact_method": {
+        "type": "string",
+        "enum": ["phone", "email", "whatsapp", "sms"],
+        "default": "phone",
+        "description": "Preferred method of contact"
+      },
+      "source": {
+        "type": "string",
+        "enum": [
+          "website",
+          "facebook",
+          "instagram",
+          "google_ads",
+          "referral",
+          "walk_in",
+          "phone_inquiry",
+          "exhibition",
+          "partner",
+          "other"
+        ],
+        "description": "Source of the lead"
+      },
+      "budget_range": {
+        "type": "string",
+        "enum": [
+          "below_15000",
+          "15000_30000",
+          "30000_50000",
+          "50000_100000",
+          "above_100000",
+          "not_specified"
+        ],
+        "description": "Budget range for installation"
+      },
+      "timeline": {
+        "type": "string",
+        "enum": [
+          "immediate",
+          "within_1_month",
+          "within_3_months",
+          "within_6_months",
+          "just_exploring"
+        ],
+        "description": "Installation timeline expectation"
+      },
+      "ownership_status": {
+        "type": "string",
+        "enum": ["owner", "tenant", "management"],
+        "description": "Customer's relationship to property"
+      },
+      "notes": {
+        "type": "string",
+        "maxLength": 5000,
+        "description": "Free-form notes about the lead"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "lead_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this lead"
+      },
+      "customer_name": {
+        "type": "string",
+        "description": "Customer name"
+      },
+      "address": {
+        "type": "string",
+        "description": "Property address"
+      },
+      "lead_score": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Calculated lead score (0-100)"
+      },
+      "qualification_status": {
+        "type": "string",
+        "enum": ["hot", "warm", "cold", "disqualified"],
+        "description": "Lead qualification status"
+      },
+      "score_breakdown": {
+        "type": "object",
+        "properties": {
+          "budget_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 25,
+            "description": "Score based on budget range"
+          },
+          "timeline_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 25,
+            "description": "Score based on timeline urgency"
+          },
+          "property_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 25,
+            "description": "Score based on property suitability"
+          },
+          "engagement_score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 25,
+            "description": "Score based on engagement level"
+          }
+        }
+      },
+      "estimated_system_size_kwp": {
+        "type": "number",
+        "description": "Preliminary system size estimate based on bill"
+      },
+      "recommended_next_action": {
+        "type": "string",
+        "description": "AI-recommended next action"
+      },
+      "assigned_agent": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "agent_name": {
+            "type": "string"
+          }
+        },
+        "description": "Auto-assigned sales agent"
+      },
+      "can_trigger_site_inspection": {
+        "type": "boolean",
+        "description": "Whether lead qualifies for immediate site inspection"
+      },
+      "next_step": {
+        "type": "string",
+        "enum": ["site_inspection", "follow_up_call", "send_information", "disqualified"],
+        "description": "Recommended next step in workflow"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": ["lead_id", "customer_name", "lead_score", "qualification_status", "recommended_next_action"]
+  },
+  "examples": [
+    {
+      "name": "Hot Lead Intake",
+      "description": "High-quality lead ready for site inspection",
+      "input": {
+        "customer_name": "Ahmad bin Abdullah",
+        "address": "123 Jalan Maju, Taman Sentosa, 47810 Petaling Jaya, Selangor",
+        "contact_phone": "+60123456789",
+        "contact_email": "ahmad@example.com",
+        "property_type": "residential",
+        "monthly_electricity_bill_myr": 650,
+        "preferred_contact_time": "morning",
+        "preferred_contact_method": "whatsapp",
+        "source": "google_ads",
+        "budget_range": "30000_50000",
+        "timeline": "within_1_month",
+        "ownership_status": "owner",
+        "notes": "Interested in reducing electricity bills. Has space on rooftop."
+      },
+      "output": {
+        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+        "customer_name": "Ahmad bin Abdullah",
+        "address": "123 Jalan Maju, Taman Sentosa, 47810 Petaling Jaya, Selangor",
+        "lead_score": 85,
+        "qualification_status": "hot",
+        "score_breakdown": {
+          "budget_score": 20,
+          "timeline_score": 23,
+          "property_score": 22,
+          "engagement_score": 20
+        },
+        "estimated_system_size_kwp": 10.5,
+        "recommended_next_action": "Schedule site inspection within 2 business days",
+        "assigned_agent": {
+          "agent_id": "880e8400-e29b-41d4-a716-446655440003",
+          "agent_name": "Tan Wei Ming"
+        },
+        "can_trigger_site_inspection": true,
+        "next_step": "site_inspection",
+        "created_at": "2025-12-05T09:00:00Z"
+      }
+    },
+    {
+      "name": "Cold Lead Intake",
+      "description": "Lead requiring nurturing before site visit",
+      "input": {
+        "customer_name": "Lee Mei Ling",
+        "address": "45 Jalan Ampang, 50450 Kuala Lumpur",
+        "contact_phone": "+60198765432",
+        "property_type": "residential",
+        "timeline": "just_exploring",
+        "ownership_status": "tenant"
+      },
+      "output": {
+        "lead_id": "550e8400-e29b-41d4-a716-446655440099",
+        "customer_name": "Lee Mei Ling",
+        "address": "45 Jalan Ampang, 50450 Kuala Lumpur",
+        "lead_score": 35,
+        "qualification_status": "cold",
+        "score_breakdown": {
+          "budget_score": 10,
+          "timeline_score": 5,
+          "property_score": 10,
+          "engagement_score": 10
+        },
+        "estimated_system_size_kwp": null,
+        "recommended_next_action": "Send educational content about solar benefits for tenants",
+        "assigned_agent": null,
+        "can_trigger_site_inspection": false,
+        "next_step": "send_information",
+        "created_at": "2025-12-05T09:15:00Z"
+      }
+    }
+  ],
+  "dependencies": {
+    "upstream": [],
+    "downstream": ["site_inspection"]
+  },
+  "execution": {
+    "timeout_ms": 5000,
+    "retry_policy": {
+      "max_retries": 3,
+      "backoff_ms": 500
+    },
+    "idempotent": false
+  },
+  "validation": {
+    "strict_mode": false,
+    "coerce_types": true,
+    "allow_partial_input": true
+  },
+  "permissions": {
+    "required_scopes": ["solar:lead:write"],
+    "rate_limit": {
+      "requests_per_minute": 100,
+      "requests_per_day": 5000
+    }
+  },
+  "webhooks": {
+    "on_hot_lead": {
+      "enabled": true,
+      "url_template": "{{WEBHOOK_BASE_URL}}/leads/hot",
+      "description": "Triggered when a hot lead is created"
+    },
+    "on_lead_created": {
+      "enabled": true,
+      "url_template": "{{WEBHOOK_BASE_URL}}/leads/created",
+      "description": "Triggered for all new leads"
+    }
+  },
+  "metadata": {
+    "author": "Qontrek MCP Lab",
+    "created_at": "2025-12-05",
+    "updated_at": "2025-12-05",
+    "documentation_url": "https://docs.qontrek.com/solar/tools/lead_intake"
+  }
+}

@@ -1,0 +1,485 @@
+{
+  "name": "quotation_builder",
+  "version": "1.0.0",
+  "description": "Transforms ROI calculations into professional quotation documents. Generates PDF, DOCX, and PPTX formats with customizable templates, pricing breakdowns, and terms. Integrates with Qontrek Document Factory for high-quality document generation.",
+  "category": "solar",
+  "tags": ["solar", "quotation", "quote", "document", "pdf", "proposal", "sales"],
+  "inputSchema": {
+    "$ref": "../schemas/quotation_builder.schema.json",
+    "required": ["roi_calculation_id"],
+    "properties": {
+      "roi_calculation_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to the ROI calculation record"
+      },
+      "output_formats": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["pdf", "docx", "pptx", "xlsx"]
+        },
+        "default": ["pdf"],
+        "description": "Output document formats to generate"
+      },
+      "template_id": {
+        "type": "string",
+        "default": "standard",
+        "description": "Template to use for document generation"
+      },
+      "include_sections": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "cover_page",
+            "executive_summary",
+            "company_profile",
+            "system_overview",
+            "technical_specs",
+            "roi_analysis",
+            "pricing_breakdown",
+            "payment_schedule",
+            "project_timeline",
+            "warranty_info",
+            "terms_conditions",
+            "appendix"
+          ]
+        },
+        "default": [
+          "cover_page",
+          "executive_summary",
+          "system_overview",
+          "technical_specs",
+          "roi_analysis",
+          "pricing_breakdown",
+          "terms_conditions"
+        ],
+        "description": "Sections to include in the document"
+      },
+      "validity_days": {
+        "type": "integer",
+        "minimum": 7,
+        "maximum": 90,
+        "default": 30,
+        "description": "Number of days quote is valid"
+      },
+      "custom_pricing": {
+        "type": "object",
+        "properties": {
+          "override_total": {
+            "type": "number",
+            "description": "Override calculated total"
+          },
+          "discount_percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50,
+            "description": "Discount percentage to apply"
+          },
+          "discount_reason": {
+            "type": "string",
+            "description": "Reason for discount"
+          },
+          "additional_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "amount_myr": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "description": "Custom pricing adjustments"
+      },
+      "branding": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string"
+          },
+          "logo_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "primary_color": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        },
+        "description": "Custom branding options"
+      },
+      "language": {
+        "type": "string",
+        "enum": ["en", "ms", "zh"],
+        "default": "en",
+        "description": "Document language"
+      },
+      "special_conditions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Special conditions to include"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "quotation_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this quotation"
+      },
+      "quote_number": {
+        "type": "string",
+        "pattern": "^QT-[0-9]{4}-[0-9]{5}$",
+        "description": "Human-readable quote reference number"
+      },
+      "roi_calculation_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to ROI calculation"
+      },
+      "lead_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to lead record"
+      },
+      "customer_name": {
+        "type": "string",
+        "description": "Customer name"
+      },
+      "system_summary": {
+        "type": "object",
+        "properties": {
+          "system_size_kwp": {
+            "type": "number"
+          },
+          "panel_count": {
+            "type": "integer"
+          },
+          "panel_brand": {
+            "type": "string"
+          },
+          "inverter_brand": {
+            "type": "string"
+          }
+        }
+      },
+      "pricing_summary": {
+        "type": "object",
+        "properties": {
+          "subtotal_myr": {
+            "type": "number"
+          },
+          "discount_myr": {
+            "type": "number"
+          },
+          "tax_myr": {
+            "type": "number"
+          },
+          "total_amount_myr": {
+            "type": "number"
+          },
+          "price_per_kwp_myr": {
+            "type": "number"
+          }
+        }
+      },
+      "roi_highlights": {
+        "type": "object",
+        "properties": {
+          "payback_years": {
+            "type": "number"
+          },
+          "annual_savings_myr": {
+            "type": "number"
+          },
+          "lifetime_savings_myr": {
+            "type": "number"
+          }
+        }
+      },
+      "validity": {
+        "type": "object",
+        "properties": {
+          "quote_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date"
+          },
+          "validity_days": {
+            "type": "integer"
+          }
+        }
+      },
+      "document_urls": {
+        "type": "object",
+        "properties": {
+          "pdf": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to generated PDF"
+          },
+          "docx": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to generated DOCX"
+          },
+          "pptx": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to generated PPTX"
+          },
+          "xlsx": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to generated XLSX"
+          }
+        },
+        "description": "URLs to generated documents"
+      },
+      "qontrek_job_id": {
+        "type": "string",
+        "description": "Qontrek Document Factory job ID"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["draft", "generated", "sent", "viewed", "accepted", "rejected", "expired"],
+        "description": "Current quotation status"
+      },
+      "shareable_link": {
+        "type": "string",
+        "format": "uri",
+        "description": "Public link for customer to view quote"
+      },
+      "next_steps": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Recommended next steps"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": ["quotation_id", "quote_number", "pricing_summary", "document_urls", "status"]
+  },
+  "examples": [
+    {
+      "name": "Standard Quote Generation",
+      "description": "Generate PDF quote with standard template",
+      "input": {
+        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+        "output_formats": ["pdf", "docx"],
+        "template_id": "standard",
+        "include_sections": [
+          "cover_page",
+          "executive_summary",
+          "system_overview",
+          "technical_specs",
+          "roi_analysis",
+          "pricing_breakdown",
+          "payment_schedule",
+          "terms_conditions"
+        ],
+        "validity_days": 30,
+        "language": "en"
+      },
+      "output": {
+        "quotation_id": "880e8400-e29b-41d4-a716-446655440004",
+        "quote_number": "QT-2025-00042",
+        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+        "customer_name": "Ahmad bin Abdullah",
+        "system_summary": {
+          "system_size_kwp": 17.6,
+          "panel_count": 32,
+          "panel_brand": "JA Solar",
+          "inverter_brand": "Huawei"
+        },
+        "pricing_summary": {
+          "subtotal_myr": 66880,
+          "discount_myr": 0,
+          "tax_myr": 0,
+          "total_amount_myr": 66880,
+          "price_per_kwp_myr": 3800
+        },
+        "roi_highlights": {
+          "payback_years": 5.9,
+          "annual_savings_myr": 11340,
+          "lifetime_savings_myr": 425000
+        },
+        "validity": {
+          "quote_date": "2025-12-05",
+          "valid_until": "2026-01-04",
+          "validity_days": 30
+        },
+        "document_urls": {
+          "pdf": "https://storage.qontrek.com/quotes/QT-2025-00042.pdf",
+          "docx": "https://storage.qontrek.com/quotes/QT-2025-00042.docx"
+        },
+        "qontrek_job_id": "job_abc123xyz",
+        "status": "generated",
+        "shareable_link": "https://quotes.qontrek.com/v/QT-2025-00042",
+        "next_steps": [
+          "Send quote to customer via email or WhatsApp",
+          "Schedule follow-up call in 3 days",
+          "Prepare answers for common objections"
+        ],
+        "created_at": "2025-12-05T10:45:00Z"
+      }
+    },
+    {
+      "name": "Discounted Quote with Custom Pricing",
+      "description": "Generate quote with promotional discount",
+      "input": {
+        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+        "output_formats": ["pdf"],
+        "template_id": "premium",
+        "validity_days": 14,
+        "custom_pricing": {
+          "discount_percentage": 10,
+          "discount_reason": "Year-end promotion"
+        },
+        "special_conditions": [
+          "Discount valid for orders confirmed by 31 Dec 2025",
+          "Free system monitoring for 1 year"
+        ]
+      },
+      "output": {
+        "quotation_id": "880e8400-e29b-41d4-a716-446655440005",
+        "quote_number": "QT-2025-00043",
+        "roi_calculation_id": "770e8400-e29b-41d4-a716-446655440002",
+        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+        "customer_name": "Ahmad bin Abdullah",
+        "system_summary": {
+          "system_size_kwp": 17.6,
+          "panel_count": 32,
+          "panel_brand": "JA Solar",
+          "inverter_brand": "Huawei"
+        },
+        "pricing_summary": {
+          "subtotal_myr": 66880,
+          "discount_myr": 6688,
+          "tax_myr": 0,
+          "total_amount_myr": 60192,
+          "price_per_kwp_myr": 3420
+        },
+        "roi_highlights": {
+          "payback_years": 5.3,
+          "annual_savings_myr": 11340,
+          "lifetime_savings_myr": 431688
+        },
+        "validity": {
+          "quote_date": "2025-12-05",
+          "valid_until": "2025-12-19",
+          "validity_days": 14
+        },
+        "document_urls": {
+          "pdf": "https://storage.qontrek.com/quotes/QT-2025-00043.pdf"
+        },
+        "qontrek_job_id": "job_def456uvw",
+        "status": "generated",
+        "shareable_link": "https://quotes.qontrek.com/v/QT-2025-00043",
+        "next_steps": [
+          "Emphasize limited-time discount validity",
+          "Send quote immediately",
+          "Schedule follow-up within 1 week"
+        ],
+        "created_at": "2025-12-05T11:00:00Z"
+      }
+    }
+  ],
+  "dependencies": {
+    "upstream": ["roi_calculator"],
+    "downstream": [],
+    "external": [
+      {
+        "name": "Qontrek Document Factory",
+        "type": "api",
+        "description": "Document generation service for PDF/DOCX/PPTX output"
+      }
+    ]
+  },
+  "execution": {
+    "timeout_ms": 30000,
+    "retry_policy": {
+      "max_retries": 3,
+      "backoff_ms": 2000
+    },
+    "idempotent": false,
+    "async_supported": true
+  },
+  "validation": {
+    "strict_mode": true,
+    "coerce_types": true
+  },
+  "permissions": {
+    "required_scopes": ["solar:quotation:write", "solar:roi:read", "documents:generate"],
+    "rate_limit": {
+      "requests_per_minute": 20,
+      "requests_per_day": 200
+    }
+  },
+  "templates": {
+    "available": [
+      {
+        "id": "standard",
+        "name": "Standard Template",
+        "description": "Clean, professional template for most use cases"
+      },
+      {
+        "id": "premium",
+        "name": "Premium Template",
+        "description": "High-end design for luxury residential projects"
+      },
+      {
+        "id": "commercial",
+        "name": "Commercial Template",
+        "description": "Detailed template for commercial/industrial projects"
+      },
+      {
+        "id": "minimal",
+        "name": "Minimal Template",
+        "description": "Simple one-page summary quote"
+      }
+    ]
+  },
+  "webhooks": {
+    "on_quote_generated": {
+      "enabled": true,
+      "url_template": "{{WEBHOOK_BASE_URL}}/quotes/generated",
+      "description": "Triggered when quote generation is complete"
+    },
+    "on_quote_viewed": {
+      "enabled": true,
+      "url_template": "{{WEBHOOK_BASE_URL}}/quotes/viewed",
+      "description": "Triggered when customer views the quote"
+    },
+    "on_quote_accepted": {
+      "enabled": true,
+      "url_template": "{{WEBHOOK_BASE_URL}}/quotes/accepted",
+      "description": "Triggered when customer accepts the quote"
+    }
+  },
+  "metadata": {
+    "author": "Qontrek MCP Lab",
+    "created_at": "2025-12-05",
+    "updated_at": "2025-12-05",
+    "documentation_url": "https://docs.qontrek.com/solar/tools/quotation_builder"
+  }
+}

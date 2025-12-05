@@ -1,0 +1,887 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://qontrek.com/schemas/solar/quotation_builder.schema.json",
+  "title": "Quotation Builder Schema",
+  "description": "Schema for generating professional solar installation quotations with multiple output formats and Qontrek Document Factory integration",
+  "type": "object",
+  "required": ["roi_calculation_id"],
+  "properties": {
+    "quotation_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this quotation"
+    },
+    "roi_calculation_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to the ROI calculation record"
+    },
+    "lead_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to the lead/customer record"
+    },
+    "site_inspection_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to site inspection record"
+    },
+    "quote_details": {
+      "type": "object",
+      "properties": {
+        "quote_number": {
+          "type": "string",
+          "pattern": "^QT-[0-9]{4}-[0-9]{5}$",
+          "description": "Unique quote reference number (e.g., QT-2025-00001)"
+        },
+        "quote_version": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "Version number for revised quotes"
+        },
+        "quote_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of quotation"
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date",
+          "description": "Quote validity expiry date"
+        },
+        "validity_days": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 90,
+          "default": 30,
+          "description": "Number of days quote is valid"
+        },
+        "currency": {
+          "type": "string",
+          "enum": ["MYR", "SGD", "USD"],
+          "default": "MYR",
+          "description": "Currency for pricing"
+        }
+      }
+    },
+    "customer_details": {
+      "type": "object",
+      "properties": {
+        "customer_name": {
+          "type": "string",
+          "description": "Customer name"
+        },
+        "company_name": {
+          "type": "string",
+          "description": "Company name if applicable"
+        },
+        "billing_address": {
+          "type": "string",
+          "description": "Billing address"
+        },
+        "installation_address": {
+          "type": "string",
+          "description": "Installation site address"
+        },
+        "contact_person": {
+          "type": "string",
+          "description": "Primary contact person"
+        },
+        "contact_phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "contact_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address"
+        }
+      }
+    },
+    "system_configuration": {
+      "type": "object",
+      "properties": {
+        "system_size_kwp": {
+          "type": "number",
+          "description": "Total system size in kWp"
+        },
+        "panel_specifications": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string",
+              "description": "Panel manufacturer brand"
+            },
+            "model": {
+              "type": "string",
+              "description": "Panel model number"
+            },
+            "wattage": {
+              "type": "integer",
+              "description": "Panel wattage (W)"
+            },
+            "quantity": {
+              "type": "integer",
+              "description": "Number of panels"
+            },
+            "panel_type": {
+              "type": "string",
+              "enum": ["monocrystalline", "polycrystalline", "bifacial", "thin_film"],
+              "description": "Panel technology type"
+            },
+            "efficiency_percentage": {
+              "type": "number",
+              "description": "Panel efficiency percentage"
+            },
+            "warranty_years": {
+              "type": "integer",
+              "description": "Panel product warranty years"
+            },
+            "performance_warranty_years": {
+              "type": "integer",
+              "description": "Performance warranty years"
+            }
+          }
+        },
+        "inverter_specifications": {
+          "type": "object",
+          "properties": {
+            "brand": {
+              "type": "string",
+              "description": "Inverter manufacturer brand"
+            },
+            "model": {
+              "type": "string",
+              "description": "Inverter model number"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["string", "micro", "hybrid", "central"],
+              "description": "Inverter type"
+            },
+            "capacity_kw": {
+              "type": "number",
+              "description": "Inverter capacity (kW)"
+            },
+            "quantity": {
+              "type": "integer",
+              "description": "Number of inverters"
+            },
+            "warranty_years": {
+              "type": "integer",
+              "description": "Inverter warranty years"
+            }
+          }
+        },
+        "battery_specifications": {
+          "type": "object",
+          "properties": {
+            "included": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether battery is included"
+            },
+            "brand": {
+              "type": "string",
+              "description": "Battery manufacturer brand"
+            },
+            "model": {
+              "type": "string",
+              "description": "Battery model"
+            },
+            "capacity_kwh": {
+              "type": "number",
+              "description": "Battery capacity (kWh)"
+            },
+            "quantity": {
+              "type": "integer",
+              "description": "Number of battery units"
+            },
+            "warranty_years": {
+              "type": "integer",
+              "description": "Battery warranty years"
+            }
+          }
+        },
+        "mounting_system": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["roof_mount", "ground_mount", "carport", "floating"],
+              "description": "Mounting system type"
+            },
+            "material": {
+              "type": "string",
+              "enum": ["aluminum", "galvanized_steel", "stainless_steel"],
+              "description": "Mounting material"
+            },
+            "brand": {
+              "type": "string",
+              "description": "Mounting system brand"
+            }
+          }
+        },
+        "additional_components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "component_name": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Additional system components"
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "line_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item_code": {
+                "type": "string",
+                "description": "Item SKU or code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Item description"
+              },
+              "category": {
+                "type": "string",
+                "enum": ["equipment", "installation", "permit", "other"],
+                "description": "Item category"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Quantity"
+              },
+              "unit": {
+                "type": "string",
+                "description": "Unit of measure"
+              },
+              "unit_price_myr": {
+                "type": "number",
+                "description": "Unit price"
+              },
+              "total_price_myr": {
+                "type": "number",
+                "description": "Line total"
+              }
+            }
+          },
+          "description": "Itemized pricing breakdown"
+        },
+        "subtotal_myr": {
+          "type": "number",
+          "description": "Subtotal before discounts and tax"
+        },
+        "discount": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["percentage", "fixed"],
+              "description": "Discount type"
+            },
+            "value": {
+              "type": "number",
+              "description": "Discount value"
+            },
+            "reason": {
+              "type": "string",
+              "description": "Reason for discount"
+            },
+            "amount_myr": {
+              "type": "number",
+              "description": "Calculated discount amount"
+            }
+          }
+        },
+        "tax": {
+          "type": "object",
+          "properties": {
+            "sst_applicable": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether SST applies"
+            },
+            "sst_rate": {
+              "type": "number",
+              "default": 0.06,
+              "description": "SST rate"
+            },
+            "sst_amount_myr": {
+              "type": "number",
+              "description": "Calculated SST amount"
+            }
+          }
+        },
+        "total_amount_myr": {
+          "type": "number",
+          "description": "Total quote amount"
+        },
+        "price_per_kwp_myr": {
+          "type": "number",
+          "description": "Price per kWp for comparison"
+        }
+      }
+    },
+    "custom_pricing": {
+      "type": "object",
+      "description": "Custom pricing overrides",
+      "properties": {
+        "override_total": {
+          "type": "number",
+          "description": "Override total amount"
+        },
+        "custom_line_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "amount_myr": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "payment_terms": {
+      "type": "object",
+      "properties": {
+        "payment_schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "milestone": {
+                "type": "string",
+                "enum": [
+                  "deposit",
+                  "equipment_delivery",
+                  "installation_start",
+                  "installation_complete",
+                  "commissioning",
+                  "final"
+                ],
+                "description": "Payment milestone"
+              },
+              "percentage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Percentage of total"
+              },
+              "amount_myr": {
+                "type": "number",
+                "description": "Payment amount"
+              },
+              "due_description": {
+                "type": "string",
+                "description": "When payment is due"
+              }
+            }
+          },
+          "description": "Payment schedule milestones"
+        },
+        "accepted_payment_methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["bank_transfer", "cheque", "credit_card", "fpx", "cash"]
+          },
+          "description": "Accepted payment methods"
+        },
+        "bank_details": {
+          "type": "object",
+          "properties": {
+            "bank_name": {
+              "type": "string"
+            },
+            "account_name": {
+              "type": "string"
+            },
+            "account_number": {
+              "type": "string"
+            }
+          }
+        },
+        "financing_available": {
+          "type": "boolean",
+          "description": "Whether financing options are available"
+        },
+        "financing_partners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Available financing partners"
+        }
+      }
+    },
+    "roi_summary": {
+      "type": "object",
+      "properties": {
+        "estimated_annual_generation_kwh": {
+          "type": "number",
+          "description": "Annual energy generation"
+        },
+        "estimated_annual_savings_myr": {
+          "type": "number",
+          "description": "Annual cost savings"
+        },
+        "payback_period_years": {
+          "type": "number",
+          "description": "Simple payback period"
+        },
+        "roi_percentage": {
+          "type": "number",
+          "description": "Return on investment"
+        },
+        "lifetime_savings_myr": {
+          "type": "number",
+          "description": "25-year lifetime savings"
+        },
+        "carbon_offset_tonnes_year": {
+          "type": "number",
+          "description": "Annual CO2 offset"
+        }
+      }
+    },
+    "project_timeline": {
+      "type": "object",
+      "properties": {
+        "estimated_start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Estimated project start date"
+        },
+        "estimated_completion_days": {
+          "type": "integer",
+          "description": "Estimated days to completion"
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "milestone_name": {
+                "type": "string"
+              },
+              "duration_days": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Project milestones"
+        }
+      }
+    },
+    "warranty_information": {
+      "type": "object",
+      "properties": {
+        "workmanship_warranty_years": {
+          "type": "integer",
+          "default": 5,
+          "description": "Workmanship warranty period"
+        },
+        "system_warranty_years": {
+          "type": "integer",
+          "default": 10,
+          "description": "Overall system warranty"
+        },
+        "warranty_terms": {
+          "type": "string",
+          "description": "Detailed warranty terms"
+        }
+      }
+    },
+    "terms_and_conditions": {
+      "type": "object",
+      "properties": {
+        "standard_terms_version": {
+          "type": "string",
+          "description": "Version of standard T&C applied"
+        },
+        "special_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Special conditions for this quote"
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Items excluded from quote"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Assumptions made in quote"
+        }
+      }
+    },
+    "output_configuration": {
+      "type": "object",
+      "properties": {
+        "output_formats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["pdf", "docx", "pptx", "xlsx"]
+          },
+          "default": ["pdf"],
+          "description": "Output document formats"
+        },
+        "template_id": {
+          "type": "string",
+          "default": "standard",
+          "description": "Template to use for generation"
+        },
+        "include_sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "cover_page",
+              "executive_summary",
+              "company_profile",
+              "system_overview",
+              "technical_specs",
+              "roi_analysis",
+              "pricing_breakdown",
+              "payment_schedule",
+              "project_timeline",
+              "warranty_info",
+              "terms_conditions",
+              "appendix"
+            ]
+          },
+          "description": "Sections to include in document"
+        },
+        "branding": {
+          "type": "object",
+          "properties": {
+            "logo_url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "primary_color": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "secondary_color": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            },
+            "company_name": {
+              "type": "string"
+            },
+            "company_address": {
+              "type": "string"
+            },
+            "company_phone": {
+              "type": "string"
+            },
+            "company_email": {
+              "type": "string"
+            },
+            "company_website": {
+              "type": "string"
+            }
+          }
+        },
+        "language": {
+          "type": "string",
+          "enum": ["en", "ms", "zh"],
+          "default": "en",
+          "description": "Document language"
+        }
+      }
+    },
+    "template_id": {
+      "type": "string",
+      "default": "standard",
+      "description": "Template ID (shorthand access)"
+    },
+    "output_formats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["pdf", "docx", "pptx", "xlsx"]
+      },
+      "default": ["pdf"],
+      "description": "Output formats (shorthand access)"
+    },
+    "include_sections": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "executive_summary",
+          "technical_specs",
+          "roi_analysis",
+          "terms_conditions",
+          "payment_schedule"
+        ]
+      },
+      "description": "Sections to include (shorthand access)"
+    },
+    "generated_documents": {
+      "type": "object",
+      "properties": {
+        "pdf": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "file_size_bytes": {
+              "type": "integer"
+            }
+          }
+        },
+        "docx": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "file_size_bytes": {
+              "type": "integer"
+            }
+          }
+        },
+        "pptx": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "file_size_bytes": {
+              "type": "integer"
+            }
+          }
+        },
+        "xlsx": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "file_size_bytes": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "description": "Generated document URLs"
+    },
+    "document_urls": {
+      "type": "object",
+      "properties": {
+        "pdf": {
+          "type": "string",
+          "format": "uri"
+        },
+        "docx": {
+          "type": "string",
+          "format": "uri"
+        },
+        "pptx": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "description": "Document URLs (shorthand access)"
+    },
+    "quotation_status": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "pending_approval",
+            "approved",
+            "sent",
+            "viewed",
+            "accepted",
+            "rejected",
+            "expired",
+            "superseded"
+          ],
+          "default": "draft",
+          "description": "Current quotation status"
+        },
+        "sent_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When quote was sent to customer"
+        },
+        "viewed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When customer viewed quote"
+        },
+        "response_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When customer responded"
+        },
+        "response_notes": {
+          "type": "string",
+          "description": "Customer feedback or response notes"
+        }
+      }
+    },
+    "approval_workflow": {
+      "type": "object",
+      "properties": {
+        "requires_approval": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether manager approval is required"
+        },
+        "approval_threshold_myr": {
+          "type": "number",
+          "description": "Threshold above which approval is required"
+        },
+        "approver_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "approval_status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected"]
+        },
+        "approval_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approval_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "qontrek_integration": {
+      "type": "object",
+      "properties": {
+        "document_factory_job_id": {
+          "type": "string",
+          "description": "Qontrek Document Factory job ID"
+        },
+        "template_repository": {
+          "type": "string",
+          "description": "Template repository reference"
+        },
+        "generation_status": {
+          "type": "string",
+          "enum": ["pending", "processing", "completed", "failed"],
+          "description": "Document generation status"
+        },
+        "callback_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webhook callback URL"
+        }
+      },
+      "description": "Qontrek Document Factory integration details"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "organization_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "revision_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "integer"
+              },
+              "changed_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "changed_by": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "change_summary": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

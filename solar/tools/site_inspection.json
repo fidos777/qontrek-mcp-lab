@@ -1,0 +1,252 @@
+{
+  "name": "site_inspection",
+  "version": "1.0.0",
+  "description": "Captures technical details of a solar installation site including roof specifications, panel layout recommendations, shading analysis, and structural assessment. This tool processes site survey data to produce standardized inspection reports that feed into ROI calculations.",
+  "category": "solar",
+  "tags": ["solar", "inspection", "roof", "survey", "assessment"],
+  "inputSchema": {
+    "$ref": "../schemas/site_inspection.schema.json",
+    "required": ["lead_id", "roof_type", "roof_area_sqm"],
+    "properties": {
+      "lead_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to the lead/customer record"
+      },
+      "roof_type": {
+        "type": "string",
+        "enum": [
+          "concrete_flat",
+          "concrete_pitched",
+          "metal_deck",
+          "clay_tile",
+          "asphalt_shingle",
+          "standing_seam",
+          "corrugated_metal"
+        ],
+        "description": "Type of roof material and structure"
+      },
+      "roof_area_sqm": {
+        "type": "number",
+        "minimum": 10,
+        "maximum": 10000,
+        "description": "Total roof area in square meters"
+      },
+      "roof_orientation": {
+        "type": "string",
+        "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"],
+        "description": "Primary orientation of the roof surface"
+      },
+      "roof_tilt_degrees": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 60,
+        "default": 15,
+        "description": "Roof tilt angle in degrees from horizontal"
+      },
+      "shading_factor": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Overall shading factor (0 = no shading, 1 = fully shaded)"
+      },
+      "panel_layout": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "columns": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "panel_model": {
+            "type": "string"
+          },
+          "panel_wattage": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 800
+          }
+        },
+        "description": "Recommended panel layout configuration"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uri"
+        },
+        "description": "URLs of photos captured during site inspection"
+      },
+      "inspector_notes": {
+        "type": "string",
+        "maxLength": 5000,
+        "description": "Free-form notes from the inspector"
+      }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "inspection_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this inspection"
+      },
+      "lead_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Reference to the lead/customer record"
+      },
+      "usable_roof_area_sqm": {
+        "type": "number",
+        "description": "Calculated usable area for panel installation"
+      },
+      "recommended_system_size_kwp": {
+        "type": "number",
+        "description": "Recommended system size in kilowatt-peak"
+      },
+      "recommended_panels": {
+        "type": "integer",
+        "description": "Recommended number of panels"
+      },
+      "panel_layout": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "integer"
+          },
+          "columns": {
+            "type": "integer"
+          },
+          "total_panels": {
+            "type": "integer"
+          },
+          "panel_model": {
+            "type": "string"
+          },
+          "panel_wattage": {
+            "type": "integer"
+          }
+        }
+      },
+      "efficiency_factors": {
+        "type": "object",
+        "properties": {
+          "orientation_factor": {
+            "type": "number"
+          },
+          "tilt_factor": {
+            "type": "number"
+          },
+          "shading_factor": {
+            "type": "number"
+          },
+          "combined_efficiency": {
+            "type": "number"
+          }
+        }
+      },
+      "installation_complexity": {
+        "type": "string",
+        "enum": ["simple", "moderate", "complex"]
+      },
+      "special_requirements": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "next_step": {
+        "type": "string",
+        "const": "roi_calculator",
+        "description": "Downstream tool to invoke"
+      },
+      "created_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": ["inspection_id", "lead_id", "usable_roof_area_sqm", "recommended_system_size_kwp", "recommended_panels", "next_step"]
+  },
+  "examples": [
+    {
+      "name": "Residential Site Inspection",
+      "description": "Typical residential roof inspection",
+      "input": {
+        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+        "roof_type": "concrete_flat",
+        "roof_area_sqm": 150.5,
+        "roof_orientation": "south",
+        "roof_tilt_degrees": 10,
+        "shading_factor": 0.15,
+        "panel_layout": {
+          "rows": 4,
+          "columns": 8,
+          "panel_model": "JA Solar 550W",
+          "panel_wattage": 550
+        },
+        "images": [
+          "https://storage.example.com/inspections/roof_001.jpg",
+          "https://storage.example.com/inspections/meter_001.jpg"
+        ],
+        "inspector_notes": "Roof in excellent condition. Minor shading from neighbor's water tank in late afternoon."
+      },
+      "output": {
+        "inspection_id": "660e8400-e29b-41d4-a716-446655440001",
+        "lead_id": "550e8400-e29b-41d4-a716-446655440000",
+        "usable_roof_area_sqm": 127.9,
+        "recommended_system_size_kwp": 17.6,
+        "recommended_panels": 32,
+        "panel_layout": {
+          "rows": 4,
+          "columns": 8,
+          "total_panels": 32,
+          "panel_model": "JA Solar 550W",
+          "panel_wattage": 550
+        },
+        "efficiency_factors": {
+          "orientation_factor": 0.95,
+          "tilt_factor": 0.98,
+          "shading_factor": 0.85,
+          "combined_efficiency": 0.79
+        },
+        "installation_complexity": "simple",
+        "special_requirements": [],
+        "next_step": "roi_calculator",
+        "created_at": "2025-12-05T10:30:00Z"
+      }
+    }
+  ],
+  "dependencies": {
+    "upstream": ["lead_intake"],
+    "downstream": ["roi_calculator"]
+  },
+  "execution": {
+    "timeout_ms": 10000,
+    "retry_policy": {
+      "max_retries": 2,
+      "backoff_ms": 1000
+    },
+    "idempotent": true
+  },
+  "validation": {
+    "strict_mode": true,
+    "coerce_types": true
+  },
+  "permissions": {
+    "required_scopes": ["solar:inspection:write", "solar:lead:read"],
+    "rate_limit": {
+      "requests_per_minute": 30,
+      "requests_per_day": 500
+    }
+  },
+  "metadata": {
+    "author": "Qontrek MCP Lab",
+    "created_at": "2025-12-05",
+    "updated_at": "2025-12-05",
+    "documentation_url": "https://docs.qontrek.com/solar/tools/site_inspection"
+  }
+}

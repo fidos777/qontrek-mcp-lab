@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "solar-mcp-toolpack",
+  "version": "1.0.0",
+  "description": "Solar installation sales and operations toolpack for MCP-enabled AI agents. Includes lead intake, site inspection, ROI calculation, and quotation generation tools.",
+  "protocol_version": "2024-11-05",
+  "vendor": {
+    "name": "Qontrek",
+    "url": "https://qontrek.com",
+    "email": "support@qontrek.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/qontrek/solar-mcp-toolpack",
+  "documentation_url": "https://docs.qontrek.com/solar",
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true,
+    "logging": true
+  },
+  "server": {
+    "command": "npx",
+    "args": ["-y", "@qontrek/solar-mcp-server"],
+    "env": {
+      "SUPABASE_URL": {
+        "description": "Supabase project URL",
+        "required": true
+      },
+      "SUPABASE_ANON_KEY": {
+        "description": "Supabase anonymous key",
+        "required": true
+      },
+      "SUPABASE_SERVICE_KEY": {
+        "description": "Supabase service role key (for admin operations)",
+        "required": false
+      },
+      "QONTREK_API_KEY": {
+        "description": "Qontrek Document Factory API key",
+        "required": true
+      },
+      "QONTREK_WEBHOOK_SECRET": {
+        "description": "Webhook signature verification secret",
+        "required": false
+      },
+      "FIRECRAWL_API_KEY": {
+        "description": "FireCrawl API key for brand scraping (optional)",
+        "required": false
+      }
+    },
+    "transport": {
+      "type": "stdio"
+    }
+  },
+  "tools": [
+    {
+      "name": "lead_intake",
+      "description": "Captures and qualifies customer information for solar installation leads. Collects contact details, property information, and automatically scores leads based on qualification criteria.",
+      "category": "sales",
+      "inputSchema": {
+        "$ref": "./schemas/lead_intake.schema.json"
+      },
+      "annotations": {
+        "title": "Lead Intake",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "site_inspection",
+      "description": "Captures technical details of a solar installation site including roof specifications, panel layout recommendations, and shading analysis.",
+      "category": "technical",
+      "inputSchema": {
+        "$ref": "./schemas/site_inspection.schema.json"
+      },
+      "annotations": {
+        "title": "Site Inspection",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "roi_calculator",
+      "description": "Calculates return on investment, payback period, and comprehensive financial projections for solar installations based on site data.",
+      "category": "finance",
+      "inputSchema": {
+        "$ref": "./schemas/roi_calculator.schema.json"
+      },
+      "annotations": {
+        "title": "ROI Calculator",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "quotation_builder",
+      "description": "Transforms ROI calculations into professional quotation documents in PDF, DOCX, or PPTX formats via Qontrek Document Factory integration.",
+      "category": "documents",
+      "inputSchema": {
+        "$ref": "./schemas/quotation_builder.schema.json"
+      },
+      "annotations": {
+        "title": "Quotation Builder",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    }
+  ],
+  "resources": [
+    {
+      "uri": "solar://leads",
+      "name": "Solar Leads",
+      "description": "Access to solar installation leads database",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://inspections",
+      "name": "Site Inspections",
+      "description": "Access to site inspection records",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://calculations",
+      "name": "ROI Calculations",
+      "description": "Access to ROI calculation records",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://quotations",
+      "name": "Quotations",
+      "description": "Access to quotation documents and status",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://templates",
+      "name": "Quote Templates",
+      "description": "Available quotation document templates",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://tariffs",
+      "name": "Electricity Tariffs",
+      "description": "Current TNB electricity tariff rates",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "solar://equipment",
+      "name": "Equipment Catalog",
+      "description": "Catalog of solar panels, inverters, and accessories",
+      "mimeType": "application/json"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "solar_sales_assistant",
+      "description": "System prompt for a solar sales AI assistant",
+      "arguments": [
+        {
+          "name": "company_name",
+          "description": "Name of the solar installation company",
+          "required": true
+        },
+        {
+          "name": "region",
+          "description": "Operating region (e.g., 'Malaysia', 'Selangor')",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "site_survey_guide",
+      "description": "Step-by-step guide for conducting site surveys",
+      "arguments": [
+        {
+          "name": "property_type",
+          "description": "Type of property (residential, commercial, industrial)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "objection_handler",
+      "description": "Common objections and recommended responses for solar sales",
+      "arguments": [
+        {
+          "name": "objection_category",
+          "description": "Category of objection (price, timing, trust, technical)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "follow_up_script",
+      "description": "Follow-up call script for leads at different stages",
+      "arguments": [
+        {
+          "name": "lead_status",
+          "description": "Current status of the lead",
+          "required": true
+        },
+        {
+          "name": "days_since_last_contact",
+          "description": "Number of days since last contact",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "tool_chains": [
+    {
+      "name": "full_sales_cycle",
+      "description": "Complete lead-to-quote workflow",
+      "sequence": [
+        "lead_intake",
+        "site_inspection",
+        "roi_calculator",
+        "quotation_builder"
+      ]
+    },
+    {
+      "name": "quick_estimate",
+      "description": "Fast estimate without site visit",
+      "sequence": [
+        "lead_intake",
+        "roi_calculator"
+      ]
+    },
+    {
+      "name": "requote",
+      "description": "Generate revised quotation from existing data",
+      "sequence": [
+        "roi_calculator",
+        "quotation_builder"
+      ]
+    }
+  ],
+  "integrations": {
+    "supabase": {
+      "description": "Primary data storage and authentication",
+      "required": true,
+      "tables": [
+        "leads",
+        "site_inspections",
+        "roi_calculations",
+        "quotations",
+        "agents",
+        "organizations"
+      ],
+      "storage_buckets": [
+        "inspection-images",
+        "quotation-documents"
+      ]
+    },
+    "qontrek_document_factory": {
+      "description": "Document generation service",
+      "required": true,
+      "capabilities": [
+        "pdf_generation",
+        "docx_generation",
+        "pptx_generation",
+        "template_management"
+      ]
+    },
+    "firecrawl": {
+      "description": "Web scraping for lead enrichment",
+      "required": false,
+      "capabilities": [
+        "website_scraping",
+        "contact_extraction"
+      ]
+    }
+  },
+  "webhooks": {
+    "endpoints": [
+      {
+        "event": "lead.created",
+        "description": "Triggered when a new lead is created"
+      },
+      {
+        "event": "lead.qualified",
+        "description": "Triggered when a lead is qualified as hot/warm"
+      },
+      {
+        "event": "inspection.completed",
+        "description": "Triggered when site inspection is completed"
+      },
+      {
+        "event": "quote.generated",
+        "description": "Triggered when quotation is generated"
+      },
+      {
+        "event": "quote.viewed",
+        "description": "Triggered when customer views quotation"
+      },
+      {
+        "event": "quote.accepted",
+        "description": "Triggered when customer accepts quotation"
+      }
+    ],
+    "authentication": {
+      "type": "hmac-sha256",
+      "header": "X-Qontrek-Signature"
+    }
+  },
+  "rate_limits": {
+    "default": {
+      "requests_per_minute": 60,
+      "requests_per_day": 10000
+    },
+    "per_tool": {
+      "lead_intake": {
+        "requests_per_minute": 100,
+        "requests_per_day": 5000
+      },
+      "site_inspection": {
+        "requests_per_minute": 30,
+        "requests_per_day": 500
+      },
+      "roi_calculator": {
+        "requests_per_minute": 60,
+        "requests_per_day": 1000
+      },
+      "quotation_builder": {
+        "requests_per_minute": 20,
+        "requests_per_day": 200
+      }
+    }
+  },
+  "security": {
+    "authentication": {
+      "type": "api_key",
+      "header": "Authorization",
+      "scheme": "Bearer"
+    },
+    "authorization": {
+      "type": "rbac",
+      "roles": [
+        "admin",
+        "manager",
+        "agent",
+        "viewer"
+      ]
+    },
+    "data_protection": {
+      "encryption_at_rest": true,
+      "encryption_in_transit": true,
+      "pii_handling": "mask_in_logs"
+    }
+  },
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "include_request_body": false,
+    "include_response_body": false,
+    "retention_days": 90
+  },
+  "metadata": {
+    "created_at": "2025-12-05",
+    "updated_at": "2025-12-05",
+    "authors": [
+      {
+        "name": "Qontrek MCP Lab",
+        "email": "mcp-lab@qontrek.com"
+      }
+    ],
+    "tags": [
+      "solar",
+      "renewable-energy",
+      "sales",
+      "crm",
+      "document-generation",
+      "malaysia"
+    ],
+    "industry": "renewable_energy",
+    "region": "asia_pacific"
+  }
+}
