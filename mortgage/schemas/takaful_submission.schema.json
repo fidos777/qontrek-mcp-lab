@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Takaful Submission Schema",
+  "description": "Schema for Takaful insurance submission requirements",
+  "required": [
+    "customer_ic",
+    "loan_amount",
+    "property_value",
+    "coverage_type"
+  ],
+  "properties": {
+    "customer_ic": {
+      "type": "string",
+      "pattern": "^[0-9]{6}-[0-9]{2}-[0-9]{4}$",
+      "description": "Customer IC number"
+    },
+    "loan_amount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Loan amount requiring coverage"
+    },
+    "property_value": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Property market value"
+    },
+    "coverage_type": {
+      "type": "string",
+      "enum": ["mrta", "mlta", "fire", "comprehensive"],
+      "description": "Type of Takaful coverage required"
+    },
+    "premium_payment_method": {
+      "type": "string",
+      "enum": ["single", "annual", "monthly"],
+      "description": "Premium payment frequency"
+    },
+    "beneficiary_name": {
+      "type": "string",
+      "description": "Name of Takaful beneficiary"
+    },
+    "beneficiary_ic": {
+      "type": "string",
+      "pattern": "^[0-9]{6}-[0-9]{2}-[0-9]{4}$",
+      "description": "Beneficiary IC number"
+    },
+    "medical_declaration": {
+      "type": "boolean",
+      "description": "Medical declaration status"
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 18,
+      "maximum": 70,
+      "description": "Customer age for premium calculation"
+    }
+  },
+  "additionalProperties": false
+}
+

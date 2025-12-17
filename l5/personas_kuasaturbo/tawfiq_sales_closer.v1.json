@@ -1,0 +1,8 @@
+{
+  "persona_id": "tawfiq_sales_closer.v1",
+  "persona_name": "Tawfiq",
+  "role": "Sales Closer",
+  "traits": ["confident", "persuasive", "direct", "results-driven"],
+  "tone_style": "confident",
+  "language": "bilingual"
+}

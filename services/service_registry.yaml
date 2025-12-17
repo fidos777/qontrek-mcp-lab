@@ -1,0 +1,166 @@
+# KuasaTurbo Service Registry
+# Defines all available services and their configurations
+
+services:
+  # Creative Services
+  creative.generate_thumbnail:
+    id: "creative.generate_thumbnail"
+    name: "Thumbnail Generator"
+    task_type: "thumbnail"
+    vertical: "creative"
+    provider: "openai"
+    default_model_id: "gpt-4o-mini"
+    description: "Generate YouTube/TikTok/Shorts thumbnails"
+    routing_fields:
+      - platform
+      - mood
+    required_fields:
+      - title
+      - mood
+      - platform
+    optional_fields:
+      - variation_count
+      - brand_colors
+    cost_estimate: 3
+
+  creative.product_render:
+    id: "creative.product_render"
+    name: "Product Render"
+    task_type: "product_render"
+    vertical: "creative"
+    provider: "openai"
+    default_model_id: "gpt-4o"
+    description: "Generate product photography renders"
+    routing_fields:
+      - background
+      - angles
+    required_fields:
+      - image
+      - angles
+      - background
+    optional_fields:
+      - lighting_preset
+    cost_estimate: 4
+
+  creative.story_infographic:
+    id: "creative.story_infographic"
+    name: "Story Infographic"
+    task_type: "story_infographic"
+    vertical: "creative"
+    provider: "openai"
+    default_model_id: "gpt-3.5-turbo"
+    description: "Create single-image infographics"
+    routing_fields:
+      - title
+    required_fields:
+      - story_points
+      - title
+    optional_fields:
+      - color_scheme
+    cost_estimate: 4
+
+  creative.car_visualizer:
+    id: "creative.car_visualizer"
+    name: "Car Visualizer"
+    task_type: "car_visualizer"
+    vertical: "automotive"
+    provider: "openai"
+    default_model_id: "gpt-4o"
+    description: "Generate scenario-based car visualizations"
+    routing_fields:
+      - scenario
+      - car_model
+    required_fields:
+      - car_model
+      - scenario
+    optional_fields:
+      - effects
+      - time_of_day
+    cost_estimate: 5
+
+  creative.image_cleanup:
+    id: "creative.image_cleanup"
+    name: "Image Cleanup"
+    task_type: "image_cleanup"
+    vertical: "creative"
+    provider: "openai"
+    default_model_id: "gpt-3.5-turbo"
+    description: "Clean up images (background removal, artifacts)"
+    routing_fields:
+      - mode
+    required_fields:
+      - image
+      - mode
+    optional_fields:
+      - output_format
+    cost_estimate: 2
+
+  # Content Services
+  content_idea:
+    id: "content_idea"
+    name: "Content Idea Generator"
+    widget_id: "content_idea_widget.v1"
+    workflow_id: "content_idea_workflow.v1"
+    persona_id: "zeyti_bbnu_creator.v1"
+    vertical: "content"
+    description: "Generate content ideas for social media"
+    cost_estimate: 2
+
+  caption_builder:
+    id: "caption_builder"
+    name: "Caption Builder"
+    widget_id: "caption_builder_widget.v1"
+    workflow_id: "caption_builder_workflow.v1"
+    persona_id: "zeyti_bbnu_creator.v1"
+    vertical: "content"
+    description: "Build engaging social media captions"
+    cost_estimate: 2
+
+  # Automotive Services
+  tradein_eval:
+    id: "tradein_eval"
+    name: "Trade-In Evaluation"
+    widget_id: "tradein_widget.v1"
+    workflow_id: "kuasaturbo.tradein_eval.v1"
+    persona_id: "tawfiq_sales_closer.v1"
+    vertical: "automotive"
+    description: "Evaluate vehicle trade-in value"
+    cost_estimate: 3
+
+  loancheck:
+    id: "loancheck"
+    name: "Loan Eligibility Check"
+    widget_id: "loancheck_widget.v1"
+    workflow_id: "kuasaturbo.loancheck.v1"
+    persona_id: "jordan_cfo_analyst.v1"
+    vertical: "automotive"
+    description: "Check loan eligibility for vehicle purchase"
+    cost_estimate: 2
+
+  lead_intake:
+    id: "lead_intake"
+    name: "Lead Intake"
+    widget_id: "lead_intake_widget.v1"
+    workflow_id: "kuasaturbo.lead_intake.v1"
+    persona_id: "izzara_friendly_consultant.v1"
+    vertical: "automotive"
+    description: "Capture and process lead information"
+    cost_estimate: 1
+
+# Service categories
+categories:
+  creative:
+    - creative.generate_thumbnail
+    - creative.product_render
+    - creative.story_infographic
+    - creative.car_visualizer
+    - creative.image_cleanup
+  
+  content:
+    - content_idea
+    - caption_builder
+  
+  automotive:
+    - tradein_eval
+    - loancheck
+    - lead_intake

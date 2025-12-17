@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit Social Pack Workflow Input",
+  "description": "Creates strategic launch content for social channels",
+  "type": "object",
+  "required": [
+    "messaging_framework",
+    "value_proposition"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "Brand/product name"
+    },
+    "messaging_framework": {
+      "type": "object",
+      "description": "Messaging framework from brand context",
+      "properties": {
+        "key_messages": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tone": {"type": "string"},
+        "voice_guidelines": {"type": "object"}
+      }
+    },
+    "value_proposition": {
+      "type": "string",
+      "description": "Value proposition"
+    },
+    "roadmap_milestones": {
+      "type": "array",
+      "description": "Key milestones from roadmap",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "date": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "pricing_highlights": {
+      "type": "object",
+      "description": "Pricing highlights to promote",
+      "properties": {
+        "tiers": {"type": "array"},
+        "special_offer": {"type": "string"}
+      }
+    },
+    "launch_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Launch date for countdown content"
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["twitter", "linkedin", "instagram", "facebook", "tiktok", "youtube"]
+      },
+      "default": ["twitter", "linkedin"],
+      "description": "Target social channels"
+    }
+  }
+}

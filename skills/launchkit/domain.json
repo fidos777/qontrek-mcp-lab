@@ -1,0 +1,17 @@
+{
+  "domain": "launchkit",
+  "version": "1.0.0",
+  "description": "KuasaTurbo LaunchKit - Complete startup documentation generation from normalized brand context",
+  "category": "business",
+  "skills": [
+    "branding.generate.v1",
+    "prd.generate.v1",
+    "pricing.generate.v1",
+    "roadmap.generate.v1",
+    "pitchdeck.generate.v1",
+    "socialpack.generate.v1"
+  ],
+  "tags": ["launchkit", "startup", "business", "documentation"],
+  "author": "KuasaTurbo L6 Team",
+  "created_at": "2024-12-07"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "roadmap.generate.v1",
+  "version": "2.0.0",
+  "description": "Generate 30/60/90-day roadmap and phased rollout plan",
+  "category": "launchkit",
+  "domain": "product",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "outputs": [
+    "roadmap_30",
+    "roadmap_60",
+    "roadmap_90",
+    "phases",
+    "milestones"
+  ]
+}

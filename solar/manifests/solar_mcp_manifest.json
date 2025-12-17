@@ -1,0 +1,87 @@
+{
+  "mcp_version": "1.0",
+  "vertical": "solar",
+  "version": "0.1.0",
+  "owner": "Qontrek",
+  "description": "Solar MCP toolpack for site inspection, ROI calculation, lead intake, quotation generation, and roof checking. Includes FireCrawl brandpack integration for document generation.",
+  "tools": [
+    {
+      "name": "lead_intake",
+      "path": "solar/tools/lead_intake.json",
+      "schema": "solar/schemas/lead_intake.schema.json",
+      "handler": "solar/handlers/handle_lead_intake.py",
+      "description": "Parse customer information, classify commercial vs residential, and flag high-priority leads"
+    },
+    {
+      "name": "site_inspection",
+      "path": "solar/tools/site_inspection.json",
+      "schema": "solar/schemas/site_inspection.schema.json",
+      "handler": "solar/handlers/handle_site_inspection.py",
+      "description": "Process site inspection data including images, address, and utility bill. Estimates roof angle, usable area, and shading score"
+    },
+    {
+      "name": "roi",
+      "path": "solar/tools/roi.json",
+      "schema": "solar/schemas/roi.schema.json",
+      "handler": "solar/handlers/handle_roi.py",
+      "description": "Calculate solar ROI including system size, annual savings, payback period, and upfront cost"
+    },
+    {
+      "name": "roof_check",
+      "path": "solar/tools/roof_check.json",
+      "schema": "solar/schemas/roof_check.schema.json",
+      "handler": "solar/handlers/handle_roof_check.py",
+      "description": "Classify roof type (metal, concrete, shingle) and determine appropriate mounting type"
+    },
+    {
+      "name": "quotation",
+      "path": "solar/tools/quotation.json",
+      "schema": "solar/schemas/quotation.schema.json",
+      "handler": "solar/handlers/handle_quotation.py",
+      "description": "Generate quotation JSON payload with package options, ROI model, and brandpack theme applied"
+    }
+  ],
+  "healthcheck": {
+    "endpoint": "/health",
+    "method": "GET",
+    "expected_response": {
+      "status": "healthy",
+      "version": "0.1.0",
+      "vertical": "solar"
+    }
+  },
+  "capabilities": {
+    "jsonrpc": true,
+    "tool_calling": true,
+    "validation": true,
+    "transformation": true,
+    "proposal_engine_integration": true,
+    "firecrawl_brandpack_integration": true,
+    "solar_calculations": true,
+    "roi_modeling": true
+  },
+  "example_request": {
+    "jsonrpc": "2.0",
+    "id": "req_001",
+    "method": "tools/call",
+    "params": {
+      "name": "lead_intake",
+      "arguments": {
+        "customer_name": "Ahmad bin Abdullah",
+        "email": "ahmad@example.com",
+        "phone": "+60123456789",
+        "address": "No. 123, Jalan Test, Kuala Lumpur",
+        "property_type": "residential",
+        "monthly_bill": 500
+      }
+    }
+  },
+  "dependencies": {
+    "python": ">=3.8",
+    "json": "built-in",
+    "proposal_engine": "qontrek-mcp-lab/proposal-engine",
+    "document_factory": "qontrek-mcp-lab/document-factory",
+    "firecrawl_brandpacks": "qontrek-mcp-lab/brandpacks"
+  }
+}
+

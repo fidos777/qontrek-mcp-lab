@@ -1,0 +1,31 @@
+TASK: Generate scenario-based car visualization
+
+CAR_MODEL: {car_model}
+SCENARIO: {scenario}
+EFFECTS: {effects}
+STYLE: {style_name}
+
+STYLE COLORS: {primary_color}
+
+REQUIREMENTS:
+- Photorealistic car rendering
+- Scenario-appropriate environment
+- Dramatic lighting and atmosphere
+- Premium showroom quality
+- Emotional impact
+
+VISUALIZATION ELEMENTS:
+1. Car positioning and angle
+2. Environment and setting
+3. Lighting mood (golden hour, night, studio)
+4. Atmospheric effects (fog, bokeh, reflections)
+5. Post-processing and color grading
+
+OUTPUT FORMAT:
+Return ONLY valid JSON with:
+- car_model
+- scenario
+- environment_description
+- lighting_mood
+- effects_applied (array)
+- aspect_ratio

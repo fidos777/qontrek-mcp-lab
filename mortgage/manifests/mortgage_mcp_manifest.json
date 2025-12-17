@@ -1,0 +1,75 @@
+{
+  "mcp_version": "1.0",
+  "vertical": "mortgage-lppsa",
+  "version": "0.1.0",
+  "owner": "Qontrek",
+  "description": "Mortgage + LPPSA MCP toolpack for processing mortgage applications with LPPSA (Low Price Public Sector Housing) integration, Takaful insurance, lawyer intake, and property validation",
+  "tools": [
+    {
+      "name": "lppsa_intake",
+      "path": "mortgage/tools/lppsa_intake.json",
+      "schema": "mortgage/schemas/lppsa_intake.schema.json",
+      "handler": "mortgage/handlers/handle_lppsa_intake.py",
+      "description": "Normalize customer data into LPPSA form fields"
+    },
+    {
+      "name": "takaful_submission",
+      "path": "mortgage/tools/takaful_submission.json",
+      "schema": "mortgage/schemas/takaful_submission.schema.json",
+      "handler": "mortgage/handlers/handle_takaful_submission.py",
+      "description": "Normalize takaful insurance requirements and submission data"
+    },
+    {
+      "name": "lawyer_intake",
+      "path": "mortgage/tools/lawyer_intake.json",
+      "schema": "mortgage/schemas/lawyer_intake.schema.json",
+      "handler": "mortgage/handlers/handle_lawyer_intake.py",
+      "description": "Capture Sale & Purchase (S&P) agreement details and panel lawyer information"
+    },
+    {
+      "name": "property_checklist",
+      "path": "mortgage/tools/property_checklist.json",
+      "schema": "mortgage/schemas/property_checklist.schema.json",
+      "handler": "mortgage/handlers/handle_property_checklist.py",
+      "description": "Validate property details and determine if new unit or subsale"
+    }
+  ],
+  "healthcheck": {
+    "endpoint": "/health",
+    "method": "GET",
+    "expected_response": {
+      "status": "healthy",
+      "version": "0.1.0"
+    }
+  },
+  "capabilities": {
+    "jsonrpc": true,
+    "tool_calling": true,
+    "validation": true,
+    "transformation": true,
+    "proposal_engine_integration": true
+  },
+  "example_request": {
+    "jsonrpc": "2.0",
+    "id": "req_001",
+    "method": "tools/call",
+    "params": {
+      "name": "lppsa_intake",
+      "arguments": {
+        "customer_name": "Ahmad bin Abdullah",
+        "ic_number": "850101-01-0101",
+        "income": 5000,
+        "property_price": 250000,
+        "loan_amount": 200000,
+        "loan_tenure": 30
+      }
+    }
+  },
+  "dependencies": {
+    "python": ">=3.8",
+    "json": "built-in",
+    "proposal_engine": "qontrek-mcp-lab/proposal-engine",
+    "document_factory": "qontrek-mcp-lab/document-factory"
+  }
+}
+

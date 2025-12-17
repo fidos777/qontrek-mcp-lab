@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Solar Quotation Schema",
+  "description": "Schema for solar quotation generation with package options and ROI model",
+  "required": [
+    "customer_name",
+    "address",
+    "system_size_kw",
+    "package_type"
+  ],
+  "properties": {
+    "customer_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Customer name"
+    },
+    "address": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Installation address"
+    },
+    "system_size_kw": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Solar system size in kW"
+    },
+    "package_type": {
+      "type": "string",
+      "enum": ["basic", "standard", "premium", "custom"],
+      "description": "Package type"
+    },
+    "roi_data": {
+      "type": "object",
+      "properties": {
+        "upfront_cost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "annual_savings": {
+          "type": "number",
+          "minimum": 0
+        },
+        "payback_period_years": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lifetime_savings": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "description": "ROI calculation results"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["panel", "inverter", "mounting", "monitoring", "warranty"]
+          },
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "unit_price": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["type", "quantity"]
+      },
+      "description": "System components list"
+    },
+    "brandpack_id": {
+      "type": "string",
+      "description": "FireCrawl brandpack identifier for theming"
+    },
+    "validity_days": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 30,
+      "description": "Quotation validity period in days"
+    },
+    "installation_timeline_weeks": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Expected installation timeline in weeks"
+    },
+    "warranty_years": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 10,
+      "description": "System warranty period in years"
+    }
+  },
+  "additionalProperties": false
+}
+

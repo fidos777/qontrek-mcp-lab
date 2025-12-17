@@ -1,0 +1,25 @@
+{
+  "brand_name": "FlowMind",
+  "mission": "To empower knowledge workers with AI-powered productivity tools that eliminate busywork and amplify creative output",
+  "positioning": "The intelligent productivity platform for modern knowledge workers who refuse to settle for generic tools",
+  "value_proposition": "FlowMind combines AI automation with intuitive design to help you focus on what matters—your best work",
+  "icp": {
+    "demographics": "Knowledge workers, freelancers, and small teams (25-45 years old, tech-savvy)",
+    "pain_points": [
+      "Context switching between multiple tools",
+      "Manual repetitive tasks eating productive time",
+      "Difficulty maintaining focus and flow state",
+      "Information overload and poor organization"
+    ],
+    "goals": [
+      "Increase daily productive hours",
+      "Reduce tool fragmentation",
+      "Maintain deep work sessions",
+      "Automate routine workflows"
+    ]
+  },
+  "brand_themes": ["productivity", "AI-powered", "flow state", "simplicity"],
+  "product_type": "SaaS platform",
+  "platform": "web",
+  "constraints": ["Must integrate with existing tools", "Privacy-first architecture"]
+}

@@ -1,0 +1,29 @@
+version: "1.0"
+
+quality_checks:
+  - name: "completeness"
+    check: "all three roadmap periods present"
+    weight: 0.4
+  
+  - name: "actionability"
+    check: "tasks are specific and measurable"
+    weight: 0.3
+  
+  - name: "progression"
+    check: "phases build logically on each other"
+    weight: 0.3
+
+rewrite_triggers:
+  - condition: "quality_score < 0.7"
+    action: "regenerate with more specific tasks"
+    max_attempts: 2
+  
+  - condition: "missing_milestone"
+    action: "add milestone for phase"
+
+error_recovery:
+  - error: "missing_roadmap_period"
+    action: "generate minimal roadmap for period"
+  
+  - error: "generation_failed"
+    action: "return partial roadmap with errors"

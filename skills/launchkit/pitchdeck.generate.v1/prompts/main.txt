@@ -1,0 +1,21 @@
+Generate a compelling 9-slide investor pitch deck for {brand_name}.
+
+CONTEXT:
+- Mission: {mission}
+- Vision: {vision}
+- Value Proposition: {value_prop}
+- Problem: {problem}
+- Solution: {solution}
+
+SLIDE STRUCTURE:
+1. Cover: Brand name and tagline
+2. Problem: The market problem
+3. Solution: How we solve it
+4. Market: TAM/SAM/SOM opportunity
+5. Product: Key features and demo
+6. Business Model: Revenue strategy
+7. Traction & Roadmap: Progress and milestones
+8. Team: Who's building this
+9. The Ask: Investment request
+
+Each slide should be investor-focused, data-driven, and tell a cohesive story.

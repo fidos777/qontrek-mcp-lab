@@ -1,0 +1,79 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "Seed stage AI startup pitch",
+      "input": {
+        "company_name": "DataFlow AI",
+        "pitch_type": "seed",
+        "industry": "Enterprise SaaS / AI",
+        "problem_statement": "Data teams spend 60% of their time on manual data pipeline maintenance instead of analysis",
+        "solution_description": "AI-powered data pipeline automation that self-heals, optimizes, and scales without human intervention",
+        "target_market": "Mid-market to enterprise companies with data teams of 5+ engineers",
+        "business_model": "SaaS subscription: $500/month per data source with annual contracts",
+        "traction": {
+          "users": "15 beta customers",
+          "revenue": "$45K ARR",
+          "growth": "30% MoM"
+        },
+        "team": [
+          {
+            "name": "Sarah Chen",
+            "role": "CEO",
+            "background": "Ex-Google Data Infrastructure"
+          },
+          {
+            "name": "Marcus Johnson",
+            "role": "CTO",
+            "background": "Ex-Databricks ML Engineer"
+          }
+        ],
+        "ask_amount": "$2M seed round",
+        "slide_count": 12,
+        "style": "modern"
+      }
+    },
+    {
+      "id": "sample_002",
+      "description": "Series A fintech pitch",
+      "input": {
+        "company_name": "PayFlow",
+        "pitch_type": "series_a",
+        "industry": "Fintech / B2B Payments",
+        "problem_statement": "SMBs lose $50B annually to late payments and cash flow issues",
+        "solution_description": "Embedded payment terms and instant cash advances integrated directly into invoicing software",
+        "target_market": "5M SMBs in US using cloud accounting software",
+        "business_model": "Transaction fees (2.5%) + interest on advances (12% APR)",
+        "traction": {
+          "users": "2,500 businesses",
+          "revenue": "$1.2M ARR",
+          "growth": "25% MoM",
+          "processed_volume": "$45M"
+        },
+        "financials": {
+          "runway": "8 months",
+          "burn_rate": "$150K/month",
+          "unit_economics": "LTV/CAC = 4.2"
+        },
+        "ask_amount": "$8M Series A",
+        "slide_count": 15,
+        "style": "corporate"
+      }
+    },
+    {
+      "id": "sample_003",
+      "description": "Product launch pitch deck",
+      "input": {
+        "company_name": "HealthTrack Pro",
+        "pitch_type": "product",
+        "industry": "Healthcare / Wearables",
+        "problem_statement": "Chronic disease patients struggle to maintain consistent health monitoring between doctor visits",
+        "solution_description": "AI-powered wearable that predicts health events 48 hours in advance and alerts care teams",
+        "target_market": "12M chronic disease patients in US with high-risk profiles",
+        "business_model": "B2B2C: $200 device + $30/month subscription sold through healthcare providers",
+        "slide_count": 10,
+        "style": "minimal"
+      }
+    }
+  ]
+}

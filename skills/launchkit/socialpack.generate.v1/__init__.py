@@ -1,0 +1,1 @@
+# Social pack generator skill

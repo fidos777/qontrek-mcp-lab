@@ -1,0 +1,34 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "\\b\\$\\d+"
+      message: "Prices must not be hardcoded."
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+    - pattern: "TBD|TODO|FIXME"
+      message: "Incomplete content is forbidden."
+  
+  required_fields:
+    - field: "problem_statement"
+      min_length: 100
+    - field: "solution_overview"
+      min_length: 100
+    - field: "user_personas"
+      min_count: 1
+    - field: "key_user_flows"
+      min_count: 3
+    - field: "feature_list"
+      required_keys: ["mvp", "phase_2", "future"]
+  
+  tone_rules:
+    allowed: ["technical", "professional", "clear"]
+    default: "professional"
+
+length_constraints:
+  problem_statement:
+    min_words: 50
+    max_words: 300
+  solution_overview:
+    min_words: 50
+    max_words: 300

@@ -1,0 +1,29 @@
+version: "1.0"
+
+quality_checks:
+  - name: "coherence"
+    check: "output must contain brand_name at least twice"
+    weight: 0.3
+  
+  - name: "completeness"
+    check: "all required_fields must be present"
+    weight: 0.4
+  
+  - name: "tone_match"
+    check: "output tone must match input tone"
+    weight: 0.3
+
+rewrite_triggers:
+  - condition: "quality_score < 0.7"
+    action: "regenerate using prompts/alt.txt"
+    max_attempts: 2
+  
+  - condition: "forbidden_pattern_found"
+    action: "remove pattern and regenerate section"
+
+error_recovery:
+  - error: "missing_required_field"
+    action: "use templates/fallback.md"
+  
+  - error: "generation_failed"
+    action: "return partial output with errors"

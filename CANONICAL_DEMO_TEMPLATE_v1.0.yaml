@@ -1,0 +1,140 @@
+# CANONICAL DEMO TEMPLATE v1.0
+# Constitutional Authority: System Invariants
+# Status: MANDATORY for all future workflow demonstrations
+# Governance: Credit minting and economic logic constitutionally LOCKED
+
+version: "1.0"
+template_type: "canonical_demo"
+authority_level: "system_invariants"
+
+# CONSTITUTIONAL CONSTRAINTS
+minting_allowed: false
+economic_logic: "locked"
+credit_valuation: "blocked_until_block_4"
+governance_mode: "demonstration_only"
+
+context:
+  demo_id: "[REQUIRED: unique_identifier]"
+  demo_name: "[REQUIRED: descriptive_name]"
+  vertical: "[REQUIRED: industry_domain]"
+  workflow_id: "[REQUIRED: workflow_identifier]"
+  executor: "[REQUIRED: n8n|agent|mcp]"
+  timestamp: "[REQUIRED: iso8601_timestamp]"
+  constitutional_mode: "exploratory"
+
+before_state:
+  business_context:
+    industry: "[REQUIRED: industry_type]"
+    business_size: "[REQUIRED: sme_classification]"
+    current_process: "[REQUIRED: existing_workflow_description]"
+    pain_points: "[REQUIRED: list_of_challenges]"
+  
+  baseline_metrics:
+    time_current: "[REQUIRED: current_time_investment]"
+    cost_current: "[REQUIRED: current_cost_structure]"
+    quality_current: "[REQUIRED: current_quality_level]"
+    error_rate_current: "[REQUIRED: current_error_frequency]"
+  
+  resource_allocation:
+    human_hours: "[REQUIRED: current_human_time]"
+    tools_used: "[REQUIRED: current_tools_list]"
+    dependencies: "[REQUIRED: current_dependencies]"
+
+workflow_execution:
+  trigger:
+    event_type: "[REQUIRED: trigger_mechanism]"
+    input_data: "[REQUIRED: input_parameters]"
+    validation_status: "[REQUIRED: input_validation_result]"
+  
+  steps:
+    - step_id: "[REQUIRED: step_identifier]"
+      step_name: "[REQUIRED: step_description]"
+      executor: "[REQUIRED: execution_agent]"
+      duration: "[REQUIRED: execution_time]"
+      status: "[REQUIRED: completion_status]"
+      output: "[REQUIRED: step_output]"
+  
+  completion:
+    total_duration: "[REQUIRED: total_execution_time]"
+    success_status: "[REQUIRED: overall_success_indicator]"
+    error_count: "[REQUIRED: error_occurrence_count]"
+
+after_state:
+  business_outcome:
+    process_improved: "[REQUIRED: process_improvement_description]"
+    quality_enhanced: "[REQUIRED: quality_improvement_description]"
+    efficiency_gained: "[REQUIRED: efficiency_improvement_description]"
+  
+  resource_optimization:
+    human_hours_saved: "[REQUIRED: time_reduction_achieved]"
+    cost_reduction: "[REQUIRED: cost_savings_achieved]"
+    error_reduction: "[REQUIRED: error_rate_improvement]"
+  
+  deliverable:
+    output_type: "[REQUIRED: deliverable_classification]"
+    output_quality: "[REQUIRED: quality_assessment]"
+    output_completeness: "[REQUIRED: completeness_assessment]"
+
+outcome_metrics:
+  quantifiable_results:
+    time_saved_minutes: "[REQUIRED: numeric_time_savings]"
+    cost_equivalent_rm: "[REQUIRED: numeric_cost_equivalent]"
+    quality_improvement_percent: "[REQUIRED: numeric_quality_gain]"
+    error_reduction_percent: "[REQUIRED: numeric_error_reduction]"
+  
+  efficiency_indicators:
+    automation_percentage: "[REQUIRED: process_automation_level]"
+    human_intervention_reduced: "[REQUIRED: manual_work_reduction]"
+    scalability_factor: "[REQUIRED: scaling_potential]"
+  
+  business_impact:
+    roi_potential: "[REQUIRED: return_on_investment_indicator]"
+    competitive_advantage: "[REQUIRED: market_advantage_description]"
+    growth_enablement: "[REQUIRED: growth_facilitation_description]"
+
+proof_record:
+  proof_id: "[REQUIRED: unique_proof_identifier]"
+  workflow_id: "[REQUIRED: executed_workflow_reference]"
+  executor: "[REQUIRED: execution_agent_reference]"
+  
+  integrity:
+    checksum: "[REQUIRED: proof_integrity_hash]"
+    tamper_status: "[REQUIRED: tamper_detection_result]"
+    validation_timestamp: "[REQUIRED: validation_time]"
+  
+  outcome:
+    type: "[REQUIRED: time|cost|revenue|risk]"
+    metrics:
+      time_saved_minutes: "[REQUIRED: quantified_time_value]"
+      cost_equivalent_rm: "[REQUIRED: quantified_cost_value]"
+      roi_ratio: "[REQUIRED: calculated_roi_ratio]"
+  
+  certification:
+    status: "[REQUIRED: COMPLETE|CERTIFIED]"
+    validator: "[REQUIRED: validation_authority]"
+    certification_timestamp: "[REQUIRED: certification_time]"
+
+meaning_layer:
+  business_narrative:
+    value_proposition: "[REQUIRED: clear_value_statement]"
+    transformation_story: "[REQUIRED: before_after_narrative]"
+    competitive_positioning: "[REQUIRED: market_differentiation]"
+  
+  technical_validation:
+    proof_sufficiency: "[REQUIRED: proof_adequacy_assessment]"
+    outcome_measurability: "[REQUIRED: measurement_reliability]"
+    reproducibility: "[REQUIRED: repeatability_confirmation]"
+  
+  strategic_implications:
+    scalability_assessment: "[REQUIRED: scaling_potential_analysis]"
+    integration_readiness: "[REQUIRED: system_integration_capability]"
+    future_development: "[REQUIRED: enhancement_roadmap]"
+
+constitutional_disclaimer:
+  governance_status: "demonstration_only"
+  minting_prohibition: "Credit minting explicitly disabled per constitutional law"
+  economic_logic_status: "Economic valuation formulas locked until Block 4 authorization"
+  proof_purpose: "Proof generation for future validation only - no immediate credit eligibility"
+  authority_limitation: "Demo template cannot authorize credit creation or economic decisions"
+  constitutional_compliance: "All demonstrations must respect credit constitution boundaries"
+  block_progression: "Economic logic requires Block 4 completion before activation"

@@ -1,0 +1,38 @@
+{
+  "name": "property_checklist",
+  "description": "Validate property details and determine if new unit or subsale. Processes property information and validates documentation requirements based on property classification.",
+  "inputSchema": {
+    "$ref": "../schemas/property_checklist.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "property_address": {"type": "string"},
+          "property_type": {"type": "string"},
+          "classification": {"type": "string", "enum": ["new_unit", "subsale"]},
+          "developer_name": {"type": "string"},
+          "title_status": {"type": "string"},
+          "completion_status": {"type": "string"},
+          "valuation_status": {"type": "string"},
+          "required_documents": {"type": "array", "items": {"type": "string"}},
+          "property_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

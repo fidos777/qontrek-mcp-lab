@@ -1,0 +1,155 @@
+# KuasaTurbo Model Registry
+# Defines all available LLM models and their capabilities
+
+# Global default model (fallback when no preference specified)
+default_model: "mock"
+
+models:
+  # Mock Models (for testing)
+  mock:
+    provider: "mock"
+    model_id: "mock"
+    tier: "free"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+    default_usage_for:
+      - "testing"
+      - "development"
+    cost_per_1k_tokens:
+      input: 0.0
+      output: 0.0
+    description: "Deterministic mock model for testing"
+
+  # OpenAI Models
+  gpt-4o:
+    provider: "openai"
+    model_id: "gpt-4o"
+    tier: "premium"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "code_generation"
+      - "analysis"
+    default_usage_for:
+      - "complex_tasks"
+      - "high_quality_content"
+    cost_per_1k_tokens:
+      input: 5.0
+      output: 15.0
+    description: "OpenAI GPT-4o - High performance multimodal model"
+
+  gpt-4o-mini:
+    provider: "openai"
+    model_id: "gpt-4o-mini"
+    tier: "standard"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "fast_responses"
+    default_usage_for:
+      - "quick_tasks"
+      - "cost_effective"
+    cost_per_1k_tokens:
+      input: 0.15
+      output: 0.6
+    description: "OpenAI GPT-4o Mini - Fast and cost-effective"
+
+  gpt-3.5-turbo:
+    provider: "openai"
+    model_id: "gpt-3.5-turbo"
+    tier: "standard"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+    default_usage_for:
+      - "general_tasks"
+      - "budget_friendly"
+    cost_per_1k_tokens:
+      input: 0.5
+      output: 1.5
+    description: "OpenAI GPT-3.5 Turbo - Reliable and affordable"
+
+  # Legacy/Test Models
+  chatgpt-5.1:
+    provider: "openai"
+    model_id: "chatgpt-5.1"
+    tier: "premium"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "advanced_reasoning"
+    default_usage_for:
+      - "complex_tasks"
+    cost_per_1k_tokens:
+      input: 10.0
+      output: 30.0
+    description: "ChatGPT 5.1 - Advanced model (test/legacy)"
+
+  gemini-3.0:
+    provider: "gemini"
+    model_id: "gemini-3.0"
+    tier: "premium"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "multimodal"
+    default_usage_for:
+      - "creative_generation"
+    cost_per_1k_tokens:
+      input: 5.0
+      output: 15.0
+    description: "Gemini 3.0 - Advanced multimodal model (test/legacy)"
+
+  # Claude Models
+  claude-3-sonnet:
+    provider: "claude"
+    model_id: "claude-3-sonnet"
+    tier: "premium"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "analysis"
+      - "long_context"
+    default_usage_for:
+      - "detailed_analysis"
+      - "long_documents"
+    cost_per_1k_tokens:
+      input: 3.0
+      output: 15.0
+    description: "Claude 3 Sonnet - Balanced performance and cost"
+
+  # Gemini Models
+  gemini-1.5-flash:
+    provider: "gemini"
+    model_id: "gemini-1.5-flash"
+    tier: "standard"
+    capabilities:
+      - "text_generation"
+      - "creative_tasks"
+      - "fast_responses"
+    default_usage_for:
+      - "quick_generation"
+      - "cost_effective"
+    cost_per_1k_tokens:
+      input: 0.35
+      output: 1.05
+    description: "Gemini 1.5 Flash - Fast and efficient"
+
+# Model routing preferences by task type
+routing_preferences:
+  creative_tasks:
+    primary: "gpt-4o-mini"
+    fallback: "mock"
+  
+  content_generation:
+    primary: "gpt-3.5-turbo"
+    fallback: "mock"
+  
+  analysis:
+    primary: "claude-3-sonnet"
+    fallback: "gpt-4o"
+  
+  default:
+    primary: "mock"
+    fallback: "mock"

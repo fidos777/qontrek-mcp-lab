@@ -1,0 +1,26 @@
+{
+  "mcp_version": "1.0",
+  "name": "brandpack-slogan",
+  "version": "0.1.0",
+  "vertical": "kreator",
+  "owner": "Qontrek",
+  "description": "Generates brand slogans and taglines based on brand identity and positioning strategy",
+  "tools": [
+    {
+      "name": "generate_slogan",
+      "description": "Generate brand slogans with multiple tone variations",
+      "input_schema": "skills/kreator/brandpack.slogan.v1/schema.json",
+      "handler": "skills/kreator/brandpack.slogan.v1/handler.py"
+    }
+  ],
+  "capabilities": [
+    "Slogan generation with tone variations",
+    "Brand analysis and theme extraction",
+    "Memorability scoring",
+    "Multi-language support"
+  ],
+  "health_check": {
+    "endpoint": "/health",
+    "expected_status": "ok"
+  }
+}

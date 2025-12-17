@@ -1,0 +1,179 @@
+{
+  "outputs": [
+    {
+      "id": "sample_001_output",
+      "input_reference": "sample_001",
+      "output": {
+        "deck": {
+          "title": "DataFlow AI - Seed Round Pitch",
+          "total_slides": 12,
+          "estimated_duration": "12 minutes",
+          "slides": [
+            {
+              "slide_number": 1,
+              "title": "DataFlow AI",
+              "type": "cover",
+              "content": {
+                "headline": "AI-Powered Data Pipeline Automation",
+                "body": [
+                  "Seed Round Pitch",
+                  "December 2025"
+                ]
+              },
+              "layout": {
+                "template": "centered_hero",
+                "visual_elements": ["company_logo", "gradient_background"],
+                "color_scheme": "primary"
+              },
+              "speaker_notes": "Strong opening. State company name clearly and set the stage for the problem.",
+              "estimated_time": "30 seconds"
+            },
+            {
+              "slide_number": 2,
+              "title": "The Problem",
+              "type": "problem",
+              "content": {
+                "headline": "Data Teams Are Drowning in Maintenance",
+                "body": [
+                  "60% of time spent on manual pipeline fixes",
+                  "$2.1M average annual cost per data team",
+                  "Delays critical business insights by weeks",
+                  "Scaling data infrastructure requires linear headcount growth"
+                ],
+                "data_points": [
+                  {
+                    "metric": "60%",
+                    "label": "Time on maintenance"
+                  }
+                ]
+              },
+              "layout": {
+                "template": "split_text_visual",
+                "visual_elements": ["icon_frustrated_engineer", "stat_callout"],
+                "color_scheme": "problem_red"
+              },
+              "speaker_notes": "Paint the pain. Use the 60% stat prominently. Mention that this is based on industry research.",
+              "estimated_time": "1 minute"
+            },
+            {
+              "slide_number": 3,
+              "title": "The Solution",
+              "type": "solution",
+              "content": {
+                "headline": "Self-Healing Data Pipelines Powered by AI",
+                "body": [
+                  "Automatically detects and fixes pipeline failures",
+                  "Optimizes performance without manual tuning",
+                  "Scales infrastructure based on predicted demand",
+                  "Reduces maintenance time by 80%"
+                ],
+                "call_to_action": "Let AI manage your data infrastructure"
+              },
+              "layout": {
+                "template": "centered_list",
+                "visual_elements": ["product_screenshot", "before_after_comparison"],
+                "color_scheme": "solution_green"
+              },
+              "speaker_notes": "Contrast with the problem. Emphasize the 80% reduction. Show quick product demo if possible.",
+              "estimated_time": "1.5 minutes"
+            },
+            {
+              "slide_number": 4,
+              "title": "How It Works",
+              "type": "product_demo",
+              "content": {
+                "headline": "Three Steps to Autonomous Data Operations",
+                "body": [
+                  "1. Connect: Integrate with existing data sources in minutes",
+                  "2. Learn: AI models your data patterns and dependencies",
+                  "3. Automate: System handles monitoring, optimization, and scaling"
+                ]
+              },
+              "layout": {
+                "template": "three_column_process",
+                "visual_elements": ["process_diagram", "integration_logos"],
+                "color_scheme": "neutral"
+              },
+              "speaker_notes": "Keep this simple. Focus on ease of implementation. Mention key integrations.",
+              "estimated_time": "1 minute"
+            },
+            {
+              "slide_number": 5,
+              "title": "Market Opportunity",
+              "type": "market",
+              "content": {
+                "headline": "$12B TAM in Data Infrastructure Automation",
+                "body": [
+                  "50,000+ companies with dedicated data teams",
+                  "Average spend: $240K/year on data infrastructure",
+                  "Growing 35% annually as data volumes explode"
+                ],
+                "data_points": [
+                  {
+                    "metric": "$12B",
+                    "label": "Total Addressable Market"
+                  },
+                  {
+                    "metric": "35%",
+                    "label": "Annual growth rate"
+                  }
+                ]
+              },
+              "layout": {
+                "template": "market_sizing_chart",
+                "visual_elements": ["tam_sam_som_funnel", "growth_chart"],
+                "color_scheme": "primary"
+              },
+              "speaker_notes": "Show market is large and growing. Position within broader data infrastructure market.",
+              "estimated_time": "1 minute"
+            },
+            {
+              "slide_number": 6,
+              "title": "Traction",
+              "type": "traction",
+              "content": {
+                "headline": "Early Momentum with Enterprise Customers",
+                "body": [
+                  "15 beta customers (5 paying)",
+                  "$45K ARR with 30% MoM growth",
+                  "Average 78% reduction in pipeline incidents",
+                  "NPS score: 65"
+                ],
+                "data_points": [
+                  {
+                    "metric": "30%",
+                    "label": "MoM growth"
+                  },
+                  {
+                    "metric": "78%",
+                    "label": "Incident reduction"
+                  }
+                ]
+              },
+              "layout": {
+                "template": "metrics_grid",
+                "visual_elements": ["growth_chart", "customer_logos"],
+                "color_scheme": "success_green"
+              },
+              "speaker_notes": "Emphasize quality of customers and product-market fit signals. Mention customer names if possible.",
+              "estimated_time": "1.5 minutes"
+            }
+          ]
+        },
+        "design_system": {
+          "primary_colors": ["#0066FF", "#00C9FF", "#1A1A1A"],
+          "typography": {
+            "headline": "Inter Bold, 48px",
+            "body": "Inter Regular, 24px",
+            "accent": "Inter SemiBold, 32px"
+          },
+          "visual_style": "Modern tech with gradient accents, clean data visualizations, minimal text"
+        },
+        "metadata": {
+          "generated_at": "2025-12-07T10:35:00Z",
+          "version": "1.0.0"
+        }
+      }
+    }
+  ]
+}

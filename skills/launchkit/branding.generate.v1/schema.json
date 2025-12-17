@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit Branding Generator",
+  "description": "LLM-powered Brand Bible Lite generator",
+  "type": "object",
+  "required": ["brand_name", "mission", "positioning", "value_proposition", "icp", "brand_themes", "unified_tone", "messaging_framework"],
+  "properties": {
+    "brand_name": {"type": "string", "minLength": 1},
+    "mission": {"type": "string", "minLength": 1},
+    "positioning": {"type": "string"},
+    "value_proposition": {"type": "string", "minLength": 1},
+    "icp": {"type": "object"},
+    "brand_themes": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "unified_tone": {"type": "string", "enum": ["professional", "playful", "inspirational", "bold", "minimalist"]},
+    "messaging_framework": {"type": "object"},
+    "narrative": {"type": "string"}
+  }
+}

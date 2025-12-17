@@ -1,0 +1,107 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "FlowMind - Complete creative funnel normalization",
+      "input": {
+        "brand": {
+          "brand_name": "FlowMind",
+          "industry": "SaaS/Productivity",
+          "target_audience": "Remote workers and digital nomads aged 25-40",
+          "brand_values": ["efficiency", "simplicity", "innovation"],
+          "tone": "professional",
+          "value_proposition": "AI-powered workflow automation that learns and adapts"
+        },
+        "creative": {
+          "slogan": {
+            "status": "success",
+            "output": {
+              "slogans": [
+                {
+                  "text": "Excellence in Efficiency",
+                  "tone": "professional",
+                  "rationale": "Emphasizes efficiency with professional tone",
+                  "character_count": 24,
+                  "memorability_score": 10.0
+                },
+                {
+                  "text": "Your Efficiency Partner",
+                  "tone": "professional",
+                  "rationale": "Partnership positioning",
+                  "character_count": 23,
+                  "memorability_score": 9.0
+                }
+              ],
+              "brand_analysis": {
+                "key_themes": ["efficiency", "simplicity", "innovation", "productivity"],
+                "positioning_summary": "FlowMind positions as a professional brand focused on efficiency"
+              }
+            }
+          },
+          "landing_page": {
+            "status": "success",
+            "output": {
+              "page_title": "FlowMind - AI Productivity for Remote Teams",
+              "sections": [
+                {
+                  "section_id": "hero",
+                  "section_type": "hero",
+                  "content": {
+                    "headline": "Reclaim 10+ Hours Every Week",
+                    "subheadline": "AI-powered automation that learns your workflow and handles the busywork for you",
+                    "cta_primary": "Start Free Trial"
+                  }
+                },
+                {
+                  "section_id": "benefits",
+                  "section_type": "benefits_grid",
+                  "content": {
+                    "headline": "Work Smarter, Not Harder",
+                    "benefits": [
+                      {
+                        "title": "Save 10+ Hours Weekly",
+                        "description": "Automate repetitive tasks and reclaim time for high-impact work"
+                      },
+                      {
+                        "title": "Seamless Integration",
+                        "description": "Works with Slack, Gmail, Notion, and 50+ tools you already use"
+                      },
+                      {
+                        "title": "Adaptive AI",
+                        "description": "Learns your work style and gets smarter over time"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "social_pack": {
+            "status": "success",
+            "output": {
+              "campaign_name": "FlowMind Launch",
+              "total_graphics": 3,
+              "graphics": [
+                {
+                  "id": "ig_001",
+                  "platform": "instagram",
+                  "copy": "Introducing FlowMind 🚀 AI-powered productivity that adapts to you. Early access now open!"
+                },
+                {
+                  "id": "li_001",
+                  "platform": "linkedin",
+                  "copy": "We're excited to announce FlowMind—AI that adapts to how you work. Save 10+ hours weekly."
+                },
+                {
+                  "id": "tw_001",
+                  "platform": "twitter",
+                  "copy": "Introducing FlowMind 🚀 AI productivity that adapts to you. Reclaim your time."
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "\\b\\$\\d+"
+      message: "Specific dollar amounts must be contextual."
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+    - pattern: "TBD|TODO"
+      message: "Incomplete content is forbidden."
+  
+  required_fields:
+    - field: "deck_outline"
+      min_count: 9
+    - field: "slides"
+      min_count: 9
+    - field: "total_slides"
+      exact_value: 9
+  
+  tone_rules:
+    allowed: ["professional", "confident", "compelling"]
+    default: "professional"
+
+length_constraints:
+  slide_bullets:
+    min_count: 3
+    max_count: 5
+  speaker_notes:
+    min_words: 10
+    max_words: 100

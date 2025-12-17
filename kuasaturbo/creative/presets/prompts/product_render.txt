@@ -1,0 +1,30 @@
+TASK: Generate product photography render
+
+IMAGE_REF: {image}
+ANGLES: {angles}
+BACKGROUND: {background}
+STYLE: {style_name}
+
+STYLE COLORS: {primary_color}
+
+REQUIREMENTS:
+- Professional product photography quality
+- Multiple angle variations
+- Consistent lighting and shadows
+- Background matching specified style
+- High-resolution output
+
+RENDER SPECIFICATIONS:
+1. Camera angle and perspective
+2. Lighting setup (key, fill, rim)
+3. Background treatment
+4. Shadow and reflection details
+5. Post-processing effects
+
+OUTPUT FORMAT:
+Return ONLY valid JSON with:
+- angle
+- lighting_setup
+- background_style
+- effects_applied (array)
+- aspect_ratio

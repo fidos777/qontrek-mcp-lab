@@ -1,0 +1,53 @@
+{
+  "status": "success",
+  "output": {
+    "brand_name": "FlowMind",
+    "hooks": [
+      {
+        "text": "Stop wasting 3 hours daily on busywork",
+        "character_count": 40,
+        "platform": "universal"
+      }
+    ],
+    "launch_announcements": [
+      {
+        "platform": "twitter",
+        "content": "🚀 Introducing FlowMind!\n\nFlowMind combines AI automation with intuitive design to help you focus on what matters\n\nJoin the waitlist → [link]\n\n#FlowMind #Launch",
+        "character_count": 150,
+        "hashtags": ["#FlowMind", "#Launch", "#ProductLaunch"]
+      }
+    ],
+    "teaser_posts": [
+      {
+        "timing": "7 days before",
+        "content": "Something big is coming... 👀\n\nFlowMind launches next week.\n\nGet ready.",
+        "platform": "universal"
+      }
+    ],
+    "faq_posts": [
+      {
+        "question": "What is FlowMind?",
+        "answer": "FlowMind combines AI automation with intuitive design to help you focus on what matters",
+        "format": "carousel_slide_1"
+      }
+    ],
+    "cta_variants": [
+      {"text": "Try FlowMind free →", "urgency": "low", "style": "direct"}
+    ],
+    "countdown_sequence": [
+      {"days_before": 7, "message": "7 days until FlowMind 🚀", "visual": "7 in bold"}
+    ],
+    "content_calendar": {
+      "pre_launch": 10,
+      "launch_day": 3,
+      "post_launch": 12
+    },
+    "metadata": {
+      "generated_at": "2025-12-07T11:00:00.000Z",
+      "version": "2.0.0",
+      "llm_powered": true,
+      "total_assets": 25
+    }
+  },
+  "errors": []
+}

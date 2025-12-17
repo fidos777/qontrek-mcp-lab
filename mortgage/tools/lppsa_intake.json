@@ -1,0 +1,38 @@
+{
+  "name": "lppsa_intake",
+  "description": "Normalize customer data into LPPSA (Low Price Public Sector Housing) form fields. Processes customer information and transforms it into the standardized format required for LPPSA applications.",
+  "inputSchema": {
+    "$ref": "../schemas/lppsa_intake.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "applicant_name": {"type": "string"},
+          "ic_number": {"type": "string"},
+          "monthly_income": {"type": "number"},
+          "property_value": {"type": "number"},
+          "loan_requested": {"type": "number"},
+          "loan_period_years": {"type": "integer"},
+          "dsr_ratio": {"type": "number"},
+          "eligibility_status": {"type": "string"},
+          "lppsa_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

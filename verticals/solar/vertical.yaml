@@ -1,0 +1,265 @@
+# Solar Energy Vertical Pack
+# L4 Layer - Structural metadata only (NO personality, NO behavior)
+
+industry_identity:
+  industry_name: "Solar Energy"
+  industry_code: "solar"
+  description: "Solar panel installation and renewable energy solutions industry covering residential and commercial solar installations, energy storage, and grid integration."
+  icon: "☀️"
+
+entities:
+  lead:
+    required:
+      - name
+      - phone
+      - email
+      - property_type
+      - address
+    optional:
+      - monthly_electric_bill
+      - roof_type
+      - roof_age
+      - shading_concerns
+      - financing_interest
+      - preferred_contact_method
+      - notes
+  
+  site_assessment:
+    required:
+      - lead_id
+      - property_address
+      - roof_area_sqft
+      - roof_orientation
+      - assessment_date
+    optional:
+      - roof_condition
+      - shading_percentage
+      - electrical_panel_capacity
+      - structural_notes
+      - photos
+      - assessor_name
+  
+  system_design:
+    required:
+      - lead_id
+      - system_size_kw
+      - panel_count
+      - estimated_annual_production_kwh
+      - estimated_cost
+    optional:
+      - panel_model
+      - inverter_model
+      - battery_storage
+      - mounting_type
+      - warranty_years
+      - estimated_payback_years
+      - estimated_savings_annual
+  
+  proposal:
+    required:
+      - lead_id
+      - system_design_id
+      - total_cost
+      - status
+      - created_at
+    optional:
+      - financing_options
+      - incentives_available
+      - net_metering_eligible
+      - proposal_expires_at
+      - accepted_at
+      - notes
+
+skills:
+  branding: "launchkit.branding.generate.v1"
+  prd: "launchkit.prd.generate.v1"
+  pricing: "launchkit.pricing.generate.v1"
+  roadmap: "launchkit.roadmap.generate.v1"
+  pitchdeck: "launchkit.pitchdeck.generate.v1"
+  socialpack: "launchkit.socialpack.generate.v1"
+
+workflows:
+  launchkit: "kuasaturbo.launchkit.v1"
+  followup_only: "turbodrive.followup_only.v1"
+
+widgets:
+  lead_intake:
+    type: "form"
+    fields:
+      - name: "name"
+        type: "text"
+        label: "Full Name"
+        required: true
+        validation:
+          minLength: 2
+          maxLength: 100
+      - name: "phone"
+        type: "phone"
+        label: "Phone Number"
+        required: true
+        validation:
+          pattern: "^\\+?[0-9]{10,15}$"
+      - name: "email"
+        type: "email"
+        label: "Email Address"
+        required: true
+      - name: "property_type"
+        type: "select"
+        label: "Property Type"
+        required: true
+        options:
+          - "Residential - Single Family"
+          - "Residential - Multi-Family"
+          - "Commercial - Small Business"
+          - "Commercial - Large Business"
+          - "Industrial"
+      - name: "address"
+        type: "textarea"
+        label: "Property Address"
+        required: true
+        validation:
+          minLength: 10
+          maxLength: 200
+      - name: "monthly_electric_bill"
+        type: "number"
+        label: "Average Monthly Electric Bill ($)"
+        required: false
+        validation:
+          min: 0
+          max: 100000
+      - name: "roof_type"
+        type: "select"
+        label: "Roof Type"
+        required: false
+        options:
+          - "Asphalt Shingle"
+          - "Metal"
+          - "Tile"
+          - "Flat/TPO"
+          - "Other"
+          - "Unknown"
+      - name: "financing_interest"
+        type: "select"
+        label: "Financing Interest"
+        required: false
+        options:
+          - "Cash Purchase"
+          - "Solar Loan"
+          - "Solar Lease"
+          - "Power Purchase Agreement (PPA)"
+          - "Unsure"
+    workflow_entrypoint: "kuasaturbo.launchkit.v1"
+  
+  site_assessment_form:
+    type: "form"
+    fields:
+      - name: "roof_area_sqft"
+        type: "number"
+        label: "Usable Roof Area (sq ft)"
+        required: true
+        validation:
+          min: 100
+          max: 100000
+      - name: "roof_orientation"
+        type: "select"
+        label: "Primary Roof Orientation"
+        required: true
+        options:
+          - "South"
+          - "Southwest"
+          - "Southeast"
+          - "East"
+          - "West"
+          - "North"
+      - name: "roof_condition"
+        type: "select"
+        label: "Roof Condition"
+        required: false
+        options:
+          - "Excellent"
+          - "Good"
+          - "Fair"
+          - "Needs Repair"
+      - name: "shading_percentage"
+        type: "number"
+        label: "Estimated Shading (%)"
+        required: false
+        validation:
+          min: 0
+          max: 100
+      - name: "electrical_panel_capacity"
+        type: "number"
+        label: "Electrical Panel Capacity (Amps)"
+        required: false
+        validation:
+          min: 0
+          max: 1000
+  
+  proposal_detail:
+    type: "detail"
+    fields:
+      - name: "system_size_kw"
+        type: "number"
+        label: "System Size (kW)"
+        required: true
+      - name: "panel_count"
+        type: "number"
+        label: "Number of Panels"
+        required: true
+      - name: "estimated_annual_production_kwh"
+        type: "number"
+        label: "Est. Annual Production (kWh)"
+        required: true
+      - name: "total_cost"
+        type: "number"
+        label: "Total System Cost ($)"
+        required: true
+      - name: "estimated_savings_annual"
+        type: "number"
+        label: "Est. Annual Savings ($)"
+        required: false
+      - name: "estimated_payback_years"
+        type: "number"
+        label: "Est. Payback Period (years)"
+        required: false
+
+compliance:
+  required_documents:
+    - "Property Deed or Proof of Ownership"
+    - "Recent Utility Bills (12 months)"
+    - "Roof Inspection Report (if roof age > 10 years)"
+    - "HOA Approval (if applicable)"
+    - "Building Permit"
+  disclaimers:
+    - "Actual energy production may vary based on weather, shading, and system performance."
+    - "Incentives and rebates subject to availability and eligibility."
+    - "Installation timeline subject to permitting and utility approval."
+    - "Financing terms subject to credit approval."
+  industry_rules:
+    - "Must conduct on-site assessment before providing binding quote."
+    - "Must disclose all system specifications and warranties."
+    - "Must provide net metering agreement details where applicable."
+    - "Must comply with local building codes and electrical standards."
+    - "Must verify roof structural capacity for panel installation."
+
+statuses:
+  - new
+  - contacted
+  - site_assessment_scheduled
+  - site_assessed
+  - proposal_sent
+  - proposal_under_review
+  - contract_signed
+  - permitting
+  - installation_scheduled
+  - installation_complete
+  - inspection_pending
+  - system_activated
+  - closed_won
+  - closed_lost
+  - follow_up
+
+metadata:
+  version: "1.0.0"
+  created_at: "2025-12-08T00:00:00Z"
+  updated_at: "2025-12-08T00:00:00Z"

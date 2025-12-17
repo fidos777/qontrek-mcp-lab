@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Roof Check Schema",
+  "description": "Schema for roof type classification and mounting type determination",
+  "required": [
+    "roof_type"
+  ],
+  "properties": {
+    "roof_type": {
+      "type": "string",
+      "enum": ["metal", "concrete", "shingle", "tile", "asphalt", "unknown"],
+      "description": "Type of roof material"
+    },
+    "roof_age_years": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Age of roof in years"
+    },
+    "roof_condition": {
+      "type": "string",
+      "enum": ["excellent", "good", "fair", "poor"],
+      "description": "Condition of roof"
+    },
+    "roof_angle_degrees": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 90,
+      "description": "Roof angle in degrees"
+    },
+    "roof_area_sqm": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total roof area in square meters"
+    },
+    "structural_load_capacity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Structural load capacity in kg per square meter"
+    },
+    "existing_installations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["solar_panels", "solar_water_heater", "antenna", "satellite_dish", "air_conditioning", "none"]
+      },
+      "description": "Existing installations on roof"
+    },
+    "accessibility": {
+      "type": "string",
+      "enum": ["easy", "moderate", "difficult"],
+      "description": "Roof accessibility for installation"
+    },
+    "wind_zone": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "Wind zone classification"
+    }
+  },
+  "additionalProperties": false
+}
+

@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Generate social media graphics package with platform-specific designs",
+  "required": [
+    "campaign_name",
+    "campaign_goal",
+    "message",
+    "brand_identity",
+    "platforms",
+    "content_type"
+  ],
+  "properties": {
+    "campaign_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Name of the campaign"
+    },
+    "campaign_goal": {
+      "type": "string",
+      "enum": ["awareness", "engagement", "conversion", "announcement"],
+      "description": "Primary campaign objective"
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Core message to communicate"
+    },
+    "brand_identity": {
+      "type": "object",
+      "required": ["colors", "style"],
+      "properties": {
+        "colors": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "maxItems": 10,
+          "description": "Brand color palette (hex codes)"
+        },
+        "fonts": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Font families to use"
+        },
+        "logo_url": {
+          "type": "string",
+          "description": "URL to brand logo"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["modern", "playful", "corporate", "minimal", "bold"],
+          "description": "Visual style direction"
+        }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["instagram", "facebook", "twitter", "linkedin", "tiktok"]
+      },
+      "minItems": 1,
+      "description": "Target social platforms"
+    },
+    "content_type": {
+      "type": "string",
+      "enum": ["quote", "announcement", "product", "event", "educational"],
+      "description": "Type of content"
+    },
+    "variations": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 3,
+      "description": "Number of design variations"
+    },
+    "include_copy": {
+      "type": "boolean",
+      "default": true,
+      "description": "Generate caption copy"
+    },
+    "language": {
+      "type": "string",
+      "default": "en",
+      "pattern": "^[a-z]{2}$",
+      "description": "Two-letter language code"
+    }
+  }
+}

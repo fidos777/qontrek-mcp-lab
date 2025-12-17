@@ -1,0 +1,29 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+    - pattern: "TBD|TODO"
+      message: "Incomplete content is forbidden."
+  
+  required_fields:
+    - field: "roadmap_30"
+      required_keys: ["objectives", "key_tasks", "milestones"]
+    - field: "roadmap_60"
+      required_keys: ["objectives", "key_tasks", "milestones"]
+    - field: "roadmap_90"
+      required_keys: ["objectives", "key_tasks", "milestones"]
+    - field: "phases"
+      min_count: 3
+  
+  tone_rules:
+    allowed: ["professional", "actionable", "clear"]
+    default: "professional"
+
+length_constraints:
+  objectives:
+    min_count: 3
+    max_count: 5
+  milestones:
+    min_count: 3

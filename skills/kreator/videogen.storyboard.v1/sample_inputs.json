@@ -1,0 +1,133 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "SaaS product explainer video",
+      "input": {
+        "video_title": "FlowMind - Work Smarter, Not Harder",
+        "video_type": "explainer",
+        "duration": 60,
+        "message": "FlowMind uses AI to automate your workflow and help you focus on what matters",
+        "target_audience": "Remote workers and productivity enthusiasts",
+        "tone": "professional",
+        "brand_identity": {
+          "colors": ["#0066FF", "#00C9FF", "#1A1A1A"],
+          "style": "modern tech",
+          "logo_url": "https://example.com/flowmind-logo.png"
+        },
+        "key_points": [
+          "AI learns your work patterns",
+          "Automates repetitive tasks",
+          "Integrates with your existing tools",
+          "Saves 10+ hours per week"
+        ],
+        "call_to_action": "Start your free trial at flowmind.ai",
+        "music_style": "upbeat electronic",
+        "voiceover": true,
+        "platform": "youtube"
+      }
+    },
+    {
+      "id": "sample_002",
+      "description": "Product demo for mobile app",
+      "input": {
+        "video_title": "BrainBuddies App Tour",
+        "video_type": "product_demo",
+        "duration": 45,
+        "message": "See how BrainBuddies makes learning fun and engaging for kids",
+        "target_audience": "Parents of children aged 5-12",
+        "tone": "playful",
+        "brand_identity": {
+          "colors": ["#FF6B6B", "#4ECDC4", "#FFE66D"],
+          "style": "playful and colorful"
+        },
+        "key_points": [
+          "Interactive games teach core subjects",
+          "Progress tracking for parents",
+          "Safe, ad-free environment",
+          "Personalized learning paths"
+        ],
+        "call_to_action": "Download free on App Store",
+        "music_style": "cheerful and upbeat",
+        "voiceover": true,
+        "platform": "instagram"
+      }
+    },
+    {
+      "id": "sample_003",
+      "description": "Brand story video",
+      "input": {
+        "video_title": "GreenThread - Fashion with Purpose",
+        "video_type": "brand_story",
+        "duration": 90,
+        "message": "Every piece tells a story of sustainability and style",
+        "target_audience": "Environmentally conscious fashion consumers",
+        "tone": "emotional",
+        "brand_identity": {
+          "colors": ["#2D6A4F", "#52B788", "#D8F3DC"],
+          "style": "natural and authentic"
+        },
+        "key_points": [
+          "100% sustainable materials",
+          "Fair trade manufacturing",
+          "Timeless designs that last",
+          "Transparent supply chain"
+        ],
+        "call_to_action": "Shop the collection at greenthread.com",
+        "music_style": "acoustic and inspiring",
+        "voiceover": true,
+        "platform": "website"
+      }
+    },
+    {
+      "id": "sample_004",
+      "description": "Social media ad - 15 seconds",
+      "input": {
+        "video_title": "Apex Performance - Transform Your Body",
+        "video_type": "social_ad",
+        "duration": 15,
+        "message": "Elite training for elite results",
+        "target_audience": "High-income fitness enthusiasts",
+        "tone": "energetic",
+        "brand_identity": {
+          "colors": ["#000000", "#FFD700", "#FFFFFF"],
+          "style": "luxury fitness"
+        },
+        "key_points": [
+          "Personal training redefined",
+          "Results in 90 days"
+        ],
+        "call_to_action": "Book your consultation",
+        "music_style": "intense electronic",
+        "voiceover": false,
+        "platform": "instagram"
+      }
+    },
+    {
+      "id": "sample_005",
+      "description": "Customer testimonial video",
+      "input": {
+        "video_title": "Sarah's Success Story",
+        "video_type": "testimonial",
+        "duration": 75,
+        "message": "How FlowMind helped Sarah reclaim 15 hours per week",
+        "target_audience": "Busy professionals considering FlowMind",
+        "tone": "professional",
+        "brand_identity": {
+          "colors": ["#0066FF", "#F5F5F5"],
+          "style": "clean and authentic"
+        },
+        "key_points": [
+          "Struggled with overwhelming workload",
+          "Discovered FlowMind through colleague",
+          "Now completes work in half the time",
+          "Has time for family and hobbies"
+        ],
+        "call_to_action": "Try FlowMind free for 14 days",
+        "music_style": "soft and uplifting",
+        "voiceover": false,
+        "platform": "linkedin"
+      }
+    }
+  ]
+}

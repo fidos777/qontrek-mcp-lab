@@ -1,0 +1,59 @@
+Generate a complete Brand Bible Lite for {brand_name}.
+
+BRAND CONTEXT:
+- Brand Name: {brand_name}
+- Mission: {mission}
+- Positioning: {positioning}
+- Value Proposition: {value_proposition}
+- Target Audience (ICP): {icp_demographics}
+- Pain Points: {icp_pain_points}
+- Goals: {icp_goals}
+- Brand Themes: {brand_themes}
+- Unified Tone: {unified_tone}
+
+OUTPUT REQUIREMENTS:
+
+1. BRAND STORY (2-3 paragraphs)
+   - Emotional narrative arc
+   - Founder/origin story angle
+   - Customer transformation journey
+   - Connect to mission and themes
+
+2. MISSION STATEMENT (1 sentence)
+   - Clear and actionable
+   - Reflects core purpose
+
+3. VISION STATEMENT (1 sentence)
+   - Future-oriented
+   - Aspirational yet achievable
+   - Aligned with themes
+
+4. POSITIONING STATEMENT (1-2 sentences)
+   - Differentiation from competitors
+   - Target audience clarity
+   - Unique value delivery
+
+5. VALUE PROPOSITION BLOCK
+   - Compelling headline
+   - Supporting subheadline
+   - 3-5 benefit bullets addressing ICP pain points
+
+6. TONE GUIDE
+   - Voice characteristics
+   - Language guidelines
+   - Style principles
+   - Do's and Don'ts (3 each)
+   - 3 good examples, 3 bad examples
+
+7. TAGLINES (5-10 variations)
+   - Theme-based taglines
+   - Value-based taglines
+   - Action-oriented taglines
+   - Each with rationale
+
+Ensure all content is:
+- Specific to {brand_name}
+- Grounded in the provided context
+- Free of generic placeholders
+- Emotionally resonant
+- Strategically sound

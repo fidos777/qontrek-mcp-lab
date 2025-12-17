@@ -1,0 +1,29 @@
+{
+  "brand_name": "FlowMind",
+  "prd": {
+    "feature_list": {
+      "mvp": [
+        "AI-powered task automation",
+        "Unified workspace dashboard",
+        "Focus mode",
+        "Smart notifications"
+      ],
+      "phase_2": [
+        "Advanced workflow automation",
+        "Team collaboration",
+        "Analytics dashboard"
+      ],
+      "future": [
+        "Mobile apps",
+        "Offline mode",
+        "AI assistant"
+      ]
+    }
+  },
+  "pricing": {
+    "billing_model": {
+      "primary_model": "Subscription-based"
+    }
+  },
+  "target_launch_date": "2025-02-01"
+}

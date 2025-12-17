@@ -1,0 +1,249 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Workflow Transfer Object (WTO)",
+  "description": "Universal structure for storing and transferring outputs from all workflow classes",
+  "type": "object",
+  "properties": {
+    "wto_id": {
+      "type": "string",
+      "description": "Unique identifier for this WTO instance"
+    },
+    "wto_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "WTO schema version"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "WTO creation timestamp"
+    },
+    "brand": {
+      "type": "object",
+      "description": "Brand context and identity",
+      "properties": {
+        "brand_name": {"type": "string"},
+        "industry": {"type": "string"},
+        "target_audience": {"type": "string"},
+        "brand_values": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tone": {"type": "string"},
+        "brand_identity": {"type": "object"},
+        "value_proposition": {"type": "string"}
+      }
+    },
+    "creative": {
+      "type": "object",
+      "description": "Creative workflow outputs",
+      "properties": {
+        "slogan": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "slogans": {"type": "array"},
+                "brand_analysis": {"type": "object"}
+              }
+            }
+          }
+        },
+        "landing_page": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "page_title": {"type": "string"},
+                "sections": {"type": "array"},
+                "meta": {"type": "object"},
+                "conversion_elements": {"type": "object"}
+              }
+            }
+          }
+        },
+        "social_pack": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "campaign_name": {"type": "string"},
+                "total_graphics": {"type": "integer"},
+                "platforms": {"type": "array"},
+                "graphics": {"type": "array"}
+              }
+            }
+          }
+        },
+        "video": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "video_title": {"type": "string"},
+                "script": {"type": "object"},
+                "storyboard": {"type": "object"},
+                "video_url": {"type": "string"}
+              }
+            }
+          }
+        },
+        "pitch_deck": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "deck_title": {"type": "string"},
+                "total_slides": {"type": "integer"},
+                "slides": {"type": "array"},
+                "deck_url": {"type": "string"}
+              }
+            }
+          }
+        },
+        "gif_pack": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "total_gifs": {"type": "integer"},
+                "gifs": {"type": "array"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "business": {
+      "type": "object",
+      "description": "Business workflow outputs",
+      "properties": {
+        "architecture": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "system_architecture": {"type": "object"},
+                "tech_stack": {"type": "array"},
+                "infrastructure": {"type": "object"}
+              }
+            }
+          }
+        },
+        "prd": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "product_name": {"type": "string"},
+                "requirements": {"type": "array"},
+                "user_stories": {"type": "array"},
+                "acceptance_criteria": {"type": "array"}
+              }
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "pricing_model": {"type": "string"},
+                "tiers": {"type": "array"},
+                "revenue_projections": {"type": "object"}
+              }
+            }
+          }
+        },
+        "roadmap": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "quarters": {"type": "array"},
+                "milestones": {"type": "array"},
+                "dependencies": {"type": "array"}
+              }
+            }
+          }
+        },
+        "consultant_kit": {
+          "type": "object",
+          "properties": {
+            "workflow_id": {"type": "string"},
+            "executed_at": {"type": "string", "format": "date-time"},
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "executive_summary": {"type": "string"},
+                "recommendations": {"type": "array"},
+                "action_plan": {"type": "array"},
+                "deliverables": {"type": "array"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "WTO metadata and tracking",
+      "properties": {
+        "total_workflows_executed": {"type": "integer"},
+        "total_skills_executed": {"type": "integer"},
+        "execution_time_ms": {"type": "integer"},
+        "workflows_executed": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "custom_fields": {"type": "object"}
+      }
+    }
+  },
+  "required": ["wto_id", "wto_version", "created_at"]
+}

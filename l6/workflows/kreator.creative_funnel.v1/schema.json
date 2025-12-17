@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "brand_name",
+    "industry",
+    "target_audience",
+    "brand_values",
+    "tone",
+    "page_title",
+    "page_goal",
+    "product_name",
+    "value_proposition",
+    "key_benefits",
+    "cta_primary",
+    "campaign_name",
+    "campaign_goal",
+    "social_message",
+    "brand_identity",
+    "platforms",
+    "social_content_type"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "target_audience": {
+      "type": "string"
+    },
+    "brand_values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tone": {
+      "type": "string"
+    },
+    "page_title": {
+      "type": "string"
+    },
+    "page_goal": {
+      "type": "string"
+    },
+    "product_name": {
+      "type": "string"
+    },
+    "value_proposition": {
+      "type": "string"
+    },
+    "key_benefits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cta_primary": {
+      "type": "string"
+    },
+    "campaign_name": {
+      "type": "string"
+    },
+    "campaign_goal": {
+      "type": "string"
+    },
+    "social_message": {
+      "type": "string"
+    },
+    "brand_identity": {
+      "type": "object"
+    },
+    "platforms": {
+      "type": "array"
+    },
+    "social_content_type": {
+      "type": "string"
+    }
+  }
+}

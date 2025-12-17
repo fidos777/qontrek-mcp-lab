@@ -1,0 +1,20 @@
+{
+  "id": "turbodrive.followup_only.v1",
+  "description": "Minimal follow-up workflow - generates branding and PRD only for quick iterations",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "id": "branding",
+      "skill_id": "launchkit.branding.generate.v1",
+      "input_mode": "normalized",
+      "description": "Generate brand content"
+    },
+    {
+      "id": "prd",
+      "skill_id": "launchkit.prd.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["branding"],
+      "description": "Generate PRD based on branding"
+    }
+  ]
+}

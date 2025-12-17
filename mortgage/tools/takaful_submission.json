@@ -1,0 +1,36 @@
+{
+  "name": "takaful_submission",
+  "description": "Normalize takaful insurance requirements and submission data. Processes customer information and calculates required Takaful coverage based on loan amount and property value.",
+  "inputSchema": {
+    "$ref": "../schemas/takaful_submission.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "customer_ic": {"type": "string"},
+          "coverage_amount": {"type": "number"},
+          "coverage_type": {"type": "string"},
+          "premium_estimate": {"type": "number"},
+          "payment_method": {"type": "string"},
+          "beneficiary_details": {"type": "object"},
+          "takaful_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

@@ -1,0 +1,57 @@
+{
+  "name": "launchkit.branding.v1",
+  "version": "1.0.0",
+  "description": "Brand Bible Lite - Converts normalized brand context into comprehensive branding guide",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "brand_story",
+      "type": "transform",
+      "description": "Generate brand story from narrative and mission",
+      "input_map": {
+        "brand_name": "input.brand_name",
+        "mission": "input.mission",
+        "narrative": "input.narrative",
+        "brand_themes": "input.brand_themes"
+      }
+    },
+    {
+      "id": "vision_statement",
+      "type": "transform",
+      "description": "Derive vision from mission and positioning",
+      "input_map": {
+        "mission": "input.mission",
+        "positioning": "input.positioning",
+        "brand_themes": "input.brand_themes"
+      }
+    },
+    {
+      "id": "value_prop_block",
+      "type": "transform",
+      "description": "Structure value proposition with bullets",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "icp": "input.icp"
+      }
+    },
+    {
+      "id": "tone_guide",
+      "type": "transform",
+      "description": "Expand messaging framework into tone guide",
+      "input_map": {
+        "unified_tone": "input.unified_tone",
+        "messaging_framework": "input.messaging_framework"
+      }
+    },
+    {
+      "id": "taglines",
+      "type": "transform",
+      "description": "Generate tagline variations",
+      "input_map": {
+        "brand_name": "input.brand_name",
+        "value_proposition": "input.value_proposition",
+        "brand_themes": "input.brand_themes"
+      }
+    }
+  ]
+}

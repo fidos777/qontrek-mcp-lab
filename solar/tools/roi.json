@@ -1,0 +1,36 @@
+{
+  "name": "roi",
+  "description": "Calculate solar ROI including system size, annual savings, payback period, and upfront cost. Includes assumptions block for transparency.",
+  "inputSchema": {
+    "$ref": "../schemas/roi.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "system_size_kw": {"type": "number"},
+          "annual_savings": {"type": "number"},
+          "payback_period_years": {"type": "number"},
+          "upfront_cost": {"type": "number"},
+          "lifetime_savings": {"type": "number"},
+          "assumptions": {"type": "object"},
+          "roi_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

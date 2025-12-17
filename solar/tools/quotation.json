@@ -1,0 +1,38 @@
+{
+  "name": "quotation",
+  "description": "Generate quotation JSON payload with package options, ROI model, and brandpack theme applied. Formats components and pricing for document factory.",
+  "inputSchema": {
+    "$ref": "../schemas/quotation.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "quotation_number": {"type": "string"},
+          "customer_name": {"type": "string"},
+          "system_size_kw": {"type": "number"},
+          "package_type": {"type": "string"},
+          "total_cost": {"type": "number"},
+          "roi_summary": {"type": "object"},
+          "components": {"type": "array"},
+          "brandpack_applied": {"type": "string"},
+          "quotation_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

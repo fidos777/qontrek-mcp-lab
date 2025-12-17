@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Brand Context Model",
+  "description": "Unified brand input fields used by all creative and business workflows",
+  "type": "object",
+  "required": [
+    "brand_name",
+    "industry",
+    "target_audience",
+    "brand_values"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Official brand or company name"
+    },
+    "industry": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Industry sector or vertical (e.g., 'SaaS/Productivity', 'E-commerce/Fashion')"
+    },
+    "target_audience": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Primary target audience with demographics and psychographics"
+    },
+    "brand_values": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 50
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "Core brand values and principles"
+    },
+    "tone": {
+      "type": "string",
+      "enum": ["professional", "playful", "inspirational", "bold", "minimalist", "friendly", "urgent", "emotional"],
+      "description": "Brand communication tone"
+    },
+    "brand_identity": {
+      "type": "object",
+      "properties": {
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "description": "Brand color palette (hex codes)"
+        },
+        "fonts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Brand typography (font families)"
+        },
+        "logo_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to brand logo asset"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["modern", "classic", "playful", "minimal", "bold", "corporate"],
+          "description": "Visual design style"
+        }
+      },
+      "description": "Visual brand identity elements"
+    },
+    "value_proposition": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "description": "Core value proposition or unique selling point"
+    },
+    "product_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Primary product or service name"
+    },
+    "company_stage": {
+      "type": "string",
+      "enum": ["idea", "mvp", "early_stage", "growth", "scale", "enterprise"],
+      "description": "Current company or product stage"
+    },
+    "website_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Company or product website URL"
+    },
+    "social_handles": {
+      "type": "object",
+      "properties": {
+        "twitter": {"type": "string"},
+        "instagram": {"type": "string"},
+        "linkedin": {"type": "string"},
+        "facebook": {"type": "string"},
+        "tiktok": {"type": "string"}
+      },
+      "description": "Social media handles"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "description": "Brand context metadata"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+TASK: Clean up image with specified mode.
+
+IMAGE_REF: {image}
+MODE: {mode}
+STYLE: {style_name}
+
+AVAILABLE_MODES:
+- full-clean: Remove background + clean artifacts
+- bg-only: Remove background only
+- object-remove: Remove specific objects
+
+REQUIREMENTS:
+- Professional cleanup quality
+- Preserve subject integrity
+- Clean edges and artifacts
+- Output format: {output_format}
+
+OUTPUT FORMAT:
+Return ONLY valid JSON with:
+- cleanup_mode
+- background (transparent or solid-color)
+- objects_removed (list)
+- artifacts_fixed (list)

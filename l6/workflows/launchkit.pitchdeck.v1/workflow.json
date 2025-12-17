@@ -1,0 +1,92 @@
+{
+  "name": "launchkit.pitchdeck.v1",
+  "version": "1.0.0",
+  "description": "Pitchdeck Generator - Creates slide-by-slide investor presentation",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "deck_outline",
+      "type": "transform",
+      "description": "Generate slide order and structure",
+      "input_map": {
+        "branding": "input.branding",
+        "prd": "input.prd"
+      }
+    },
+    {
+      "id": "slide_01_cover",
+      "type": "transform",
+      "description": "Cover slide with tagline",
+      "input_map": {
+        "branding": "input.branding"
+      }
+    },
+    {
+      "id": "slide_02_problem",
+      "type": "transform",
+      "description": "Problem statement slide",
+      "input_map": {
+        "prd": "input.prd"
+      }
+    },
+    {
+      "id": "slide_03_solution",
+      "type": "transform",
+      "description": "Solution overview slide",
+      "input_map": {
+        "prd": "input.prd",
+        "branding": "input.branding"
+      }
+    },
+    {
+      "id": "slide_04_market",
+      "type": "transform",
+      "description": "Market opportunity slide",
+      "input_map": {
+        "market_data": "input.market_data",
+        "prd": "input.prd"
+      }
+    },
+    {
+      "id": "slide_05_product",
+      "type": "transform",
+      "description": "Product features slide",
+      "input_map": {
+        "prd": "input.prd"
+      }
+    },
+    {
+      "id": "slide_06_business_model",
+      "type": "transform",
+      "description": "Business model and pricing slide",
+      "input_map": {
+        "pricing": "input.pricing"
+      }
+    },
+    {
+      "id": "slide_07_roadmap",
+      "type": "transform",
+      "description": "Roadmap and milestones slide",
+      "input_map": {
+        "roadmap": "input.roadmap"
+      }
+    },
+    {
+      "id": "slide_08_team",
+      "type": "transform",
+      "description": "Team slide",
+      "input_map": {
+        "team": "input.team"
+      }
+    },
+    {
+      "id": "slide_09_ask",
+      "type": "transform",
+      "description": "The ask / call to action slide",
+      "input_map": {
+        "branding": "input.branding",
+        "roadmap": "input.roadmap"
+      }
+    }
+  ]
+}

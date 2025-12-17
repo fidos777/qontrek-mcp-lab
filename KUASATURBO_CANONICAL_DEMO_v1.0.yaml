@@ -1,0 +1,157 @@
+version: "1.0"
+template_type: "canonical_demo"
+authority_level: "system_invariants"
+
+minting_allowed: false
+economic_logic: "locked"
+credit_valuation: "blocked_until_block_4"
+governance_mode: "demonstration_only"
+
+context:
+  demo_id: "kuasaturbo_invoice_demo_001"
+  demo_name: "SME Invoice Generation Automation"
+  vertical: "accounting"
+  workflow_id: "invoice_gen_workflow.v1"
+  executor: "n8n"
+  timestamp: "2024-12-16T10:00:00Z"
+  constitutional_mode: "exploratory"
+
+before_state:
+  business_context:
+    industry: "retail"
+    business_size: "small_medium_enterprise"
+    current_process: "Manual invoice creation using Word templates and email"
+    pain_points:
+      - "3 hours per day creating invoices manually"
+      - "Frequent calculation errors in totals"
+      - "Inconsistent formatting across invoices"
+      - "Delayed invoice delivery to customers"
+  
+  baseline_metrics:
+    time_current: "180 minutes per day"
+    cost_current: "RM 45 per day in staff time"
+    quality_current: "75% accuracy rate"
+    error_rate_current: "25% invoices require corrections"
+  
+  resource_allocation:
+    human_hours: "3 hours daily"
+    tools_used: ["Microsoft Word", "Calculator", "Email client"]
+    dependencies: ["Staff availability", "Template maintenance", "Manual calculations"]
+
+workflow_execution:
+  trigger:
+    event_type: "widget_form_submission"
+    input_data:
+      client_name: "ABC Hardware Sdn Bhd"
+      invoice_number: "INV-2024-001"
+      items: "Screws: RM50, Bolts: RM75, Tools: RM125"
+      due_date: "2024-12-31"
+      payment_terms: "Net 30"
+    validation_status: "passed"
+  
+  steps:
+    - step_id: "1"
+      step_name: "Parse invoice items and calculate totals"
+      executor: "n8n"
+      duration: "15 seconds"
+      status: "completed"
+      output: "Subtotal: RM250, Tax: RM15, Total: RM265"
+    
+    - step_id: "2"
+      step_name: "Generate professional invoice PDF"
+      executor: "n8n"
+      duration: "30 seconds"
+      status: "completed"
+      output: "Professional PDF invoice with company branding"
+    
+    - step_id: "3"
+      step_name: "Send invoice via email to client"
+      executor: "n8n"
+      duration: "10 seconds"
+      status: "completed"
+      output: "Email sent successfully with PDF attachment"
+  
+  completion:
+    total_duration: "55 seconds"
+    success_status: "completed"
+    error_count: "0"
+
+after_state:
+  business_outcome:
+    process_improved: "Fully automated invoice generation with zero manual calculation"
+    quality_enhanced: "100% calculation accuracy with professional formatting"
+    efficiency_gained: "99.7% time reduction from 180 minutes to 55 seconds"
+  
+  resource_optimization:
+    human_hours_saved: "179 minutes per invoice"
+    cost_reduction: "RM 44.75 per invoice in staff time"
+    error_reduction: "100% error elimination"
+  
+  deliverable:
+    output_type: "professional_pdf_invoice"
+    output_quality: "enterprise_grade"
+    output_completeness: "fully_automated_delivery"
+
+outcome_metrics:
+  quantifiable_results:
+    time_saved_minutes: "179"
+    cost_equivalent_rm: "44.75"
+    quality_improvement_percent: "33"
+    error_reduction_percent: "100"
+  
+  efficiency_indicators:
+    automation_percentage: "100"
+    human_intervention_reduced: "99.7"
+    scalability_factor: "unlimited"
+  
+  business_impact:
+    roi_potential: "high_immediate_return"
+    competitive_advantage: "professional_invoice_delivery"
+    growth_enablement: "staff_time_freed_for_customer_service"
+
+proof_record:
+  proof_id: "proof_kuasaturbo_invoice_001"
+  workflow_id: "invoice_gen_workflow.v1"
+  executor: "n8n"
+  
+  integrity:
+    checksum: "sha256_abc123def456"
+    tamper_status: "no_tampering_detected"
+    validation_timestamp: "2024-12-16T10:01:00Z"
+  
+  outcome:
+    type: "time"
+    metrics:
+      time_saved_minutes: "179"
+      cost_equivalent_rm: "44.75"
+      roi_ratio: "0.99"
+  
+  certification:
+    status: "COMPLETE"
+    validator: "kuasaturbo_engine"
+    certification_timestamp: "2024-12-16T10:01:00Z"
+
+meaning_layer:
+  business_narrative:
+    value_proposition: "Transform manual invoice creation into instant automated delivery"
+    transformation_story: "From 3-hour daily manual process to 55-second automated workflow"
+    competitive_positioning: "Professional invoice delivery enables focus on customer growth"
+  
+  technical_validation:
+    proof_sufficiency: "Complete execution trace with measurable time and cost savings"
+    outcome_measurability: "Quantified 99.7% time reduction and 100% error elimination"
+    reproducibility: "Workflow can be repeated for unlimited invoice generation"
+  
+  strategic_implications:
+    scalability_assessment: "Unlimited scaling potential with zero additional human cost"
+    integration_readiness: "Compatible with existing accounting and CRM systems"
+    future_development: "Foundation for automated billing and payment tracking"
+
+constitutional_disclaimer:
+  governance_status: "demonstration_only"
+  minting_prohibition: "Credit minting explicitly disabled per constitutional law"
+  economic_logic_status: "Economic valuation formulas locked until Block 4 authorization"
+  proof_purpose: "Proof generation for future validation only - no immediate credit eligibility"
+  authority_limitation: "Demo template cannot authorize credit creation or economic decisions"
+  constitutional_compliance: "All demonstrations must respect credit constitution boundaries"
+  block_progression: "Economic logic requires Block 4 completion before activation"

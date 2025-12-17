@@ -1,0 +1,69 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "Tech startup - AI productivity tool",
+      "input": {
+        "brand_name": "FlowMind",
+        "industry": "SaaS/Productivity",
+        "target_audience": "Remote workers and digital nomads aged 25-40",
+        "brand_values": ["efficiency", "simplicity", "innovation", "focus"],
+        "tone": "professional",
+        "language": "en",
+        "count": 5
+      }
+    },
+    {
+      "id": "sample_002",
+      "description": "Eco-friendly fashion brand",
+      "input": {
+        "brand_name": "GreenThread",
+        "industry": "Fashion/Sustainability",
+        "target_audience": "Environmentally conscious millennials and Gen Z",
+        "brand_values": ["sustainability", "style", "ethics", "transparency"],
+        "tone": "inspirational",
+        "language": "en",
+        "count": 7
+      }
+    },
+    {
+      "id": "sample_003",
+      "description": "Kids educational app",
+      "input": {
+        "brand_name": "BrainBuddies",
+        "industry": "EdTech/Children",
+        "target_audience": "Parents of children aged 5-12",
+        "brand_values": ["fun", "learning", "safety", "creativity"],
+        "tone": "playful",
+        "language": "en",
+        "count": 6
+      }
+    },
+    {
+      "id": "sample_004",
+      "description": "Luxury fitness brand",
+      "input": {
+        "brand_name": "Apex Performance",
+        "industry": "Fitness/Wellness",
+        "target_audience": "High-income professionals seeking premium fitness",
+        "brand_values": ["excellence", "transformation", "exclusivity", "results"],
+        "tone": "bold",
+        "language": "en",
+        "count": 5
+      }
+    },
+    {
+      "id": "sample_005",
+      "description": "Minimalist home goods",
+      "input": {
+        "brand_name": "Essence Living",
+        "industry": "Home/Lifestyle",
+        "target_audience": "Urban professionals embracing minimalism",
+        "brand_values": ["simplicity", "quality", "mindfulness", "design"],
+        "tone": "minimalist",
+        "language": "en",
+        "count": 4
+      }
+    }
+  ]
+}

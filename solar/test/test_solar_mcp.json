@@ -1,0 +1,349 @@
+{
+  "test_suite": "Solar MCP Toolpack Test Suite",
+  "version": "0.1.0",
+  "description": "End-to-end test suite for Solar MCP tools (B1.3-B1.6)",
+  "tests": [
+    {
+      "test_id": "test_001_lead_intake",
+      "tool": "lead_intake",
+      "description": "Test lead intake with valid residential customer",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "Ahmad bin Abdullah",
+        "email": "ahmad@example.com",
+        "phone": "+60123456789",
+        "address": "No. 123, Jalan Test, Taman Test, 50000 Kuala Lumpur",
+        "property_type": "residential",
+        "monthly_bill": 500,
+        "source": "website"
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "property_type": "residential",
+          "is_high_priority": false,
+          "estimated_system_size_kw": 3.0
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_002_lead_intake_commercial",
+      "tool": "lead_intake",
+      "description": "Test lead intake with high-priority commercial customer",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "ABC Sdn Bhd",
+        "email": "info@abc.com",
+        "phone": "+60198765432",
+        "address": "No. 456, Jalan Commercial, 50000 Kuala Lumpur",
+        "property_type": "commercial",
+        "monthly_bill": 2000,
+        "source": "referral"
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "property_type": "commercial",
+          "is_high_priority": true,
+          "estimated_system_size_kw": 12.0
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_003_site_inspection",
+      "tool": "site_inspection",
+      "description": "Test site inspection normalization",
+      "status": "PENDING",
+      "input": {
+        "address": "No. 123, Jalan Test, Kuala Lumpur",
+        "inspection_date": "2024-01-15",
+        "inspector_name": "John Doe",
+        "images": [
+          {
+            "url": "https://example.com/roof1.jpg",
+            "type": "roof"
+          }
+        ],
+        "roof_measurements": {
+          "total_area_sqm": 100,
+          "usable_area_sqm": 80,
+          "angle_degrees": 15,
+          "orientation": "south"
+        },
+        "shading_obstacles": [
+          {
+            "type": "tree",
+            "impact": "low"
+          }
+        ]
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "roof_angle_degrees": 15,
+          "usable_area_sqm": 80,
+          "shading_score": 95
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_004_roi_calculation",
+      "tool": "roi",
+      "description": "Test ROI calculation with correct maths",
+      "status": "PENDING",
+      "input": {
+        "monthly_bill": 500,
+        "property_type": "residential",
+        "system_size_kw": 5.0,
+        "panel_efficiency": 0.2,
+        "sunlight_hours_per_day": 4.5,
+        "electricity_rate_per_kwh": 0.40,
+        "system_cost_per_watt": 4.5
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "system_size_kw": 5.0,
+          "annual_savings": 0,
+          "payback_period_years": 0,
+          "upfront_cost": 22500
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null,
+      "validation_notes": "Verify calculations: system_size_kw = 5.0, upfront_cost = 5 * 1000 * 4.5 = 22500"
+    },
+    {
+      "test_id": "test_005_roof_check_metal",
+      "tool": "roof_check",
+      "description": "Test roof check with metal roof classification",
+      "status": "PENDING",
+      "input": {
+        "roof_type": "metal",
+        "roof_condition": "good",
+        "roof_angle_degrees": 20,
+        "roof_age_years": 5,
+        "structural_load_capacity": 50,
+        "accessibility": "easy"
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "roof_type": "metal",
+          "mounting_type": "rail_mount",
+          "is_suitable": true
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_006_roof_check_concrete",
+      "tool": "roof_check",
+      "description": "Test roof check with concrete roof (ballast mount)",
+      "status": "PENDING",
+      "input": {
+        "roof_type": "concrete",
+        "roof_condition": "excellent",
+        "roof_angle_degrees": 5,
+        "structural_load_capacity": 100
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "roof_type": "concrete",
+          "mounting_type": "ballast_mount",
+          "is_suitable": true
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_007_quotation_basic",
+      "tool": "quotation",
+      "description": "Test quotation generation with basic package",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "Ahmad bin Abdullah",
+        "address": "No. 123, Jalan Test, Kuala Lumpur",
+        "system_size_kw": 5.0,
+        "package_type": "basic",
+        "roi_data": {
+          "upfront_cost": 22500,
+          "annual_savings": 2400,
+          "payback_period_years": 9.4,
+          "lifetime_savings": 60000
+        },
+        "brandpack_id": "default"
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "quotation_number": "SOL-*",
+          "package_type": "basic",
+          "total_cost": 0
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal",
+          "branding": {
+            "brandpack": {}
+          }
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_008_quotation_premium",
+      "tool": "quotation",
+      "description": "Test quotation with premium package and brandpack",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "ABC Sdn Bhd",
+        "address": "No. 456, Jalan Commercial, Kuala Lumpur",
+        "system_size_kw": 20.0,
+        "package_type": "premium",
+        "roi_data": {
+          "upfront_cost": 90000,
+          "annual_savings": 12000,
+          "payback_period_years": 7.5
+        },
+        "brandpack_id": "voltek",
+        "warranty_years": 25
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "package_type": "premium",
+          "warranty_years": 25
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_009_error_handling",
+      "tool": "lead_intake",
+      "description": "Test error handling with missing required field",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "Test User",
+        "email": "invalid-email",
+        "monthly_bill": 500
+      },
+      "expected_output": {
+        "status": "error",
+        "errors": ["Missing required field: phone"]
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_010_end_to_end_solar_flow",
+      "tool": "end_to_end",
+      "description": "Test complete solar flow from lead to quotation",
+      "status": "PENDING",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "lead_intake",
+          "input": {
+            "customer_name": "Ahmad bin Abdullah",
+            "email": "ahmad@example.com",
+            "phone": "+60123456789",
+            "address": "No. 123, Jalan Test, Kuala Lumpur",
+            "property_type": "residential",
+            "monthly_bill": 500
+          }
+        },
+        {
+          "step": 2,
+          "tool": "site_inspection",
+          "input": {
+            "address": "No. 123, Jalan Test, Kuala Lumpur",
+            "inspection_date": "2024-01-15",
+            "roof_measurements": {
+              "usable_area_sqm": 80,
+              "angle_degrees": 15
+            }
+          }
+        },
+        {
+          "step": 3,
+          "tool": "roi",
+          "input": {
+            "monthly_bill": 500,
+            "property_type": "residential",
+            "system_size_kw": 5.0
+          }
+        },
+        {
+          "step": 4,
+          "tool": "roof_check",
+          "input": {
+            "roof_type": "metal",
+            "roof_condition": "good"
+          }
+        },
+        {
+          "step": 5,
+          "tool": "quotation",
+          "input": {
+            "customer_name": "Ahmad bin Abdullah",
+            "address": "No. 123, Jalan Test, Kuala Lumpur",
+            "system_size_kw": 5.0,
+            "package_type": "standard",
+            "roi_data": {
+              "upfront_cost": 22500,
+              "annual_savings": 2400,
+              "payback_period_years": 9.4
+            }
+          }
+        }
+      ],
+      "expected_final_output": {
+        "status": "ready_for_proposal",
+        "all_tools_completed": true,
+        "proposal_payload": {
+          "vertical": "solar",
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    }
+  ],
+  "test_results_summary": {
+    "total_tests": 10,
+    "passed": 0,
+    "failed": 0,
+    "pending": 10,
+    "execution_timestamp": null
+  },
+  "instructions": {
+    "how_to_run": "Execute each test by calling the corresponding Python handler with the test input",
+    "example_command": "echo '{\"customer_name\":\"Test\"}' | python solar/handlers/handle_lead_intake.py",
+    "validation": "Compare actual_output with expected_output and set result to PASS/FAIL",
+    "calculation_validation": "For ROI tests, verify mathematical accuracy of calculations"
+  }
+}
+

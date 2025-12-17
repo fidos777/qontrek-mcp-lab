@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["brand_name", "mission", "value_proposition", "icp"],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Brand name"
+    },
+    "mission": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Mission statement"
+    },
+    "positioning": {
+      "type": "string",
+      "description": "Positioning statement"
+    },
+    "value_proposition": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Value proposition"
+    },
+    "icp": {
+      "type": "object",
+      "required": ["demographics", "pain_points", "goals"],
+      "properties": {
+        "demographics": {
+          "type": "string",
+          "description": "Target user demographics"
+        },
+        "pain_points": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "description": "User pain points"
+        },
+        "goals": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1,
+          "description": "User goals"
+        }
+      }
+    },
+    "brand_themes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Brand themes"
+    },
+    "product_type": {
+      "type": "string",
+      "default": "SaaS platform",
+      "description": "Type of product (SaaS, mobile app, service, etc.)"
+    },
+    "platform": {
+      "type": "string",
+      "default": "web",
+      "enum": ["web", "mobile", "desktop", "hybrid"],
+      "description": "Target platform"
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Technical or business constraints"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "menu_update_workflow.v1",
+  "description": "Generate menu item description and optional promo caption",
+  "version": "1.0.0",
+  "persona_id": "raya_campaign_storyteller.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "generate_menu_content",
+      "type": "ai_generate",
+      "description": "Generate menu description using Raya persona",
+      "input_mapping": {
+        "item_name": "{{input.item_name}}",
+        "category": "{{input.category}}",
+        "price": "{{input.price}}",
+        "description": "{{input.description}}",
+        "available": "{{input.available}}"
+      },
+      "prompt_template": "Menu item:\nName: {{item_name}}\nCategory: {{category}}\nPrice: MYR {{price}}\n{{#if description}}Description: {{description}}{{/if}}\nAvailable: {{available}}\n\nGenerate:\n1. A menu description suitable for platform listing (appetizing, storytelling style)\n2. Optional promo caption if this is a special item (Raya-style: emotional, aesthetic, engaging)\n\nUse warm, storytelling tone with Malay/English mix.",
+      "output_keys": ["menu_description", "promo_caption"]
+    }
+  ],
+  "output_schema": {
+    "menu_description": {
+      "type": "string",
+      "description": "Appetizing menu item description"
+    },
+    "promo_caption": {
+      "type": "string",
+      "description": "Optional promotional caption for special items"
+    }
+  }
+}

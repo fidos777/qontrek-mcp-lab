@@ -1,0 +1,233 @@
+{
+  "outputs": [
+    {
+      "id": "sample_001_output",
+      "input_reference": "sample_001",
+      "output": {
+        "storyboard": {
+          "title": "FlowMind - Work Smarter, Not Harder",
+          "total_duration": 60,
+          "total_scenes": 12,
+          "scenes": [
+            {
+              "scene_number": 1,
+              "duration": 3,
+              "timecode": "00:00-00:03",
+              "shot_type": "Close-up on frustrated person at cluttered desk",
+              "visual_description": "Tight shot of hands typing frantically, multiple browser tabs visible, notifications popping up. Slight chaos in frame.",
+              "motion": {
+                "camera_movement": "Slow push in",
+                "subject_movement": "Rapid typing, mouse clicking",
+                "transitions": "Quick cut"
+              },
+              "audio": {
+                "voiceover": "Drowning in tasks?",
+                "music": "Tense electronic build",
+                "sound_effects": ["notification_pings", "keyboard_typing"]
+              },
+              "text_overlays": [],
+              "color_grading": "Slightly desaturated, cool tones",
+              "key_frame_notes": "Establish problem immediately - viewer should feel the overwhelm"
+            },
+            {
+              "scene_number": 2,
+              "duration": 4,
+              "timecode": "00:03-00:07",
+              "shot_type": "Wide shot of workspace transforming",
+              "visual_description": "Same workspace but screen transitions to FlowMind interface. Clean, organized, calm.",
+              "motion": {
+                "camera_movement": "Static",
+                "subject_movement": "Screen transition animation",
+                "transitions": "Smooth morph transition"
+              },
+              "audio": {
+                "voiceover": "Meet FlowMind - AI that works the way you do.",
+                "music": "Music shifts to upbeat, hopeful",
+                "sound_effects": ["whoosh_transition"]
+              },
+              "text_overlays": [
+                {
+                  "text": "FlowMind",
+                  "style": "Brand logo fade in",
+                  "position": "center",
+                  "duration": 2
+                }
+              ],
+              "color_grading": "Vibrant, warm tones with blue accents",
+              "key_frame_notes": "Visual relief - show the solution immediately"
+            },
+            {
+              "scene_number": 3,
+              "duration": 5,
+              "timecode": "00:07-00:12",
+              "shot_type": "Screen recording - AI learning patterns",
+              "visual_description": "FlowMind interface showing AI analyzing work patterns. Visual data flows, pattern recognition animations.",
+              "motion": {
+                "camera_movement": "Slow zoom on interface elements",
+                "subject_movement": "Animated data visualization",
+                "transitions": "Cut"
+              },
+              "audio": {
+                "voiceover": "It learns your work patterns and adapts in real-time.",
+                "music": "Steady electronic rhythm",
+                "sound_effects": ["data_processing", "soft_beeps"]
+              },
+              "text_overlays": [
+                {
+                  "text": "AI learns your patterns",
+                  "style": "Slide in from left",
+                  "position": "lower_third",
+                  "duration": 3
+                }
+              ],
+              "color_grading": "Tech-forward with blue highlights",
+              "key_frame_notes": "Show intelligence and sophistication"
+            },
+            {
+              "scene_number": 4,
+              "duration": 5,
+              "timecode": "00:12-00:17",
+              "shot_type": "Split screen - manual vs automated",
+              "visual_description": "Left side: person manually doing repetitive task. Right side: FlowMind automating same task instantly.",
+              "motion": {
+                "camera_movement": "Static split screen",
+                "subject_movement": "Contrasting speeds of work",
+                "transitions": "Wipe transition"
+              },
+              "audio": {
+                "voiceover": "Automates repetitive tasks so you can focus on what matters.",
+                "music": "Building energy",
+                "sound_effects": ["automation_whoosh"]
+              },
+              "text_overlays": [
+                {
+                  "text": "Automates repetitive work",
+                  "style": "Fade in",
+                  "position": "center_bottom",
+                  "duration": 3
+                }
+              ],
+              "color_grading": "High contrast between manual (dull) and automated (vibrant)",
+              "key_frame_notes": "Clear before/after comparison"
+            },
+            {
+              "scene_number": 5,
+              "duration": 4,
+              "timecode": "00:17-00:21",
+              "shot_type": "Medium shot - integration icons",
+              "visual_description": "Animated sequence of popular tool logos (Slack, Gmail, Notion, etc.) connecting to FlowMind hub.",
+              "motion": {
+                "camera_movement": "Circular rotation around hub",
+                "subject_movement": "Icons flying in and connecting",
+                "transitions": "Fade"
+              },
+              "audio": {
+                "voiceover": "Integrates seamlessly with tools you already use.",
+                "music": "Upbeat continuation",
+                "sound_effects": ["connection_chimes"]
+              },
+              "text_overlays": [
+                {
+                  "text": "Works with your tools",
+                  "style": "Scale up",
+                  "position": "top_center",
+                  "duration": 2.5
+                }
+              ],
+              "color_grading": "Bright, colorful",
+              "key_frame_notes": "Show ecosystem compatibility"
+            },
+            {
+              "scene_number": 6,
+              "duration": 5,
+              "timecode": "00:21-00:26",
+              "shot_type": "Close-up on time saved metric",
+              "visual_description": "Dashboard showing time saved counter rapidly increasing. Numbers animate from 0 to 10+ hours.",
+              "motion": {
+                "camera_movement": "Slow zoom in on metric",
+                "subject_movement": "Animated counter",
+                "transitions": "Cut"
+              },
+              "audio": {
+                "voiceover": "Users save an average of 10 hours every week.",
+                "music": "Peak energy",
+                "sound_effects": ["counter_ticking", "success_chime"]
+              },
+              "text_overlays": [
+                {
+                  "text": "10+ hours saved per week",
+                  "style": "Bold emphasis animation",
+                  "position": "center",
+                  "duration": 3
+                }
+              ],
+              "color_grading": "Bright, celebratory",
+              "key_frame_notes": "Quantify the benefit clearly"
+            },
+            {
+              "scene_number": 7,
+              "duration": 4,
+              "timecode": "00:26-00:30",
+              "shot_type": "Wide shot - person relaxed, working efficiently",
+              "visual_description": "Same person from opening, now calm and focused. Clean workspace, single task on screen, coffee in hand.",
+              "motion": {
+                "camera_movement": "Slow pull back",
+                "subject_movement": "Relaxed, confident typing",
+                "transitions": "Fade"
+              },
+              "audio": {
+                "voiceover": "Work smarter, not harder.",
+                "music": "Satisfying resolution",
+                "sound_effects": ["ambient_calm"]
+              },
+              "text_overlays": [],
+              "color_grading": "Warm, satisfied tones",
+              "key_frame_notes": "Show emotional transformation"
+            }
+          ],
+          "opening": {
+            "hook": "Drowning in tasks? Visual of overwhelmed worker captures attention immediately.",
+            "duration": 3
+          },
+          "closing": {
+            "cta": "Start your free trial at flowmind.ai - Text overlay with animated button",
+            "duration": 5
+          }
+        },
+        "production_notes": {
+          "equipment": [
+            "DSLR or mirrorless camera",
+            "Tripod with fluid head",
+            "LED panel lights (2-3)",
+            "Lavalier microphone",
+            "Screen recording software"
+          ],
+          "locations": [
+            "Home office or co-working space",
+            "Clean, modern workspace"
+          ],
+          "talent": [
+            "1 actor (remote worker persona, 25-40 years old)"
+          ],
+          "props": [
+            "Laptop with FlowMind interface",
+            "Coffee mug",
+            "Desk accessories (minimal)",
+            "Smartphone"
+          ],
+          "estimated_shoot_time": "4-6 hours including setup"
+        },
+        "technical_specs": {
+          "aspect_ratio": "16:9",
+          "resolution": "1920x1080 (1080p)",
+          "frame_rate": "24fps or 30fps",
+          "format": "MP4 (H.264)"
+        },
+        "metadata": {
+          "generated_at": "2025-12-07T10:45:00Z",
+          "version": "1.0.0"
+        }
+      }
+    }
+  ]
+}

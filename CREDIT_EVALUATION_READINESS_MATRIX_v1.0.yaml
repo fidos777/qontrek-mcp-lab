@@ -1,0 +1,95 @@
+credit_evaluation_readiness_matrix:
+  purpose: >
+    Define which proof-outcome signals are eligible for evaluation
+    without authorizing credit minting or economic valuation.
+  
+  evaluation_scope:
+    allowed:
+      - eligibility_classification
+      - completeness_check
+      - integrity_check
+      - authority_surface_check
+    forbidden:
+      - credit_valuation
+      - mint_trigger
+      - roi_threshold_setting
+      - economic_optimization
+      - waqf_distribution
+  
+  signal_classes:
+    - signal_type: time_saved
+      source: proof_outcome
+      evaluable: true
+      mintable: false
+      notes: >
+        Used only to determine eligibility completeness, not value.
+    
+    - signal_type: cost_equivalent
+      source: proof_outcome
+      evaluable: true
+      mintable: false
+      notes: >
+        Presence indicates outcome quantification, no economic interpretation.
+    
+    - signal_type: roi_ratio
+      source: proof_outcome
+      evaluable: true
+      mintable: false
+      notes: >
+        Structural completeness indicator only, no threshold application.
+    
+    - signal_type: qualitative_narrative
+      source: demo_intent
+      evaluable: false
+      mintable: false
+      notes: >
+        Narrative context only, excluded from economic paths.
+    
+    - signal_type: workflow_execution_trace
+      source: proof_record
+      evaluable: true
+      mintable: false
+      notes: >
+        Technical validation signal, no economic implications.
+    
+    - signal_type: integrity_checksum
+      source: proof_record
+      evaluable: true
+      mintable: false
+      notes: >
+        Tamper detection signal, structural validation only.
+    
+    - signal_type: certification_status
+      source: demo_certification
+      evaluable: true
+      mintable: false
+      notes: >
+        Legitimacy validation signal, no economic authorization.
+    
+    - signal_type: constitutional_compliance
+      source: governance_validation
+      evaluable: true
+      mintable: false
+      notes: >
+        Boundary respect indicator, no commercial implications.
+  
+  escalation_points:
+    requires_block_4_approval:
+      - any_minting_logic
+      - threshold_definition
+      - lp_backed_roi_binding
+      - waqf_allocation_rules
+      - economic_valuation_formulas
+      - credit_pricing_mechanisms
+      - commercial_authorization_logic
+      - investment_decision_support
+  
+  invariants:
+    - evaluation_does_not_imply_value
+    - eligibility_does_not_trigger_mint
+    - proof_presence_required_for_any_evaluation
+    - execution_agents_have_no_economic_authority
+    - certified_status_grants_no_commercial_rights
+    - signal_evaluation_limited_to_structural_validation
+    - economic_logic_constitutionally_locked
+    - authority_surfaces_define_trust_not_value

@@ -1,0 +1,21 @@
+Generate a comprehensive Product Requirements Document for {brand_name}.
+
+CONTEXT:
+- Mission: {mission}
+- Value Proposition: {value_proposition}
+- Target Users: {icp_demographics}
+- Pain Points: {icp_pain_points}
+- User Goals: {icp_goals}
+- Product Type: {product_type}
+- Platform: {platform}
+
+REQUIREMENTS:
+1. Problem Statement: Clearly define the problem being solved
+2. Solution Overview: Explain how the product addresses the problem
+3. User Personas: Define primary and secondary users
+4. Key User Flows: Map critical user journeys
+5. Feature List: Categorize features by priority (MVP, Phase 2, Future)
+6. Non-Functional Requirements: Performance, security, scalability
+7. Acceptance Criteria: High-level success metrics
+
+Ensure all content is specific to {brand_name} and actionable for engineering teams.

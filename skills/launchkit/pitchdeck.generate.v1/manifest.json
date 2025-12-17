@@ -1,0 +1,14 @@
+{
+  "name": "pitchdeck.generate.v1",
+  "version": "2.0.0",
+  "description": "Generate 9-slide investor pitch deck from brand and product context",
+  "category": "launchkit",
+  "domain": "fundraising",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "outputs": [
+    "deck_outline",
+    "slides"
+  ]
+}

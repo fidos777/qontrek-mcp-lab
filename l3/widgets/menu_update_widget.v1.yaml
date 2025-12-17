@@ -1,0 +1,48 @@
+widget_id: menu_update_widget.v1
+widget_name: Menu Update
+vertical: fnb
+description: Update restaurant menu items with descriptions and pricing.
+
+fields:
+  - id: item_name
+    label: Item Name
+    type: text
+    required: true
+  
+  - id: category
+    label: Category
+    type: select
+    options: ["appetizer", "main_course", "dessert", "beverage", "special"]
+    required: true
+  
+  - id: price
+    label: Price (MYR)
+    type: number
+    required: true
+  
+  - id: description
+    label: Description
+    type: textarea
+    required: false
+  
+  - id: available
+    label: Available
+    type: checkbox
+    required: false
+
+validations:
+  - field: item_name
+    rule: "min_length:2"
+    message: "Item name must be at least 2 characters."
+  
+  - field: price
+    rule: "min:0"
+    message: "Price must be positive."
+
+workflow:
+  trigger: menu_update_workflow.v1
+  persona: raya_campaign_storyteller.v1
+
+presentation:
+  style: form
+  icon: menu

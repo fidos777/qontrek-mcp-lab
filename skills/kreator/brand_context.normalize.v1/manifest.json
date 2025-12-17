@@ -1,0 +1,22 @@
+{
+  "name": "brand_context.normalize.v1",
+  "version": "1.0.0",
+  "description": "Semantic transformer that converts creative workflow outputs into structured business context (mission, positioning, ICP, messaging)",
+  "domain": "kreator",
+  "skill_type": "transformer",
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "output_format": "envelope",
+  "tags": ["brand", "business-context", "normalization", "semantic-analysis", "positioning"],
+  "author": "KuasaTurbo L6 Team",
+  "created_at": "2024-12-07",
+  "dependencies": {
+    "python": ">=3.8",
+    "stdlib_only": true
+  },
+  "integration": {
+    "wto_categories": ["business.positioning", "business.value_prop", "business.icp", "business.messaging"],
+    "upstream_skills": ["brandpack.slogan.v1", "pagegen.landingpage.v1", "graphicgen.socialpack.v1"],
+    "downstream_use": ["business workflows", "consultant kits", "brand strategy documents"]
+  }
+}

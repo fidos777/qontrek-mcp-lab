@@ -1,0 +1,29 @@
+version: "1.0"
+
+quality_checks:
+  - name: "no_hardcoded_prices"
+    check: "output contains NO specific dollar amounts"
+    weight: 0.5
+  
+  - name: "icp_alignment"
+    check: "pricing strategy aligns with ICP context"
+    weight: 0.3
+  
+  - name: "value_justification"
+    check: "each tier has clear value rationale"
+    weight: 0.2
+
+rewrite_triggers:
+  - condition: "hardcoded_price_found"
+    action: "CRITICAL: Remove all specific prices and regenerate with value-based language"
+    max_attempts: 3
+  
+  - condition: "quality_score < 0.8"
+    action: "regenerate with stronger ICP focus"
+
+error_recovery:
+  - error: "hardcoded_price_detected"
+    action: "FAIL: Return error - hardcoded prices are not allowed"
+  
+  - error: "missing_tier"
+    action: "generate minimal tier structure"

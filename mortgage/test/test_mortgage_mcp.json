@@ -1,0 +1,263 @@
+{
+  "test_suite": "Mortgage MCP Toolpack Test Suite",
+  "version": "0.1.0",
+  "description": "End-to-end test suite for Mortgage MCP tools (B2.3-B2.6)",
+  "tests": [
+    {
+      "test_id": "test_001_lppsa_intake",
+      "tool": "lppsa_intake",
+      "description": "Test LPPSA intake normalization",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "Ahmad bin Abdullah",
+        "ic_number": "850101-01-0101",
+        "income": 5000,
+        "property_price": 250000,
+        "loan_amount": 200000,
+        "loan_tenure": 30,
+        "employment_type": "government",
+        "marital_status": "married",
+        "dependents": 2,
+        "existing_loans": 500
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "applicant_name": "AHMAD BIN ABDULLAH",
+          "ic_number": "850101-01-0101",
+          "eligibility_status": "eligible"
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_002_lppsa_intake_invalid_ic",
+      "tool": "lppsa_intake",
+      "description": "Test LPPSA intake with invalid IC format",
+      "status": "PENDING",
+      "input": {
+        "customer_name": "Test User",
+        "ic_number": "invalid-ic",
+        "income": 5000,
+        "property_price": 250000,
+        "loan_amount": 200000,
+        "loan_tenure": 30
+      },
+      "expected_output": {
+        "status": "error",
+        "errors": ["Invalid IC number format"]
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_003_takaful_submission",
+      "tool": "takaful_submission",
+      "description": "Test Takaful submission normalization",
+      "status": "PENDING",
+      "input": {
+        "customer_ic": "850101-01-0101",
+        "loan_amount": 200000,
+        "property_value": 250000,
+        "coverage_type": "mrta",
+        "premium_payment_method": "annual",
+        "age": 35,
+        "medical_declaration": true,
+        "beneficiary_name": "Siti binti Ahmad",
+        "beneficiary_ic": "870202-02-0202"
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "coverage_type": "mrta",
+          "coverage_amount": 200000
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_004_lawyer_intake",
+      "tool": "lawyer_intake",
+      "description": "Test lawyer intake with S&P details",
+      "status": "PENDING",
+      "input": {
+        "customer_ic": "850101-01-0101",
+        "property_address": "No. 123, Jalan Test, Taman Test, 50000 Kuala Lumpur",
+        "snp_date": "2024-01-15",
+        "lawyer_firm_name": "Test & Associates",
+        "lawyer_name": "Lawyer Test",
+        "lawyer_contact": "+60123456789",
+        "lawyer_email": "lawyer@test.com",
+        "snp_number": "SNP-2024-001",
+        "vendor_name": "Developer ABC Sdn Bhd",
+        "purchase_price": 250000,
+        "completion_date": "2025-06-30",
+        "is_panel_lawyer": true
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "panel_approved": true,
+          "snp_reference": "SNP-2024-001"
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_005_property_checklist_new_unit",
+      "tool": "property_checklist",
+      "description": "Test property checklist for new unit",
+      "status": "PENDING",
+      "input": {
+        "property_address": "No. 123, Jalan Test, Taman Test, 50000 Kuala Lumpur",
+        "property_type": "condominium",
+        "developer_name": "Developer ABC Sdn Bhd",
+        "unit_number": "A-12-05",
+        "square_feet": 1200,
+        "completion_certificate": "ccc",
+        "strata_title": true,
+        "is_new_unit": true,
+        "valuation_report": true,
+        "valuation_amount": 250000
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "classification": "new_unit",
+          "completion_status": "ccc"
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_006_property_checklist_subsale",
+      "tool": "property_checklist",
+      "description": "Test property checklist for subsale",
+      "status": "PENDING",
+      "input": {
+        "property_address": "No. 456, Jalan Old, Taman Old, 50000 Kuala Lumpur",
+        "property_type": "terrace",
+        "developer_name": "Old Developer Sdn Bhd",
+        "unit_number": "Lot 123",
+        "square_feet": 1800,
+        "completion_certificate": "oc",
+        "individual_title": true,
+        "is_new_unit": false,
+        "subsale_evidence": "Previous S&P agreement dated 2020",
+        "first_owner": "Previous Owner",
+        "first_owner_ic": "800101-01-0101",
+        "registration_date": "2020-05-15",
+        "valuation_report": true,
+        "valuation_amount": 350000
+      },
+      "expected_output": {
+        "status": "success",
+        "normalized_data": {
+          "classification": "subsale",
+          "required_documents": ["Valuation Report"]
+        },
+        "proposal_payload": {
+          "status": "ready_for_proposal"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    },
+    {
+      "test_id": "test_007_end_to_end_chain",
+      "tool": "end_to_end",
+      "description": "Test complete mortgage application flow",
+      "status": "PENDING",
+      "steps": [
+        {
+          "step": 1,
+          "tool": "lppsa_intake",
+          "input": {
+            "customer_name": "Ahmad bin Abdullah",
+            "ic_number": "850101-01-0101",
+            "income": 5000,
+            "property_price": 250000,
+            "loan_amount": 200000,
+            "loan_tenure": 30,
+            "employment_type": "government",
+            "marital_status": "married",
+            "dependents": 2
+          }
+        },
+        {
+          "step": 2,
+          "tool": "takaful_submission",
+          "input": {
+            "customer_ic": "850101-01-0101",
+            "loan_amount": 200000,
+            "property_value": 250000,
+            "coverage_type": "mrta",
+            "premium_payment_method": "annual",
+            "age": 35
+          }
+        },
+        {
+          "step": 3,
+          "tool": "lawyer_intake",
+          "input": {
+            "customer_ic": "850101-01-0101",
+            "property_address": "No. 123, Jalan Test, Taman Test, 50000 Kuala Lumpur",
+            "snp_date": "2024-01-15",
+            "lawyer_firm_name": "Test & Associates",
+            "is_panel_lawyer": true
+          }
+        },
+        {
+          "step": 4,
+          "tool": "property_checklist",
+          "input": {
+            "property_address": "No. 123, Jalan Test, Taman Test, 50000 Kuala Lumpur",
+            "property_type": "condominium",
+            "developer_name": "Developer ABC Sdn Bhd",
+            "is_new_unit": true,
+            "completion_certificate": "ccc"
+          }
+        }
+      ],
+      "expected_final_output": {
+        "status": "ready_for_proposal",
+        "all_tools_completed": true,
+        "proposal_payload": {
+          "customer_id": "850101-01-0101",
+          "vertical": "mortgage-lppsa"
+        }
+      },
+      "actual_output": null,
+      "result": null
+    }
+  ],
+  "test_results_summary": {
+    "total_tests": 7,
+    "passed": 0,
+    "failed": 0,
+    "pending": 7,
+    "execution_timestamp": null
+  },
+  "instructions": {
+    "how_to_run": "Execute each test by calling the corresponding Python handler with the test input",
+    "example_command": "echo '{\"customer_name\":\"Test\"}' | python mortgage/handlers/handle_lppsa_intake.py",
+    "validation": "Compare actual_output with expected_output and set result to PASS/FAIL"
+  }
+}
+

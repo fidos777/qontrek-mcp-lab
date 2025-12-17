@@ -1,0 +1,37 @@
+{
+  "brand_name": "FlowMind",
+  "branding": {
+    "mission_statement": "To empower knowledge workers with AI-powered productivity tools",
+    "vision_statement": "We envision a world where productivity is accessible to everyone",
+    "value_prop_block": {
+      "headline": "FlowMind combines AI automation with intuitive design"
+    }
+  },
+  "prd": {
+    "problem_statement": "Knowledge workers face context switching, manual tasks, and difficulty maintaining focus",
+    "solution_overview": "FlowMind solves these challenges through AI-powered automation and unified workspace",
+    "feature_list": {
+      "mvp": [
+        "AI-powered task automation",
+        "Unified workspace dashboard",
+        "Focus mode with distraction blocking",
+        "Smart notifications"
+      ]
+    }
+  },
+  "pricing": {
+    "tiers": [
+      {"name": "Starter"},
+      {"name": "Professional"},
+      {"name": "Enterprise"}
+    ],
+    "billing_model": "Monthly and annual subscriptions"
+  },
+  "roadmap": {
+    "milestones": [
+      {"title": "Q1: MVP launch"},
+      {"title": "Q2: Product-market fit"},
+      {"title": "Q3: Scale and partnerships"}
+    ]
+  }
+}

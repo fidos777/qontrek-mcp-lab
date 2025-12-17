@@ -1,0 +1,183 @@
+# Automotive Vertical Pack
+# L4 Layer - Structural metadata only (NO personality, NO behavior)
+
+industry_identity:
+  industry_name: "Automotive Sales"
+  industry_code: "automotive"
+  description: "Vehicle sales and financing industry covering new and used car transactions, trade-ins, and automotive financing products."
+  icon: "🚗"
+
+entities:
+  lead:
+    required:
+      - name
+      - phone
+      - email
+      - vehicle_interest
+    optional:
+      - budget_range
+      - trade_in_vehicle
+      - financing_needed
+      - preferred_contact_method
+      - notes
+  
+  vehicle:
+    required:
+      - make
+      - model
+      - year
+      - vin
+      - price
+    optional:
+      - mileage
+      - color
+      - transmission
+      - fuel_type
+      - features
+      - condition
+      - location
+  
+  deal:
+    required:
+      - lead_id
+      - vehicle_id
+      - status
+      - created_at
+    optional:
+      - offer_price
+      - trade_in_value
+      - financing_terms
+      - down_payment
+      - monthly_payment
+      - closed_at
+      - notes
+
+skills:
+  branding: "launchkit.branding.generate.v1"
+  prd: "launchkit.prd.generate.v1"
+  pricing: "launchkit.pricing.generate.v1"
+  roadmap: "launchkit.roadmap.generate.v1"
+  pitchdeck: "launchkit.pitchdeck.generate.v1"
+  socialpack: "launchkit.socialpack.generate.v1"
+
+workflows:
+  launchkit: "kuasaturbo.launchkit.v1"
+  followup_only: "turbodrive.followup_only.v1"
+
+widgets:
+  lead_intake:
+    type: "form"
+    fields:
+      - name: "name"
+        type: "text"
+        label: "Full Name"
+        required: true
+        validation:
+          minLength: 2
+          maxLength: 100
+      - name: "phone"
+        type: "phone"
+        label: "Phone Number"
+        required: true
+        validation:
+          pattern: "^\\+?[0-9]{10,15}$"
+      - name: "email"
+        type: "email"
+        label: "Email Address"
+        required: true
+      - name: "vehicle_interest"
+        type: "text"
+        label: "Vehicle of Interest"
+        required: true
+      - name: "budget_range"
+        type: "select"
+        label: "Budget Range"
+        required: false
+        options:
+          - "Under $20,000"
+          - "$20,000 - $30,000"
+          - "$30,000 - $50,000"
+          - "$50,000 - $75,000"
+          - "Over $75,000"
+      - name: "financing_needed"
+        type: "select"
+        label: "Financing Needed"
+        required: false
+        options:
+          - "Yes"
+          - "No"
+          - "Unsure"
+    workflow_entrypoint: "kuasaturbo.launchkit.v1"
+  
+  vehicle_inventory:
+    type: "table"
+    fields:
+      - name: "make"
+        type: "text"
+        label: "Make"
+        required: true
+      - name: "model"
+        type: "text"
+        label: "Model"
+        required: true
+      - name: "year"
+        type: "number"
+        label: "Year"
+        required: true
+        validation:
+          min: 1990
+          max: 2026
+      - name: "price"
+        type: "number"
+        label: "Price"
+        required: true
+        validation:
+          min: 0
+      - name: "mileage"
+        type: "number"
+        label: "Mileage"
+        required: false
+        validation:
+          min: 0
+      - name: "condition"
+        type: "select"
+        label: "Condition"
+        required: false
+        options:
+          - "New"
+          - "Certified Pre-Owned"
+          - "Used - Excellent"
+          - "Used - Good"
+          - "Used - Fair"
+
+compliance:
+  required_documents:
+    - "Driver's License"
+    - "Proof of Insurance"
+    - "Proof of Income (for financing)"
+    - "Trade-in Title (if applicable)"
+  disclaimers:
+    - "Financing subject to credit approval."
+    - "Advertised prices do not include taxes, title, and registration fees."
+    - "Vehicle availability subject to prior sale."
+  industry_rules:
+    - "Must verify customer identity before test drive."
+    - "Must disclose all vehicle history and condition reports."
+    - "Must provide Truth in Lending disclosure for financed purchases."
+
+statuses:
+  - new
+  - contacted
+  - qualified
+  - test_drive_scheduled
+  - offer_made
+  - negotiating
+  - financing_pending
+  - closed_won
+  - closed_lost
+  - follow_up
+
+metadata:
+  version: "1.0.0"
+  created_at: "2025-12-08T00:00:00Z"
+  updated_at: "2025-12-08T00:00:00Z"

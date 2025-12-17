@@ -1,0 +1,20 @@
+Generate a comprehensive 30/60/90-day roadmap for {brand_name}.
+
+CONTEXT:
+- MVP Features: {mvp_features}
+- Phase 2 Features: {phase_2_features}
+- Future Features: {future_features}
+- Pricing Model: {pricing_model}
+
+ROADMAP STRUCTURE:
+1. 30 Days: MVP launch and validation
+2. 60 Days: Enhancement and scale
+3. 90 Days: Product-market fit and growth
+
+For each period, provide:
+- Objectives (3-5 goals)
+- Key Tasks (weekly breakdown)
+- Milestones (measurable achievements)
+- Success Metrics
+
+Ensure tasks are specific, measurable, and build progressively.

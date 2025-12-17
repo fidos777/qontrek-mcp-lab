@@ -1,0 +1,32 @@
+{
+  "id": "kuasaturbo.lead_intake.v1",
+  "description": "Process new lead and generate friendly first contact response",
+  "version": "1.0.0",
+  "persona_id": "izzara_friendly_consultant.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "process_lead",
+      "type": "ai_generate",
+      "description": "Generate lead summary and WhatsApp reply using Izzara persona",
+      "input_mapping": {
+        "full_name": "{{input.full_name}}",
+        "phone": "{{input.phone}}",
+        "interest": "{{input.interest}}",
+        "source": "{{input.source}}"
+      },
+      "prompt_template": "New lead captured:\nName: {{full_name}}\nPhone: {{phone}}\nInterest: {{interest}}\nSource: {{source}}\n\nGenerate:\n1. A short internal lead summary (2-3 sentences)\n2. A friendly WhatsApp first reply in Malay/English mix that acknowledges their interest and asks 1-2 qualifying questions. Use warm, consultative tone.",
+      "output_keys": ["lead_summary", "suggested_reply"]
+    }
+  ],
+  "output_schema": {
+    "lead_summary": {
+      "type": "string",
+      "description": "Internal lead summary for team"
+    },
+    "suggested_reply": {
+      "type": "string",
+      "description": "Suggested WhatsApp first contact message"
+    }
+  }
+}

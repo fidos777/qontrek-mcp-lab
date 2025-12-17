@@ -1,0 +1,48 @@
+{
+  "status": "success",
+  "output": {
+    "brand_name": "FlowMind",
+    "pricing_anchors": {
+      "philosophy": "Value-based pricing aligned with customer outcomes",
+      "segment": "mid-market",
+      "willingness_to_pay_indicators": ["SMB budget flexibility"],
+      "entry_tier_positioning": "Scalable for growing teams",
+      "price_sensitivity": "medium"
+    },
+    "tiers": [
+      {
+        "name": "Starter",
+        "target_user": "Individuals and freelancers getting started",
+        "positioning": "Essential features for individual productivity",
+        "price_anchor": "Entry-level pricing for individual users",
+        "value_drivers": ["Core features included", "Individual workspace"]
+      }
+    ],
+    "billing_model": {
+      "primary_model": "Subscription-based",
+      "billing_cycles": [
+        {"cycle": "Monthly", "positioning": "Flexibility for new users"}
+      ]
+    },
+    "price_points_rationale": {
+      "pricing_strategy": "Value-based pricing aligned with customer outcomes"
+    },
+    "add_ons": [
+      {"name": "Additional Users", "pricing_model": "Per user per month"}
+    ],
+    "commission_model": {
+      "partner_program": {
+        "tier_1_affiliates": {"commission_rate": "15% recurring"}
+      }
+    },
+    "pricing_narrative": "Our pricing for FlowMind is designed around one principle: you should only pay for the value you receive.",
+    "metadata": {
+      "generated_at": "2025-12-07T11:15:00.000Z",
+      "version": "2.0.0",
+      "llm_powered": true,
+      "no_hardcoded_prices": true,
+      "icp_derived": true
+    }
+  },
+  "errors": []
+}

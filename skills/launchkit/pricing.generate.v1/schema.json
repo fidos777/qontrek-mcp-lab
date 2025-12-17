@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["brand_name", "value_proposition", "icp"],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Brand name"
+    },
+    "value_proposition": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Value proposition"
+    },
+    "icp": {
+      "type": "object",
+      "required": ["demographics", "pain_points", "goals"],
+      "properties": {
+        "demographics": {
+          "type": "string",
+          "description": "Target customer demographics"
+        },
+        "psychographics": {
+          "type": "string",
+          "description": "Target customer psychographics"
+        },
+        "pain_points": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "goals": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        }
+      }
+    },
+    "business_model_type": {
+      "type": "string",
+      "default": "SaaS",
+      "enum": ["SaaS", "service", "hybrid", "marketplace"],
+      "description": "Business model type"
+    },
+    "revenue_goal": {
+      "type": "string",
+      "description": "Revenue target or goal"
+    },
+    "market_segment": {
+      "type": "string",
+      "default": "mid-market",
+      "enum": ["individual", "smb", "mid-market", "enterprise"],
+      "description": "Target market segment"
+    }
+  }
+}

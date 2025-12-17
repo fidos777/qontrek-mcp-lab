@@ -1,0 +1,34 @@
+{
+  "name": "roof_check",
+  "description": "Classify roof type (metal, concrete, shingle) and determine appropriate mounting type. Validates roof condition and accessibility for solar installation.",
+  "inputSchema": {
+    "$ref": "../schemas/roof_check.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "roof_type": {"type": "string"},
+          "mounting_type": {"type": "string"},
+          "is_suitable": {"type": "boolean"},
+          "recommendations": {"type": "array", "items": {"type": "string"}},
+          "roof_check_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

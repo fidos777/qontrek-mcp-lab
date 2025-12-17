@@ -1,0 +1,15 @@
+{
+  "name": "branding.generate.v1",
+  "version": "2.0.0",
+  "description": "LLM-powered Brand Bible Lite Generator",
+  "domain": "launchkit",
+  "skill_type": "generator",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "output_format": "envelope",
+  "tags": ["branding", "llm", "launchkit"],
+  "author": "KuasaTurbo L6 Team",
+  "created_at": "2024-12-07",
+  "dependencies": {"python": ">=3.8", "stdlib_only": true}
+}

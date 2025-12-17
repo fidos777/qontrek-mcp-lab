@@ -1,0 +1,41 @@
+# KuasaTurbo Creative Engine - Task Configuration
+
+thumbnail:
+  task_type: "thumbnail"
+  module: "kuasaturbo.creative.tasks.thumbnail"
+  function: "run"
+  preferred_model: "gemini-3.0"
+  default_style: "energetic"
+  description: "Generate YouTube/TikTok/Shorts thumbnails"
+
+product_render:
+  task_type: "product_render"
+  module: "kuasaturbo.creative.tasks.product_render"
+  function: "run"
+  preferred_model: "gemini-3.0"
+  default_style: "premium"
+  description: "Generate product photography renders"
+
+story_infographic:
+  task_type: "story_infographic"
+  module: "kuasaturbo.creative.tasks.story_infographic"
+  function: "run"
+  preferred_model: "chatgpt-5.1"
+  default_style: "simple_clean"
+  description: "Create single-image infographics"
+
+car_visualizer:
+  task_type: "car_visualizer"
+  module: "kuasaturbo.creative.tasks.car_visualizer"
+  function: "run"
+  preferred_model: "gemini-3.0"
+  default_style: "premium"
+  description: "Generate scenario-based car visualizations"
+
+image_cleanup:
+  task_type: "image_cleanup"
+  module: "kuasaturbo.creative.tasks.image_cleanup"
+  function: "run"
+  preferred_model: "chatgpt-5.1"
+  default_style: "simple_clean"
+  description: "Clean up images (background removal, artifacts)"

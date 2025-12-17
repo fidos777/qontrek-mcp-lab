@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Solar ROI Calculation Schema",
+  "description": "Schema for solar ROI calculation inputs",
+  "required": [
+    "monthly_bill",
+    "property_type"
+  ],
+  "properties": {
+    "monthly_bill": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Average monthly electricity bill in MYR"
+    },
+    "property_type": {
+      "type": "string",
+      "enum": ["residential", "commercial", "industrial"],
+      "description": "Type of property"
+    },
+    "roof_area_sqm": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Usable roof area in square meters"
+    },
+    "system_size_kw": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Desired system size in kW (optional, will be calculated if not provided)"
+    },
+    "panel_efficiency": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 0.2,
+      "description": "Panel efficiency (default 0.2 = 20%)"
+    },
+    "sunlight_hours_per_day": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 24,
+      "default": 4.5,
+      "description": "Average sunlight hours per day (Malaysia default: 4.5)"
+    },
+    "electricity_rate_per_kwh": {
+      "type": "number",
+      "minimum": 0,
+      "default": 0.40,
+      "description": "Electricity rate per kWh in MYR (default 0.40)"
+    },
+    "system_cost_per_watt": {
+      "type": "number",
+      "minimum": 0,
+      "default": 4.5,
+      "description": "System cost per watt in MYR (default 4.5)"
+    },
+    "maintenance_cost_percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 0.01,
+      "description": "Annual maintenance cost as percentage of system cost (default 1%)"
+    },
+    "inverter_warranty_years": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 10,
+      "description": "Inverter warranty period in years"
+    },
+    "panel_warranty_years": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 25,
+      "description": "Panel warranty period in years"
+    }
+  },
+  "additionalProperties": false
+}
+

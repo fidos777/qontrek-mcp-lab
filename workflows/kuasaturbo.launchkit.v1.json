@@ -1,0 +1,48 @@
+{
+  "id": "kuasaturbo.launchkit.v1",
+  "description": "End-to-end LaunchKit workflow for KuasaTurbo - generates complete startup package",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "id": "branding",
+      "skill_id": "launchkit.branding.generate.v1",
+      "input_mode": "normalized",
+      "description": "Generate brand content (story, taglines, tone guide)"
+    },
+    {
+      "id": "prd",
+      "skill_id": "launchkit.prd.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["branding"],
+      "description": "Generate Product Requirements Document"
+    },
+    {
+      "id": "pricing",
+      "skill_id": "launchkit.pricing.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["branding", "prd"],
+      "description": "Generate pricing and monetization strategy"
+    },
+    {
+      "id": "roadmap",
+      "skill_id": "launchkit.roadmap.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["prd", "pricing"],
+      "description": "Generate 30/60/90-day roadmap"
+    },
+    {
+      "id": "pitchdeck",
+      "skill_id": "launchkit.pitchdeck.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["branding", "prd", "pricing", "roadmap"],
+      "description": "Generate 9-slide investor pitch deck"
+    },
+    {
+      "id": "socialpack",
+      "skill_id": "launchkit.socialpack.generate.v1",
+      "input_mode": "merged",
+      "depends_on": ["branding"],
+      "description": "Generate social launch content"
+    }
+  ]
+}

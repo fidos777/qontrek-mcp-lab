@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit Roadmap Workflow Input",
+  "description": "Creates 30/60/90-day roadmap and phased rollout",
+  "type": "object",
+  "required": [
+    "feature_list"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "Brand/product name"
+    },
+    "feature_list": {
+      "type": "object",
+      "description": "Feature list from PRD",
+      "properties": {
+        "mvp": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "phase_2": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "phase_3": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "pricing_model": {
+      "type": "object",
+      "description": "Pricing model to align dev with monetization",
+      "properties": {
+        "tiers": {"type": "array"},
+        "billing_model": {"type": "string"}
+      }
+    },
+    "target_launch_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Target launch date (ISO 8601)"
+    },
+    "team_size": {
+      "type": "integer",
+      "description": "Team size for capacity planning",
+      "default": 3
+    }
+  }
+}

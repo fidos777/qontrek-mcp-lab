@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BrandContextV2",
+  "description": "Unified brand context schema for LaunchKit skills - version 2.0",
+  "type": "object",
+  "required": ["identity", "audience", "product", "voice"],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "description": "Brand identity and core attributes",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Brand name"
+        },
+        "tagline": {
+          "type": "string",
+          "description": "Brand tagline or slogan"
+        },
+        "story": {
+          "type": "string",
+          "description": "Brand story or origin narrative"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Core brand values"
+        },
+        "mission": {
+          "type": "string",
+          "description": "Mission statement"
+        },
+        "vision": {
+          "type": "string",
+          "description": "Vision statement"
+        }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "description": "Target audience and customer segments",
+      "properties": {
+        "icp": {
+          "type": "string",
+          "description": "Ideal Customer Profile description"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Customer segments"
+        },
+        "pain_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Customer pain points"
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Customer goals and aspirations"
+        },
+        "demographics": {
+          "type": "string",
+          "description": "Demographic information"
+        },
+        "psychographics": {
+          "type": "string",
+          "description": "Psychographic information"
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "description": "Product or service information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Product name"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key product features"
+        },
+        "value_prop": {
+          "type": "string",
+          "description": "Value proposition"
+        },
+        "pricing_model": {
+          "type": "string",
+          "description": "Pricing or business model"
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category or industry"
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["web", "mobile", "desktop", "hybrid"],
+          "description": "Target platform"
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "description": "Brand voice and communication style",
+      "properties": {
+        "tone": {
+          "type": "string",
+          "enum": ["professional", "playful", "inspirational", "bold", "minimalist"],
+          "description": "Brand tone"
+        },
+        "language": {
+          "type": "string",
+          "description": "Primary language or communication style"
+        },
+        "style": {
+          "type": "string",
+          "description": "Writing style guidelines"
+        }
+      }
+    },
+    "positioning": {
+      "type": "object",
+      "description": "Market positioning and differentiation",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "Positioning statement"
+        },
+        "differentiators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key differentiators"
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Main competitors"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Schema metadata",
+      "properties": {
+        "version": {
+          "type": "string",
+          "default": "2.0",
+          "description": "Schema version"
+        },
+        "source": {
+          "type": "string",
+          "description": "Data source or origin"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      }
+    }
+  }
+}

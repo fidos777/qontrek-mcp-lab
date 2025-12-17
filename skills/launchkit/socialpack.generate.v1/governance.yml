@@ -1,0 +1,29 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "\\b\\$\\d+"
+      message: "Prices must not be hardcoded."
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+    - pattern: "click here|click now"
+      message: "Use specific CTAs instead."
+  
+  required_fields:
+    - field: "hooks"
+      min_count: 5
+    - field: "launch_announcements"
+      min_count: 3
+    - field: "cta_variants"
+      min_count: 5
+  
+  tone_rules:
+    allowed: ["professional", "playful", "inspirational", "bold", "minimalist"]
+    default: "professional"
+
+length_constraints:
+  hooks:
+    min_words: 5
+    max_words: 20
+  announcements:
+    max_characters: 280

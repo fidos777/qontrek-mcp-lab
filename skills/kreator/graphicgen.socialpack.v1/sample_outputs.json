@@ -1,0 +1,48 @@
+{
+  "outputs": [
+    {
+      "id": "sample_001_output",
+      "input_reference": "sample_001",
+      "response": {
+        "status": "success",
+        "data": {
+          "campaign_name": "FlowMind Launch",
+          "total_graphics": 9,
+          "platforms": ["instagram", "linkedin", "twitter"],
+          "graphics": [
+            {
+              "id": "ig_post_001",
+              "platform": "instagram",
+              "format": "feed_post",
+              "dimensions": {"width": 1080, "height": 1080},
+              "design_url": "https://cdn.example.com/flowmind_ig_001.png",
+              "copy": "Introducing FlowMind 🚀 AI-powered productivity that adapts to you. Early access now open!",
+              "hashtags": ["#FlowMind", "#ProductivityAI", "#WorkSmarter"]
+            },
+            {
+              "id": "linkedin_post_001",
+              "platform": "linkedin",
+              "format": "feed_post",
+              "dimensions": {"width": 1200, "height": 627},
+              "design_url": "https://cdn.example.com/flowmind_li_001.png",
+              "copy": "We're excited to announce FlowMind—AI that adapts to how you work. Early access now open.",
+              "hashtags": ["#ProductLaunch", "#AI", "#Productivity"]
+            },
+            {
+              "id": "twitter_post_001",
+              "platform": "twitter",
+              "format": "feed_post",
+              "dimensions": {"width": 1200, "height": 675},
+              "design_url": "https://cdn.example.com/flowmind_tw_001.png",
+              "copy": "Introducing FlowMind 🚀 AI productivity that adapts to you. Early access → flowmind.ai",
+              "hashtags": ["#FlowMind", "#AI"]
+            }
+          ],
+          "brand_colors_used": ["#0066FF", "#00C9FF", "#1A1A1A", "#F5F5F5"],
+          "fonts_used": ["Inter", "Space Grotesk"]
+        },
+        "errors": []
+      }
+    }
+  ]
+}

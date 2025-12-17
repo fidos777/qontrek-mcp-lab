@@ -1,0 +1,31 @@
+{
+  "outputs": [{
+    "id": "flowmind_output",
+    "response": {
+      "status": "success",
+      "output": {
+        "brand_name": "FlowMind",
+        "brand_story": "FlowMind was founded on a simple belief: great products change lives.\n\nWe saw Remote workers and digital nomads aged 25-40 struggling with challenges that existing solutions couldn't solve. So we built something different—a platform rooted in simplicity, productivity, efficiency.\n\nEvery feature we ship, every decision we make, reflects our commitment to simplicity. We're not just building software; we're building a movement.",
+        "mission_statement": "To deliver efficiency and through efficiency, helping users reclaim 10+ hours every week.",
+        "vision_statement": "We envision a world where simplicity is accessible to everyone. By delivering efficiency and through efficiency, helping users reclaim 10+ hours every week, we're making that vision reality.",
+        "positioning_statement": "For Remote workers and digital nomads aged 25-40, we are the professional SaaS/Productivity solution that delivers save 10+ hours weekly. Excellence in Efficiency.",
+        "value_prop_block": {
+          "headline": "Reclaim 10+ Hours Every Week",
+          "subheadline": "Save 10+ Hours Weekly, Seamless Integration, Adaptive AI.",
+          "bullets": ["✓ Improve efficiency", "✓ Achieve better results", "✓ Save time and resources"]
+        },
+        "tone_guide": {
+          "tone": "professional",
+          "voice": "Clear, confident, results-oriented",
+          "examples": {"good": ["Increase productivity by 40%"], "bad": ["Super awesome!"]}
+        },
+        "taglines": [
+          {"text": "FlowMind: Simplicity Redefined", "type": "theme-based"},
+          {"text": "Efficiency Made Simple", "type": "theme-based"},
+          {"text": "Work Smarter with FlowMind", "type": "action-oriented"}
+        ],
+        "metadata": {"generated_at": "2024-12-07T18:00:00Z", "version": "2.0.0", "llm_powered": true}
+      }
+    }
+  }]
+}

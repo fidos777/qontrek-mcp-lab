@@ -1,0 +1,28 @@
+TASK: Create single-image story infographic
+
+TITLE: {title}
+STORY_POINTS: {story_points}
+STYLE: {style_name}
+
+STYLE COLORS: {primary_color}
+
+REQUIREMENTS:
+- Clear visual hierarchy
+- Easy-to-scan layout
+- Consistent iconography
+- Balanced composition
+- Mobile-friendly design
+
+INFOGRAPHIC STRUCTURE:
+1. Header with title
+2. Story points with icons/visuals
+3. Flow and progression indicators
+4. Color-coded sections
+5. Footer with CTA or branding
+
+OUTPUT FORMAT:
+Return ONLY valid JSON with:
+- title
+- sections (array with text, icon, color)
+- layout_type
+- aspect_ratio

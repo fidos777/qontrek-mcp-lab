@@ -1,0 +1,67 @@
+# KuasaTurbo Creative Engine - Visual Styles
+
+energetic:
+  name: "energetic"
+  colors:
+    - "#FE4800"
+    - "#262A3B"
+  typography: "bold"
+  effects:
+    - "pop"
+    - "contrast_boost"
+    - "motion_lines"
+  usage:
+    - "thumbnails"
+    - "reels"
+
+premium:
+  name: "premium"
+  colors:
+    - "#000000"
+    - "#D4AF37"
+  typography: "serif"
+  effects:
+    - "soft_glow"
+    - "deep_shadow"
+  usage:
+    - "showroom"
+    - "car_visualizer"
+
+simple_clean:
+  name: "simple_clean"
+  colors:
+    - "#FFFFFF"
+    - "#145FC8"
+  typography: "sans_serif"
+  effects:
+    - "flat"
+    - "minimal"
+  usage:
+    - "infographic"
+
+modern:
+  name: "modern"
+  colors:
+    - "#1A1A1A"
+    - "#00D9FF"
+  typography: "geometric"
+  effects:
+    - "gradient"
+    - "glass_morphism"
+  usage:
+    - "product_render"
+    - "thumbnails"
+
+vibrant:
+  name: "vibrant"
+  colors:
+    - "#FF006E"
+    - "#FFBE0B"
+    - "#8338EC"
+  typography: "bold"
+  effects:
+    - "high_saturation"
+    - "color_splash"
+  usage:
+    - "thumbnails"
+    - "social_media"

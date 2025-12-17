@@ -1,0 +1,16 @@
+{
+  "states": {
+    "integration_test_tenant:service_execute": {
+      "tenant_id": "integration_test_tenant",
+      "endpoint": "service_execute",
+      "usage": {
+        "minute_count": 5,
+        "hour_count": 5,
+        "day_count": 5,
+        "minute_reset_at": 1765254360,
+        "hour_reset_at": 1765256400,
+        "day_reset_at": 1765324800
+      }
+    }
+  }
+}

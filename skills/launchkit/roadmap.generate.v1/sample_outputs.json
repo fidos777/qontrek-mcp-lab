@@ -1,0 +1,51 @@
+{
+  "status": "success",
+  "output": {
+    "brand_name": "FlowMind",
+    "roadmap_30": {
+      "phase": "30 Days - MVP Launch",
+      "objectives": ["Launch MVP", "Validate core value", "Establish user base"],
+      "milestones": [
+        {"name": "MVP Complete", "target": "Day 7"},
+        {"name": "Public Launch", "target": "Day 28"}
+      ]
+    },
+    "roadmap_60": {
+      "phase": "60 Days - Enhancement & Scale",
+      "objectives": ["Enhance product", "Scale infrastructure", "Grow 5x"],
+      "milestones": [
+        {"name": "Phase 2 Features Live", "target": "Day 45"}
+      ]
+    },
+    "roadmap_90": {
+      "phase": "90 Days - Scale & Optimize",
+      "objectives": ["Achieve PMF", "Scale operations", "Prepare fundraise"],
+      "milestones": [
+        {"name": "Product-Market Fit", "target": "Day 85"}
+      ]
+    },
+    "phases": [
+      {
+        "phase_number": 1,
+        "name": "Foundation (Days 1-30)",
+        "goal": "Launch MVP and validate core value"
+      }
+    ],
+    "milestones": [
+      {"name": "MVP Complete", "target": "Day 7", "phase": "30 Days - MVP Launch"}
+    ],
+    "timeline_summary": {
+      "total_duration": "90 days",
+      "phases_count": 3,
+      "milestones_count": 12,
+      "launch_target": "Day 28"
+    },
+    "metadata": {
+      "generated_at": "2025-12-07T11:30:00.000Z",
+      "version": "2.0.0",
+      "llm_powered": true,
+      "roadmap_type": "30/60/90"
+    }
+  },
+  "errors": []
+}

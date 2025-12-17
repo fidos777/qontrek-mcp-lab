@@ -1,0 +1,46 @@
+widget_id: loan_check_widget.v1
+widget_name: Loan Eligibility Check
+vertical: automotive
+description: Check basic loan eligibility based on income and loan amount.
+
+fields:
+  - id: monthly_income
+    label: Monthly Income (MYR)
+    type: number
+    required: true
+  
+  - id: loan_amount
+    label: Loan Amount (MYR)
+    type: number
+    required: true
+  
+  - id: loan_tenure
+    label: Loan Tenure (months)
+    type: number
+    required: true
+  
+  - id: existing_commitments
+    label: Existing Monthly Commitments (MYR)
+    type: number
+    required: false
+
+validations:
+  - field: monthly_income
+    rule: "min:1000"
+    message: "Monthly income must be at least MYR 1000."
+  
+  - field: loan_amount
+    rule: "min:5000"
+    message: "Loan amount must be at least MYR 5000."
+  
+  - field: loan_tenure
+    rule: "min:12"
+    message: "Loan tenure must be at least 12 months."
+
+workflow:
+  trigger: kuasaturbo.loancheck.v1
+  persona: jordan_cfo_analyst.v1
+
+presentation:
+  style: form
+  icon: calculator

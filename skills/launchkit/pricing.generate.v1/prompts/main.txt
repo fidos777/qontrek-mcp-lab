@@ -1,0 +1,22 @@
+Generate a comprehensive pricing and monetization strategy for {brand_name}.
+
+CONTEXT:
+- Value Proposition: {value_proposition}
+- Target Demographics: {icp_demographics}
+- Pain Points: {icp_pain_points}
+- Goals: {icp_goals}
+- Business Model: {business_model_type}
+- Market Segment: {market_segment}
+
+CRITICAL: Do NOT include specific dollar amounts. Focus on value-based positioning.
+
+REQUIREMENTS:
+1. Pricing Anchors: Derive from ICP willingness to pay
+2. Tiers: 3 tiers with clear target users and value drivers
+3. Billing Model: Subscription cycles and payment terms
+4. Rationale: Value-based justification for each tier
+5. Add-ons: Upsell opportunities
+6. Commission Model: Partner and consultant incentives
+7. Narrative: Compelling pricing story
+
+Ensure all pricing is ICP-derived and value-justified.

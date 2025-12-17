@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit PRD Workflow Input",
+  "description": "Generates Product Requirements Document from brand context",
+  "type": "object",
+  "required": [
+    "mission",
+    "positioning",
+    "icp",
+    "value_proposition",
+    "brand_themes"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "Brand/product name"
+    },
+    "mission": {
+      "type": "string",
+      "description": "Mission statement"
+    },
+    "positioning": {
+      "type": "string",
+      "description": "Positioning statement"
+    },
+    "value_proposition": {
+      "type": "string",
+      "description": "Value proposition"
+    },
+    "icp": {
+      "type": "object",
+      "description": "Ideal Customer Profile",
+      "required": ["demographics", "pain_points", "goals"],
+      "properties": {
+        "demographics": {"type": "string"},
+        "psychographics": {"type": "array"},
+        "pain_points": {"type": "array"},
+        "goals": {"type": "array"}
+      }
+    },
+    "brand_themes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Core brand themes"
+    },
+    "product_type": {
+      "type": "string",
+      "description": "Product type (SaaS, mobile app, service, etc.)",
+      "default": "SaaS"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Platform (web, mobile, desktop, hybrid)",
+      "default": "web"
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Technical or business constraints"
+    }
+  }
+}

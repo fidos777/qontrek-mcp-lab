@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Site Inspection Schema",
+  "description": "Schema for solar site inspection data including images, address, and utility bill",
+  "required": [
+    "address",
+    "inspection_date"
+  ],
+  "properties": {
+    "address": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Property address"
+    },
+    "inspection_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of inspection (YYYY-MM-DD)"
+    },
+    "inspector_name": {
+      "type": "string",
+      "description": "Name of inspector"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["roof", "meter", "electrical_panel", "surrounding", "other"]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["url", "type"]
+      },
+      "description": "Array of inspection images"
+    },
+    "utility_bill": {
+      "type": "object",
+      "properties": {
+        "monthly_average": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average monthly bill in MYR"
+        },
+        "peak_usage_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Peak monthly usage in kWh"
+        },
+        "tariff_type": {
+          "type": "string",
+          "enum": ["domestic", "commercial", "industrial"]
+        }
+      },
+      "description": "Utility bill information"
+    },
+    "roof_measurements": {
+      "type": "object",
+      "properties": {
+        "total_area_sqm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "usable_area_sqm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "angle_degrees": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 90
+        },
+        "orientation": {
+          "type": "string",
+          "enum": ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"]
+        }
+      },
+      "description": "Roof measurement data"
+    },
+    "shading_obstacles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["tree", "building", "chimney", "antenna", "other"]
+          },
+          "height_meters": {
+            "type": "number",
+            "minimum": 0
+          },
+          "distance_meters": {
+            "type": "number",
+            "minimum": 0
+          },
+          "impact": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          }
+        }
+      },
+      "description": "Shading obstacles identified during inspection"
+    }
+  },
+  "additionalProperties": false
+}
+

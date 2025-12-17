@@ -1,0 +1,42 @@
+widget_id: invoice_gen_widget.v1
+widget_name: Invoice Generator
+vertical: accounting
+description: Generate a simple invoice summary for a client.
+
+fields:
+  - id: client_name
+    label: Client Name
+    type: text
+    required: true
+  
+  - id: service_description
+    label: Service Description
+    type: textarea
+    required: true
+  
+  - id: amount
+    label: Amount (MYR)
+    type: number
+    required: true
+  
+  - id: due_date
+    label: Due Date
+    type: text
+    required: false
+
+validations:
+  - field: amount
+    rule: "min:0"
+    message: "Amount must be positive."
+  
+  - field: client_name
+    rule: "min_length:2"
+    message: "Client name must be at least 2 characters."
+
+workflow:
+  trigger: invoice_gen_workflow.v1
+  persona: jordan_cfo_analyst.v1
+
+presentation:
+  style: form
+  icon: file-text

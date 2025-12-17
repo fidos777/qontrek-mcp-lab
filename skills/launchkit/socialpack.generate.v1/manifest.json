@@ -1,0 +1,18 @@
+{
+  "name": "socialpack.generate.v1",
+  "version": "2.0.0",
+  "description": "Generate strategic launch content for social channels",
+  "category": "launchkit",
+  "domain": "marketing",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "outputs": [
+    "hooks",
+    "launch_announcements",
+    "teaser_posts",
+    "faq_posts",
+    "cta_variants",
+    "countdown_sequence"
+  ]
+}

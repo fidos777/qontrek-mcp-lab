@@ -1,0 +1,226 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.0.0",
+  "description": "L6 Workflow Registry - Catalog of all available workflows and skills with metadata",
+  "skills": [
+    {
+      "id": "branding.generate.v1",
+      "name": "Branding Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "branding",
+      "description": "LLM-powered brand content generation (story, vision, tone guide, taglines)",
+      "llm_powered": true,
+      "handler": "skills/launchkit/branding.generate.v1/handler.py",
+      "status": "active"
+    },
+    {
+      "id": "prd.generate.v1",
+      "name": "PRD Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "product",
+      "description": "LLM-powered PRD generation (problem, solution, personas, features, NFRs)",
+      "llm_powered": true,
+      "handler": "skills/launchkit/prd.generate.v1/handler.py",
+      "status": "active"
+    },
+    {
+      "id": "pricing.generate.v1",
+      "name": "Pricing Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "business",
+      "description": "ICP-derived pricing strategy (NO hardcoded prices, value-based tiers)",
+      "llm_powered": true,
+      "handler": "skills/launchkit/pricing.generate.v1/handler.py",
+      "status": "active"
+    },
+    {
+      "id": "roadmap.generate.v1",
+      "name": "Roadmap Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "product",
+      "description": "30/60/90-day roadmap with milestones and phased rollout",
+      "llm_powered": true,
+      "handler": "skills/launchkit/roadmap.generate.v1/handler.py",
+      "status": "active"
+    },
+    {
+      "id": "pitchdeck.generate.v1",
+      "name": "Pitchdeck Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "fundraising",
+      "description": "9-slide investor pitch deck with speaker notes",
+      "llm_powered": true,
+      "handler": "skills/launchkit/pitchdeck.generate.v1/handler.py",
+      "status": "active"
+    },
+    {
+      "id": "socialpack.generate.v1",
+      "name": "Social Pack Generator",
+      "version": "2.0.0",
+      "category": "launchkit",
+      "domain": "marketing",
+      "description": "Strategic social launch content (hooks, announcements, teasers, CTAs)",
+      "llm_powered": true,
+      "handler": "skills/launchkit/socialpack.generate.v1/handler.py",
+      "status": "active"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "kreator.creative_funnel.v1",
+      "name": "Creative Funnel V1",
+      "version": "1.0.0",
+      "category": "marketing",
+      "domain": "kreator",
+      "description": "End-to-end creative workflow: Slogan → Landing Page → Social Pack",
+      "produces": [
+        "slogans",
+        "landing_page_sections",
+        "social_media_graphics"
+      ],
+      "steps": [
+        {
+          "id": "slogan",
+          "skill": "generate_slogan",
+          "produces": "slogans"
+        },
+        {
+          "id": "landing",
+          "skill": "generate_landingpage",
+          "produces": "landing_page_sections"
+        },
+        {
+          "id": "socialpack",
+          "skill": "generate_socialpack",
+          "produces": "social_media_graphics"
+        }
+      ],
+      "input_schema": "l6/workflows/kreator.creative_funnel.v1/schema.json",
+      "workflow_definition": "l6/workflows/kreator.creative_funnel.v1/workflow.json",
+      "tags": ["marketing", "branding", "content", "social-media"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.branding.v1",
+      "name": "LaunchKit Branding",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "startup",
+      "description": "Brand Bible Lite - Converts normalized brand context into comprehensive branding guide",
+      "produces": [
+        "brand_story",
+        "mission_statement",
+        "vision_statement",
+        "positioning_statement",
+        "value_prop_block",
+        "tone_guide",
+        "taglines"
+      ],
+      "input_schema": "l6/workflows/launchkit.branding.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.branding.v1/workflow.json",
+      "tags": ["branding", "strategy", "launchkit", "startup"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.prd.v1",
+      "name": "LaunchKit PRD",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "product",
+      "description": "Product Requirements Document - Generates PRD from brand context",
+      "produces": [
+        "problem_statement",
+        "solution_overview",
+        "user_personas",
+        "key_user_flows",
+        "feature_list",
+        "non_functional_requirements",
+        "acceptance_criteria"
+      ],
+      "input_schema": "l6/workflows/launchkit.prd.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.prd.v1/workflow.json",
+      "tags": ["prd", "product", "requirements", "launchkit"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.pricing.v1",
+      "name": "LaunchKit Pricing",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "business",
+      "description": "Pricing & Monetization Strategy - Generates pricing tiers and models",
+      "produces": [
+        "tiers",
+        "billing_model",
+        "price_points",
+        "add_ons",
+        "commission_model",
+        "pricing_narrative"
+      ],
+      "input_schema": "l6/workflows/launchkit.pricing.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.pricing.v1/workflow.json",
+      "tags": ["pricing", "monetization", "business-model", "launchkit"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.roadmap.v1",
+      "name": "LaunchKit Roadmap",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "product",
+      "description": "30/60/90-Day Roadmap - Creates phased rollout plan",
+      "produces": [
+        "roadmap_30",
+        "roadmap_60",
+        "roadmap_90",
+        "phases",
+        "milestones"
+      ],
+      "input_schema": "l6/workflows/launchkit.roadmap.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.roadmap.v1/workflow.json",
+      "tags": ["roadmap", "planning", "milestones", "launchkit"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.pitchdeck.v1",
+      "name": "LaunchKit Pitchdeck",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "startup",
+      "description": "Pitchdeck Generator - Creates slide-by-slide investor presentation",
+      "produces": [
+        "deck_outline",
+        "slides"
+      ],
+      "input_schema": "l6/workflows/launchkit.pitchdeck.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.pitchdeck.v1/workflow.json",
+      "tags": ["pitchdeck", "investor", "presentation", "launchkit"],
+      "status": "active"
+    },
+    {
+      "id": "launchkit.socialpack.v1",
+      "name": "LaunchKit Social Pack",
+      "version": "1.0.0",
+      "category": "launchkit",
+      "domain": "marketing",
+      "description": "Social Launch Pack - Creates strategic launch content for social channels",
+      "produces": [
+        "hooks",
+        "launch_announcement_posts",
+        "teaser_posts",
+        "faq_posts",
+        "cta_variants",
+        "countdown_series"
+      ],
+      "input_schema": "l6/workflows/launchkit.socialpack.v1/schema.json",
+      "workflow_definition": "l6/workflows/launchkit.socialpack.v1/workflow.json",
+      "tags": ["social-media", "launch", "content", "launchkit"],
+      "status": "active"
+    }
+  ]
+}

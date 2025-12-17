@@ -1,0 +1,43 @@
+widget_id: lead_intake_widget.v1
+widget_name: Lead Intake Widget
+vertical: crm
+description: Capture new lead information for follow-up.
+
+fields:
+  - id: full_name
+    label: Full Name
+    type: text
+    required: true
+  
+  - id: phone
+    label: Phone Number
+    type: text
+    required: true
+  
+  - id: interest
+    label: Product / Service Interest
+    type: text
+    required: false
+  
+  - id: source
+    label: Lead Source
+    type: select
+    options: ["facebook_ads", "tiktok", "instagram", "referral", "walk_in"]
+    required: false
+
+validations:
+  - field: phone
+    rule: "regex:^\\d{9,12}$"
+    message: "Phone number must be 9–12 digits."
+  
+  - field: full_name
+    rule: "min_length:2"
+    message: "Full name must be at least 2 characters."
+
+workflow:
+  trigger: kuasaturbo.lead_intake.v1
+  persona: izzara_friendly_consultant.v1
+
+presentation:
+  style: form
+  icon: user-plus

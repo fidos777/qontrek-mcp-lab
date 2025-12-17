@@ -1,0 +1,126 @@
+{
+  "outputs": [
+    {
+      "id": "sample_001_output",
+      "input_reference": "sample_001",
+      "response": {
+        "status": "success",
+        "data": {
+          "page_title": "FlowMind - AI Productivity for Remote Teams",
+          "sections": [
+            {
+              "section_id": "hero",
+              "section_type": "hero",
+              "content": {
+                "headline": "Reclaim 10+ Hours Every Week",
+                "subheadline": "AI-powered automation that learns your workflow and handles the busywork for you",
+                "cta_primary": "Start Free Trial",
+                "cta_secondary": "Watch Demo"
+              }
+            },
+            {
+              "section_id": "benefits",
+              "section_type": "benefits_grid",
+              "content": {
+                "headline": "Work Smarter, Not Harder",
+                "benefits": [
+                  {
+                    "title": "Save 10+ Hours Weekly",
+                    "description": "Automate repetitive tasks and reclaim time for high-impact work"
+                  },
+                  {
+                    "title": "Seamless Integration",
+                    "description": "Works with Slack, Gmail, Notion, and 50+ tools you already use"
+                  },
+                  {
+                    "title": "Adaptive AI",
+                    "description": "Learns your work style and gets smarter over time"
+                  },
+                  {
+                    "title": "Focus on What Matters",
+                    "description": "Spend time on strategic work, not busywork"
+                  }
+                ]
+              }
+            },
+            {
+              "section_id": "features",
+              "section_type": "feature_showcase",
+              "content": {
+                "headline": "Powerful Features, Simple Experience",
+                "features": [
+                  {
+                    "name": "Smart Automation",
+                    "headline": "AI That Understands Your Workflow",
+                    "description": "FlowMind analyzes your work patterns and automatically identifies tasks that can be automated."
+                  },
+                  {
+                    "name": "Universal Integration",
+                    "headline": "Works With Tools You Already Use",
+                    "description": "Seamlessly integrates with Slack, Gmail, Notion, Asana, and 50+ popular tools."
+                  },
+                  {
+                    "name": "Adaptive Learning",
+                    "headline": "Gets Smarter Over Time",
+                    "description": "The more you use FlowMind, the better it understands your preferences."
+                  }
+                ]
+              }
+            },
+            {
+              "section_id": "testimonial",
+              "section_type": "testimonial",
+              "content": {
+                "quote": "FlowMind gave me my evenings back. I'm finishing work by 5pm now.",
+                "author": "Sarah Chen",
+                "role": "Product Manager",
+                "company": "TechCorp"
+              }
+            },
+            {
+              "section_id": "faq",
+              "section_type": "faq",
+              "content": {
+                "headline": "Frequently Asked Questions",
+                "questions": [
+                  {
+                    "question": "How does FlowMind integrate with my existing tools?",
+                    "answer": "FlowMind connects via secure OAuth integrations. Simply authorize the tools you use."
+                  },
+                  {
+                    "question": "Is my data secure?",
+                    "answer": "Absolutely. We use bank-level encryption and never store sensitive data."
+                  },
+                  {
+                    "question": "How long does it take to see results?",
+                    "answer": "Most users see time savings within the first week."
+                  }
+                ]
+              }
+            },
+            {
+              "section_id": "final_cta",
+              "section_type": "call_to_action",
+              "content": {
+                "headline": "Join 10,000+ Users Saving Time Daily",
+                "subheadline": "Start your free trial today and reclaim 10+ hours every week",
+                "cta_primary": "Start Free Trial",
+                "trust_signals": ["14-day free trial", "No credit card required", "Cancel anytime"]
+              }
+            }
+          ],
+          "meta": {
+            "description": "Reclaim 10+ hours every week with AI-powered workflow automation. Start free trial.",
+            "keywords": ["AI productivity", "workflow automation", "remote work tools"]
+          },
+          "conversion_elements": {
+            "primary_cta_count": 4,
+            "form_fields": ["email", "full_name"],
+            "trust_signals": ["14-day free trial", "No credit card required", "10,000+ active users"]
+          }
+        },
+        "errors": []
+      }
+    }
+  ]
+}

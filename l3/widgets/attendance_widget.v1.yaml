@@ -1,0 +1,43 @@
+widget_id: attendance_widget.v1
+widget_name: Attendance Tracker
+vertical: hr
+description: Record employee attendance locally (clock in/out).
+
+fields:
+  - id: employee_name
+    label: Employee Name
+    type: text
+    required: true
+  
+  - id: employee_id
+    label: Employee ID
+    type: text
+    required: true
+  
+  - id: action
+    label: Action
+    type: select
+    options: ["clock_in", "clock_out"]
+    required: true
+  
+  - id: notes
+    label: Notes
+    type: textarea
+    required: false
+
+validations:
+  - field: employee_name
+    rule: "min_length:2"
+    message: "Employee name must be at least 2 characters."
+  
+  - field: employee_id
+    rule: "regex:^[A-Z0-9]{3,10}$"
+    message: "Employee ID must be 3-10 alphanumeric characters."
+
+workflow:
+  trigger: attendance_local_workflow.v1
+  persona: izzara_friendly_consultant.v1
+
+presentation:
+  style: inline
+  icon: clock

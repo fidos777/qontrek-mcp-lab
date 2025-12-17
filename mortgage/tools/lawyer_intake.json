@@ -1,0 +1,40 @@
+{
+  "name": "lawyer_intake",
+  "description": "Capture Sale & Purchase (S&P) agreement details and panel lawyer information. Processes legal documentation requirements and validates lawyer panel status.",
+  "inputSchema": {
+    "$ref": "../schemas/lawyer_intake.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "customer_ic": {"type": "string"},
+          "property_address": {"type": "string"},
+          "snp_reference": {"type": "string"},
+          "snp_date": {"type": "string"},
+          "lawyer_firm": {"type": "string"},
+          "lawyer_details": {"type": "object"},
+          "vendor_details": {"type": "object"},
+          "purchase_price": {"type": "number"},
+          "completion_date": {"type": "string"},
+          "panel_approved": {"type": "boolean"},
+          "legal_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

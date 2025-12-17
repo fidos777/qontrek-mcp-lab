@@ -1,0 +1,17 @@
+Generate strategic social media launch content for {brand_name}.
+
+CONTEXT:
+- Value Proposition: {value_proposition}
+- Key Messages: {key_messages}
+- Tone: {tone}
+- Target Audience: {target_audience}
+
+CONTENT TYPES:
+1. Hooks: Attention-grabbing opening lines
+2. Announcements: Platform-specific launch posts
+3. Teasers: Pre-launch countdown content
+4. FAQs: Common questions in carousel format
+5. CTAs: Call-to-action variations
+6. Countdown: Daily countdown sequence
+
+Ensure all content is platform-optimized and drives engagement.

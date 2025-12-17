@@ -1,0 +1,40 @@
+widget_id: caption_builder_widget.v1
+widget_name: Caption Builder
+vertical: content
+description: Generate engaging captions for social media posts with hooks and CTAs.
+
+fields:
+  - id: post_topic
+    label: Post Topic
+    type: text
+    required: true
+  
+  - id: tone
+    label: Tone
+    type: select
+    options: ["casual", "professional", "playful", "inspirational"]
+    required: true
+  
+  - id: platform
+    label: Platform
+    type: select
+    options: ["tiktok", "instagram", "facebook", "linkedin"]
+    required: true
+  
+  - id: include_hashtags
+    label: Include Hashtags
+    type: checkbox
+    required: false
+
+validations:
+  - field: post_topic
+    rule: "min_length:5"
+    message: "Post topic must be at least 5 characters."
+
+workflow:
+  trigger: caption_builder_workflow.v1
+  persona: zeyti_bbnu_creator.v1
+
+presentation:
+  style: form
+  icon: message-square

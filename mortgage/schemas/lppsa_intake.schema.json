@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "LPPSA Intake Schema",
+  "description": "Schema for LPPSA (Low Price Public Sector Housing) customer intake form",
+  "required": [
+    "customer_name",
+    "ic_number",
+    "income",
+    "property_price",
+    "loan_amount",
+    "loan_tenure"
+  ],
+  "properties": {
+    "customer_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Full name of the customer"
+    },
+    "ic_number": {
+      "type": "string",
+      "pattern": "^[0-9]{6}-[0-9]{2}-[0-9]{4}$",
+      "description": "Malaysian IC number in format YYMMDD-PB-GGGG"
+    },
+    "income": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Monthly income in MYR"
+    },
+    "property_price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Property purchase price in MYR"
+    },
+    "loan_amount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Requested loan amount in MYR"
+    },
+    "loan_tenure": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 35,
+      "description": "Loan tenure in years"
+    },
+    "employment_type": {
+      "type": "string",
+      "enum": ["government", "private", "self_employed", "retired"],
+      "description": "Type of employment"
+    },
+    "marital_status": {
+      "type": "string",
+      "enum": ["single", "married", "divorced", "widowed"],
+      "description": "Marital status"
+    },
+    "dependents": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of dependents"
+    },
+    "existing_loans": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Monthly payment for existing loans"
+    }
+  },
+  "additionalProperties": false
+}
+

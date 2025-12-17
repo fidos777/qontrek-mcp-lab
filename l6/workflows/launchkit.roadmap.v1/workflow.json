@@ -1,0 +1,53 @@
+{
+  "name": "launchkit.roadmap.v1",
+  "version": "1.0.0",
+  "description": "30/60/90-Day Roadmap - Creates phased rollout plan",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "roadmap_30",
+      "type": "transform",
+      "description": "30-day objectives, tasks, and milestones",
+      "input_map": {
+        "feature_list": "input.feature_list",
+        "team_size": "input.team_size"
+      }
+    },
+    {
+      "id": "roadmap_60",
+      "type": "transform",
+      "description": "60-day objectives, tasks, and milestones",
+      "input_map": {
+        "feature_list": "input.feature_list",
+        "pricing_model": "input.pricing_model"
+      }
+    },
+    {
+      "id": "roadmap_90",
+      "type": "transform",
+      "description": "90-day objectives, tasks, and milestones",
+      "input_map": {
+        "feature_list": "input.feature_list",
+        "target_launch_date": "input.target_launch_date"
+      }
+    },
+    {
+      "id": "phases",
+      "type": "transform",
+      "description": "Define Phase 1/2/3 with goals",
+      "input_map": {
+        "feature_list": "input.feature_list",
+        "pricing_model": "input.pricing_model"
+      }
+    },
+    {
+      "id": "milestones",
+      "type": "transform",
+      "description": "Key milestones list with dates",
+      "input_map": {
+        "feature_list": "input.feature_list",
+        "target_launch_date": "input.target_launch_date"
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "voltek": {
+    "tenant_id": "voltek",
+    "name": "Voltek Energy",
+    "status": "active",
+    "roles": ["admin", "agent", "creator"],
+    "api_keys": ["VTK_DEV_KEY", "VTK_PROD_KEY"],
+    "jwt_secret": "voltek_secret_key_2024"
+  },
+  "default": {
+    "tenant_id": "default",
+    "name": "Default Tenant",
+    "status": "active",
+    "roles": ["admin"],
+    "api_keys": ["DEFAULT_KEY", "kuasaturbo-dev-key-2024"],
+    "jwt_secret": "default_secret_key_2024"
+  },
+  "acme": {
+    "tenant_id": "acme",
+    "name": "ACME Corporation",
+    "status": "active",
+    "roles": ["admin", "agent"],
+    "api_keys": ["ACME_API_KEY"],
+    "jwt_secret": "acme_secret_key_2024"
+  },
+  "demo": {
+    "tenant_id": "demo",
+    "name": "Demo Tenant",
+    "status": "inactive",
+    "roles": ["readonly"],
+    "api_keys": ["DEMO_KEY"],
+    "jwt_secret": "demo_secret_key_2024"
+  }
+}

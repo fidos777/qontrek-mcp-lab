@@ -1,0 +1,34 @@
+{
+  "samples": [
+    {
+      "id": "flowmind_branding",
+      "description": "FlowMind branding generation from normalized context",
+      "input": {
+        "brand_name": "FlowMind",
+        "mission": "To deliver efficiency and through efficiency, helping users reclaim 10+ hours every week.",
+        "positioning": "For Remote workers and digital nomads aged 25-40, we are the professional SaaS/Productivity solution that delivers save 10+ hours weekly. Excellence in Efficiency.",
+        "value_proposition": "Reclaim 10+ Hours Every Week. Save 10+ Hours Weekly, Seamless Integration, Adaptive AI.",
+        "icp": {
+          "demographics": "Remote workers and digital nomads aged 25-40",
+          "psychographics": ["results-oriented", "efficiency-focused", "data-driven"],
+          "pain_points": ["Time constraints and inefficiency", "Manual repetitive tasks"],
+          "goals": ["Improve efficiency", "Achieve better results", "Save time and resources"]
+        },
+        "brand_themes": ["simplicity", "productivity", "efficiency", "innovation"],
+        "unified_tone": "professional",
+        "messaging_framework": {
+          "tone": "professional",
+          "voice_guidelines": {
+            "voice": "Clear, confident, results-oriented",
+            "language": "Use data-driven language, avoid jargon",
+            "style": "Direct and authoritative"
+          },
+          "key_messages": ["Reclaim 10+ Hours Every Week", "Excellence in Efficiency"],
+          "do": ["Use professional language", "Focus on benefits over features"],
+          "dont": ["Use jargon or technical terms", "Make unsubstantiated claims"]
+        },
+        "narrative": "FlowMind is a SaaS/Productivity company serving Remote workers and digital nomads aged 25-40."
+      }
+    }
+  ]
+}

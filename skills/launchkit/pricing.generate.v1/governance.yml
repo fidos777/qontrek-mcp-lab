@@ -1,0 +1,29 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "\\b\\$\\d+(\\.\\d{2})?\\b"
+      message: "CRITICAL: Hardcoded dollar amounts are strictly forbidden. Use value-based descriptions."
+    - pattern: "\\b€\\d+|£\\d+|¥\\d+"
+      message: "CRITICAL: No hardcoded currency amounts allowed."
+    - pattern: "\\d+/month|\\d+/year"
+      message: "CRITICAL: No specific price points. Use 'pricing tier' or 'value-based' language."
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+  
+  required_fields:
+    - field: "tiers"
+      min_count: 3
+    - field: "pricing_narrative"
+      min_length: 200
+    - field: "no_hardcoded_prices"
+      exact_value: true
+  
+  tone_rules:
+    allowed: ["professional", "transparent", "value-focused"]
+    default: "professional"
+
+length_constraints:
+  pricing_narrative:
+    min_words: 100
+    max_words: 400

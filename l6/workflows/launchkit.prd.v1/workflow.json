@@ -1,0 +1,74 @@
+{
+  "name": "launchkit.prd.v1",
+  "version": "1.0.0",
+  "description": "Product Requirements Document - Generates PRD from brand context",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "problem_statement",
+      "type": "transform",
+      "description": "Derive problem statement from ICP pain points",
+      "input_map": {
+        "icp": "input.icp",
+        "mission": "input.mission"
+      }
+    },
+    {
+      "id": "solution_overview",
+      "type": "transform",
+      "description": "Create solution overview from value prop and positioning",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "positioning": "input.positioning",
+        "brand_themes": "input.brand_themes"
+      }
+    },
+    {
+      "id": "user_personas",
+      "type": "transform",
+      "description": "Generate user personas from ICP",
+      "input_map": {
+        "icp": "input.icp",
+        "brand_name": "input.brand_name"
+      }
+    },
+    {
+      "id": "key_user_flows",
+      "type": "transform",
+      "description": "Define key user flows based on goals",
+      "input_map": {
+        "icp": "input.icp",
+        "product_type": "input.product_type"
+      }
+    },
+    {
+      "id": "feature_list",
+      "type": "transform",
+      "description": "Generate feature list (MVP vs later phases)",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "brand_themes": "input.brand_themes",
+        "icp": "input.icp"
+      }
+    },
+    {
+      "id": "non_functional_requirements",
+      "type": "transform",
+      "description": "Define NFRs (performance, security, scalability)",
+      "input_map": {
+        "product_type": "input.product_type",
+        "platform": "input.platform",
+        "constraints": "input.constraints"
+      }
+    },
+    {
+      "id": "acceptance_criteria",
+      "type": "transform",
+      "description": "High-level acceptance criteria",
+      "input_map": {
+        "icp": "input.icp",
+        "value_proposition": "input.value_proposition"
+      }
+    }
+  ]
+}

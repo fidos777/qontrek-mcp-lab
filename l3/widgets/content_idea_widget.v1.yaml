@@ -1,0 +1,34 @@
+widget_id: content_idea_widget.v1
+widget_name: Content Idea Generator
+vertical: content
+description: Generate 10 content ideas based on topic, audience, and platform.
+
+fields:
+  - id: topic
+    label: Topic
+    type: text
+    required: true
+  
+  - id: audience
+    label: Audience
+    type: text
+    required: false
+  
+  - id: platform
+    label: Platform
+    type: select
+    options: ["tiktok", "instagram", "youtube", "facebook"]
+    required: true
+
+validations:
+  - field: topic
+    rule: "min_length:3"
+    message: "Topic must be at least 3 characters."
+
+workflow:
+  trigger: content_idea_workflow.v1
+  persona: zeyti_bbnu_creator.v1
+
+presentation:
+  style: card
+  icon: lightbulb

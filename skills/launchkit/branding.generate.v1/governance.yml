@@ -1,0 +1,42 @@
+version: "1.0"
+
+rules:
+  forbidden_patterns:
+    - pattern: "\\b\\$\\d+"
+      message: "Prices must not be hardcoded."
+    - pattern: "lorem ipsum"
+      message: "Placeholder text is forbidden."
+    - pattern: "Company X|Product Y|Brand Z"
+      message: "Generic names are forbidden."
+    - pattern: "amazing|awesome|incredible"
+      message: "Avoid superlatives without context."
+  
+  required_fields:
+    - field: "brand_name"
+      min_length: 2
+    - field: "brand_story"
+      min_length: 200
+      max_length: 1000
+    - field: "mission_statement"
+      min_length: 20
+      max_length: 200
+    - field: "vision_statement"
+      min_length: 20
+      max_length: 200
+    - field: "taglines"
+      min_count: 5
+  
+  tone_rules:
+    allowed: ["professional", "playful", "inspirational", "bold", "minimalist"]
+    default: "professional"
+
+length_constraints:
+  brand_story:
+    min_words: 50
+    max_words: 300
+  mission_statement:
+    min_words: 10
+    max_words: 50
+  vision_statement:
+    min_words: 10
+    max_words: 50

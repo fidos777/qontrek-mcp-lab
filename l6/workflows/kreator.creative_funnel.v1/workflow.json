@@ -1,0 +1,44 @@
+{
+  "name": "kreator.creative_funnel_v1",
+  "version": "1.0.0",
+  "description": "Slogan → Landing Page → Social Pack",
+  "steps": [
+    {
+      "id": "slogan",
+      "skill": "generate_slogan",
+      "input_map": {
+        "brand_name": "input.brand_name",
+        "industry": "input.industry",
+        "target_audience": "input.target_audience",
+        "brand_values": "input.brand_values",
+        "tone": "input.tone"
+      }
+    },
+    {
+      "id": "landing",
+      "skill": "generate_landingpage",
+      "input_map": {
+        "page_title": "input.page_title",
+        "page_goal": "input.page_goal",
+        "product_name": "input.product_name",
+        "value_proposition": "input.value_proposition",
+        "target_audience": "input.target_audience",
+        "key_benefits": "input.key_benefits",
+        "cta_primary": "input.cta_primary",
+        "tone": "input.tone"
+      }
+    },
+    {
+      "id": "socialpack",
+      "skill": "generate_socialpack",
+      "input_map": {
+        "campaign_name": "input.campaign_name",
+        "campaign_goal": "input.campaign_goal",
+        "message": "input.social_message",
+        "brand_identity": "input.brand_identity",
+        "platforms": "input.platforms",
+        "content_type": "input.social_content_type"
+      }
+    }
+  ]
+}

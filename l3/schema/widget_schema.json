@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KuasaTurbo Lightweight Widget Schema (L3)",
+  "description": "Schema for lightweight UI widgets in KuasaTurbo - NO GOVERNANCE",
+  "type": "object",
+  "required": [
+    "widget_id",
+    "widget_name",
+    "vertical",
+    "description",
+    "fields",
+    "workflow"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "widget_id": {
+      "type": "string",
+      "pattern": "^[a-z_]+\\.v[0-9]+$",
+      "description": "Unique widget identifier"
+    },
+    "widget_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Human-readable widget name"
+    },
+    "vertical": {
+      "type": "string",
+      "enum": [
+        "content",
+        "creative",
+        "accounting",
+        "hr",
+        "crm",
+        "fnb",
+        "retail",
+        "automotive"
+      ],
+      "description": "Vertical category"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Widget purpose description"
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "type", "required"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]+$",
+            "description": "Field identifier"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Field label for UI"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["text", "number", "select", "checkbox", "textarea", "file"],
+            "description": "Field input type"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether field is required"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Options for select fields"
+          }
+        }
+      }
+    },
+    "validations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "rule", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Field ID to validate"
+          },
+          "rule": {
+            "type": "string",
+            "description": "Validation rule"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          }
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "required": ["trigger", "persona"],
+      "additionalProperties": false,
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "pattern": "^[a-z_.]+\\.v[0-9]+$",
+          "description": "Workflow ID to trigger"
+        },
+        "persona": {
+          "type": "string",
+          "pattern": "^[a-z_]+\\.v[0-9]+$",
+          "description": "Persona ID to use"
+        }
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["card", "form", "inline", "modal"],
+          "description": "Widget presentation style"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon identifier"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "updated": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "not": {
+    "anyOf": [
+      {
+        "required": ["governance"]
+      },
+      {
+        "required": ["governance_gate"]
+      },
+      {
+        "required": ["ledger"]
+      },
+      {
+        "required": ["ledger_commit"]
+      },
+      {
+        "required": ["audit"]
+      },
+      {
+        "required": ["sla"]
+      },
+      {
+        "required": ["drift"]
+      },
+      {
+        "required": ["exception"]
+      },
+      {
+        "required": ["multi_approval"]
+      },
+      {
+        "required": ["certification"]
+      },
+      {
+        "required": ["seal"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "Product launch announcement - Tech startup",
+      "input": {
+        "campaign_name": "FlowMind Launch",
+        "campaign_goal": "announcement",
+        "message": "Introducing FlowMind - AI-powered productivity that adapts to how you work",
+        "brand_identity": {
+          "colors": ["#0066FF", "#00C9FF", "#1A1A1A", "#F5F5F5"],
+          "fonts": ["Inter", "Space Grotesk"],
+          "style": "modern"
+        },
+        "platforms": ["instagram", "linkedin", "twitter"],
+        "content_type": "product",
+        "variations": 3,
+        "include_copy": true,
+        "language": "en"
+      }
+    },
+    {
+      "id": "sample_002",
+      "description": "Motivational quote - Fitness brand",
+      "input": {
+        "campaign_name": "Monday Motivation",
+        "campaign_goal": "engagement",
+        "message": "Your only limit is you",
+        "brand_identity": {
+          "colors": ["#FF6B35", "#004E89", "#F7F7F7"],
+          "fonts": ["Montserrat"],
+          "logo_url": "https://example.com/logo.png",
+          "style": "bold"
+        },
+        "platforms": ["instagram", "facebook"],
+        "content_type": "quote",
+        "variations": 2,
+        "include_copy": true,
+        "language": "en"
+      }
+    },
+    {
+      "id": "sample_003",
+      "description": "Educational content - Sustainability brand",
+      "input": {
+        "campaign_name": "Eco Tips Series",
+        "campaign_goal": "awareness",
+        "message": "5 simple ways to reduce your carbon footprint today",
+        "brand_identity": {
+          "colors": ["#2D6A4F", "#52B788", "#D8F3DC", "#1B4332"],
+          "fonts": ["Poppins", "Open Sans"],
+          "style": "minimal"
+        },
+        "platforms": ["instagram", "linkedin", "facebook"],
+        "content_type": "educational",
+        "variations": 4,
+        "include_copy": true,
+        "language": "en"
+      }
+    },
+    {
+      "id": "sample_004",
+      "description": "Event promotion - Conference",
+      "input": {
+        "campaign_name": "TechSummit 2026",
+        "campaign_goal": "conversion",
+        "message": "Join 5000+ innovators at TechSummit 2026. Early bird tickets now available",
+        "brand_identity": {
+          "colors": ["#6C63FF", "#FF6584", "#2D3748", "#FFFFFF"],
+          "fonts": ["Raleway", "Lato"],
+          "style": "playful"
+        },
+        "platforms": ["instagram", "twitter", "linkedin", "facebook"],
+        "content_type": "event",
+        "variations": 3,
+        "include_copy": true,
+        "language": "en"
+      }
+    }
+  ]
+}

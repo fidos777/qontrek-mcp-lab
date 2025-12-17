@@ -1,0 +1,36 @@
+{
+  "status": "success",
+  "output": {
+    "brand_name": "FlowMind",
+    "deck_outline": [
+      {"slide_number": 1, "title": "FlowMind", "purpose": "FlowMind combines AI automation with intuitive design"},
+      {"slide_number": 2, "title": "The Problem", "purpose": "A critical challenge facing the market"},
+      {"slide_number": 3, "title": "Our Solution", "purpose": "FlowMind combines AI automation with intuitive design"},
+      {"slide_number": 4, "title": "Market Opportunity", "purpose": "A large and growing market"},
+      {"slide_number": 5, "title": "Product", "purpose": "Key features and capabilities"},
+      {"slide_number": 6, "title": "Business Model", "purpose": "How we make money"},
+      {"slide_number": 7, "title": "Traction & Roadmap", "purpose": "Our path to scale"},
+      {"slide_number": 8, "title": "Team", "purpose": "The people building the future"},
+      {"slide_number": 9, "title": "The Ask", "purpose": "Join us in building the future"}
+    ],
+    "slides": [
+      {
+        "id": "cover",
+        "title": "FlowMind",
+        "subtitle": "FlowMind combines AI automation with intuitive design",
+        "bullets": [],
+        "visual_concept": "Bold brand logo centered, gradient background",
+        "speaker_notes": "Welcome. Today I'm excited to share FlowMind, and how we're solving a critical problem in the market."
+      }
+    ],
+    "total_slides": 9,
+    "estimated_duration": "10-15 minutes",
+    "metadata": {
+      "generated_at": "2025-12-07T10:45:00.000Z",
+      "version": "2.0.0",
+      "llm_powered": true,
+      "slide_count": 9
+    }
+  },
+  "errors": []
+}

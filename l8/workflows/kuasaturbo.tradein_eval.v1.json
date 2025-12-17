@@ -1,0 +1,37 @@
+{
+  "id": "kuasaturbo.tradein_eval.v1",
+  "description": "Generate trade-in evaluation notes and customer response",
+  "version": "1.0.0",
+  "persona_id": "tawfiq_sales_closer.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "evaluate_tradein",
+      "type": "ai_generate",
+      "description": "Generate evaluation notes and WhatsApp response using Tawfiq persona",
+      "input_mapping": {
+        "vehicle_make": "{{input.vehicle_make}}",
+        "vehicle_model": "{{input.vehicle_model}}",
+        "year": "{{input.year}}",
+        "mileage": "{{input.mileage}}",
+        "condition": "{{input.condition}}"
+      },
+      "prompt_template": "Trade-in inquiry:\nVehicle: {{vehicle_make}} {{vehicle_model}}\nYear: {{year}}\nMileage: {{mileage}} km\nCondition: {{condition}}\n\nGenerate:\n1. Internal evaluation note (what to check, what questions to ask next)\n2. WhatsApp reply to customer requesting photos and scheduling inspection. Use confident, sales-closer tone with Malay/English mix. Move them to next step.",
+      "output_keys": ["evaluation_note", "customer_reply", "next_steps"]
+    }
+  ],
+  "output_schema": {
+    "evaluation_note": {
+      "type": "string",
+      "description": "Internal evaluation notes for sales team"
+    },
+    "customer_reply": {
+      "type": "string",
+      "description": "WhatsApp message to customer"
+    },
+    "next_steps": {
+      "type": "array",
+      "description": "Suggested next steps for closing"
+    }
+  }
+}

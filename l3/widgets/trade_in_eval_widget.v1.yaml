@@ -1,0 +1,48 @@
+widget_id: trade_in_eval_widget.v1
+widget_name: Trade-In Evaluation
+vertical: automotive
+description: Evaluate vehicle trade-in value based on make, model, year, and condition.
+
+fields:
+  - id: vehicle_make
+    label: Vehicle Make
+    type: text
+    required: true
+  
+  - id: vehicle_model
+    label: Vehicle Model
+    type: text
+    required: true
+  
+  - id: year
+    label: Year
+    type: number
+    required: true
+  
+  - id: mileage
+    label: Mileage (km)
+    type: number
+    required: true
+  
+  - id: condition
+    label: Condition
+    type: select
+    options: ["excellent", "good", "fair", "poor"]
+    required: true
+
+validations:
+  - field: year
+    rule: "min:1990"
+    message: "Year must be 1990 or later."
+  
+  - field: mileage
+    rule: "min:0"
+    message: "Mileage must be positive."
+
+workflow:
+  trigger: kuasaturbo.tradein_eval.v1
+  persona: tawfiq_sales_closer.v1
+
+presentation:
+  style: form
+  icon: car

@@ -1,0 +1,224 @@
+{
+  "samples": [
+    {
+      "id": "sample_001",
+      "description": "SaaS product signup page",
+      "input": {
+        "page_title": "FlowMind - AI Productivity for Remote Teams",
+        "page_goal": "signup",
+        "product_name": "FlowMind",
+        "value_proposition": "Reclaim 10+ hours every week with AI that automates your workflow",
+        "target_audience": "Remote workers and distributed teams struggling with productivity",
+        "key_benefits": [
+          "Save 10+ hours per week on repetitive tasks",
+          "Integrate with tools you already use",
+          "AI that learns and adapts to your work style",
+          "Focus on high-impact work, not busywork"
+        ],
+        "features": [
+          {
+            "name": "Smart Automation",
+            "description": "AI identifies and automates repetitive patterns in your workflow"
+          },
+          {
+            "name": "Universal Integration",
+            "description": "Works seamlessly with Slack, Gmail, Notion, and 50+ tools"
+          },
+          {
+            "name": "Adaptive Learning",
+            "description": "Gets smarter over time as it learns your preferences"
+          }
+        ],
+        "social_proof": {
+          "testimonials": [
+            {
+              "quote": "FlowMind gave me my evenings back. I'm finishing work by 5pm now.",
+              "author": "Sarah Chen",
+              "role": "Product Manager",
+              "company": "TechCorp"
+            }
+          ],
+          "stats": [
+            {
+              "metric": "10,000+",
+              "label": "Active users"
+            },
+            {
+              "metric": "4.8/5",
+              "label": "User rating"
+            }
+          ]
+        },
+        "cta_primary": "Start Free Trial",
+        "cta_secondary": "Watch Demo",
+        "brand_identity": {
+          "colors": ["#0066FF", "#00C9FF", "#1A1A1A", "#F5F5F5"],
+          "style": "modern"
+        },
+        "tone": "professional",
+        "include_faq": true,
+        "include_video": true
+      }
+    },
+    {
+      "id": "sample_002",
+      "description": "E-book download lead generation",
+      "input": {
+        "page_title": "The Ultimate Guide to Sustainable Living",
+        "page_goal": "download",
+        "product_name": "Sustainable Living Guide",
+        "value_proposition": "Transform your lifestyle with 50 practical eco-friendly tips",
+        "target_audience": "Environmentally conscious individuals wanting to reduce their carbon footprint",
+        "key_benefits": [
+          "50 actionable tips you can implement today",
+          "Save money while helping the planet",
+          "Reduce your carbon footprint by 40%"
+        ],
+        "social_proof": {
+          "stats": [
+            {
+              "metric": "25,000+",
+              "label": "Downloads"
+            },
+            {
+              "metric": "4.9/5",
+              "label": "Reader rating"
+            }
+          ]
+        },
+        "cta_primary": "Download Free Guide",
+        "brand_identity": {
+          "colors": ["#2D6A4F", "#52B788", "#D8F3DC"],
+          "style": "minimal"
+        },
+        "tone": "inspirational",
+        "include_faq": false,
+        "include_video": false
+      }
+    },
+    {
+      "id": "sample_003",
+      "description": "Event registration page",
+      "input": {
+        "page_title": "TechSummit 2026 - The Future of AI",
+        "page_goal": "registration",
+        "product_name": "TechSummit 2026",
+        "value_proposition": "Join 5,000+ innovators shaping the future of technology",
+        "target_audience": "Tech professionals, entrepreneurs, and AI enthusiasts",
+        "key_benefits": [
+          "Learn from 50+ industry leaders",
+          "Network with 5,000+ attendees",
+          "Hands-on workshops and demos",
+          "Early access to cutting-edge AI tools"
+        ],
+        "features": [
+          {
+            "name": "Keynote Speakers",
+            "description": "Hear from CEOs of leading AI companies"
+          },
+          {
+            "name": "Interactive Workshops",
+            "description": "Build real AI applications in guided sessions"
+          },
+          {
+            "name": "Networking Events",
+            "description": "Connect with investors, founders, and engineers"
+          }
+        ],
+        "social_proof": {
+          "testimonials": [
+            {
+              "quote": "Best tech conference I've attended. Made connections that changed my career.",
+              "author": "Marcus Johnson",
+              "role": "CTO",
+              "company": "StartupXYZ"
+            }
+          ],
+          "stats": [
+            {
+              "metric": "5,000+",
+              "label": "Attendees"
+            },
+            {
+              "metric": "50+",
+              "label": "Speakers"
+            }
+          ],
+          "logos": ["Google", "Microsoft", "OpenAI", "Meta"]
+        },
+        "pricing": {
+          "early_bird": "$299",
+          "regular": "$499",
+          "deadline": "January 15, 2026"
+        },
+        "cta_primary": "Register Now",
+        "cta_secondary": "View Agenda",
+        "brand_identity": {
+          "colors": ["#6C63FF", "#FF6584", "#2D3748"],
+          "style": "bold"
+        },
+        "tone": "urgent",
+        "include_faq": true,
+        "include_video": true
+      }
+    },
+    {
+      "id": "sample_004",
+      "description": "Mobile app download page",
+      "input": {
+        "page_title": "BrainBuddies - Learning Made Fun",
+        "page_goal": "download",
+        "product_name": "BrainBuddies",
+        "value_proposition": "Turn screen time into learning time with games kids actually love",
+        "target_audience": "Parents of children aged 5-12 looking for educational apps",
+        "key_benefits": [
+          "Kids learn while having fun",
+          "Covers math, reading, science, and more",
+          "Safe, ad-free environment",
+          "Progress tracking for parents"
+        ],
+        "features": [
+          {
+            "name": "Adaptive Learning",
+            "description": "Adjusts difficulty based on your child's progress"
+          },
+          {
+            "name": "Parent Dashboard",
+            "description": "Track learning milestones and time spent"
+          },
+          {
+            "name": "Offline Mode",
+            "description": "Learn anywhere, even without internet"
+          }
+        ],
+        "social_proof": {
+          "testimonials": [
+            {
+              "quote": "My daughter asks to play BrainBuddies every day. Her reading improved dramatically!",
+              "author": "Jennifer Martinez",
+              "role": "Parent"
+            }
+          ],
+          "stats": [
+            {
+              "metric": "500,000+",
+              "label": "Downloads"
+            },
+            {
+              "metric": "4.7/5",
+              "label": "App Store rating"
+            }
+          ]
+        },
+        "cta_primary": "Download Free",
+        "brand_identity": {
+          "colors": ["#FF6B6B", "#4ECDC4", "#FFE66D"],
+          "style": "playful"
+        },
+        "tone": "friendly",
+        "include_faq": true,
+        "include_video": true
+      }
+    }
+  ]
+}

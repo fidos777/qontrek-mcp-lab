@@ -1,0 +1,36 @@
+{
+  "name": "site_inspection",
+  "description": "Process site inspection data including images, address, and utility bill. Estimates roof angle, usable area, and shading score. Normalizes inspection data for downstream processing.",
+  "inputSchema": {
+    "$ref": "../schemas/site_inspection.schema.json"
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["success", "error"]
+      },
+      "normalized_data": {
+        "type": "object",
+        "properties": {
+          "address": {"type": "string"},
+          "inspection_date": {"type": "string"},
+          "roof_angle_degrees": {"type": "number"},
+          "usable_area_sqm": {"type": "number"},
+          "shading_score": {"type": "number"},
+          "estimated_system_capacity_kw": {"type": "number"},
+          "inspection_form_fields": {"type": "object"}
+        }
+      },
+      "proposal_payload": {
+        "type": "object"
+      },
+      "errors": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+}
+

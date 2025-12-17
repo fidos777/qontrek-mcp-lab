@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit Pricing Workflow Input",
+  "description": "Generates pricing and monetization strategy",
+  "type": "object",
+  "required": [
+    "icp",
+    "value_proposition"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "Brand/product name"
+    },
+    "icp": {
+      "type": "object",
+      "description": "Ideal Customer Profile",
+      "required": ["demographics", "pain_points", "goals"],
+      "properties": {
+        "demographics": {"type": "string"},
+        "psychographics": {"type": "array"},
+        "pain_points": {"type": "array"},
+        "goals": {"type": "array"}
+      }
+    },
+    "value_proposition": {
+      "type": "string",
+      "description": "Value proposition"
+    },
+    "revenue_goal": {
+      "type": "string",
+      "description": "Revenue goal (e.g., '$100K MRR in 12 months')"
+    },
+    "business_model_type": {
+      "type": "string",
+      "enum": ["SaaS", "service", "hybrid", "marketplace", "freemium"],
+      "default": "SaaS",
+      "description": "Business model type"
+    },
+    "target_market_size": {
+      "type": "string",
+      "description": "Estimated market size"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+TASK: Generate YouTube/TikTok/Shorts thumbnail design
+
+TITLE: {title}
+MOOD: {mood}
+PLATFORM: {platform}
+STYLE: {style_name}
+
+STYLE COLORS: {primary_color}
+
+REQUIREMENTS:
+- Eye-catching and click-worthy
+- Platform-optimized dimensions
+- Clear hierarchy (title > subtitle > CTA)
+- High contrast for mobile viewing
+- Emotion-driven design matching mood
+
+DESIGN ELEMENTS:
+1. Main headline placement and typography
+2. Visual focal point and composition
+3. Color scheme and contrast
+4. CTA button or text overlay
+5. Platform-specific optimizations
+
+OUTPUT FORMAT:
+Return ONLY valid JSON with:
+- variation_id
+- headline_text
+- composition_notes (array)
+- dominant_colors (array)
+- aspect_ratio

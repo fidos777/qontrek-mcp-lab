@@ -1,0 +1,21 @@
+{
+  "brand_name": "FlowMind",
+  "value_proposition": "FlowMind combines AI automation with intuitive design to help you focus on what matters",
+  "icp": {
+    "demographics": "Knowledge workers, freelancers, and small teams (25-45 years old, tech-savvy)",
+    "psychographics": "Value productivity, seek efficiency, willing to invest in tools that save time",
+    "pain_points": [
+      "Context switching between multiple tools",
+      "Manual repetitive tasks",
+      "Difficulty maintaining focus"
+    ],
+    "goals": [
+      "Increase daily productive hours",
+      "Reduce tool fragmentation",
+      "Automate routine workflows"
+    ]
+  },
+  "business_model_type": "SaaS",
+  "revenue_goal": "Sustainable growth with strong unit economics",
+  "market_segment": "mid-market"
+}

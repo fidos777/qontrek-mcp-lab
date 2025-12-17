@@ -1,0 +1,58 @@
+# KuasaTurbo Creative Engine - Task Templates
+
+thumbnail:
+  id: "thumbnail"
+  name: "Thumbnail Generator"
+  description: "Generate YouTube/TikTok/Shorts thumbnails"
+  default_style: "energetic"
+  fields_required:
+    - title
+    - mood
+    - platform
+  prompt_template_id: "thumbnail"
+  output_format: "16:9"
+
+product_render:
+  id: "product_render"
+  name: "Product Render"
+  description: "Generate product photography renders"
+  default_style: "premium"
+  fields_required:
+    - image
+    - angles
+    - background
+  prompt_template_id: "product_render"
+  output_format: "1:1"
+
+story_infographic:
+  id: "story_infographic"
+  name: "Story Infographic"
+  description: "Create single-image infographics"
+  default_style: "simple_clean"
+  fields_required:
+    - story_points
+    - title
+  prompt_template_id: "infographic"
+  output_format: "9:16"
+
+car_visualizer:
+  id: "car_visualizer"
+  name: "Car Visualizer"
+  description: "Generate scenario-based car visualizations"
+  default_style: "premium"
+  fields_required:
+    - car_model
+    - scenario
+  prompt_template_id: "car_visualizer"
+  output_format: "16:9"
+
+image_cleanup:
+  id: "image_cleanup"
+  name: "Image Cleanup"
+  description: "Clean up images (background removal, artifacts)"
+  default_style: "simple_clean"
+  fields_required:
+    - image
+    - mode
+  prompt_template_id: "image_cleanup"
+  output_format: "original"

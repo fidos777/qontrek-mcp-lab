@@ -1,0 +1,19 @@
+{
+  "name": "prd.generate.v1",
+  "version": "2.0.0",
+  "description": "Generate Product Requirements Document from brand context",
+  "category": "launchkit",
+  "domain": "product",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "outputs": [
+    "problem_statement",
+    "solution_overview",
+    "user_personas",
+    "key_user_flows",
+    "feature_list",
+    "non_functional_requirements",
+    "acceptance_criteria"
+  ]
+}

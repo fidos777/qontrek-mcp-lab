@@ -1,0 +1,66 @@
+{
+  "name": "launchkit.socialpack.v1",
+  "version": "1.0.0",
+  "description": "Social Launch Pack - Creates strategic launch content for social channels",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "hooks",
+      "type": "transform",
+      "description": "Generate attention-grabbing hooks",
+      "input_map": {
+        "messaging_framework": "input.messaging_framework",
+        "value_proposition": "input.value_proposition"
+      }
+    },
+    {
+      "id": "launch_announcement_posts",
+      "type": "transform",
+      "description": "Create launch announcement posts per channel",
+      "input_map": {
+        "brand_name": "input.brand_name",
+        "value_proposition": "input.value_proposition",
+        "channels": "input.channels",
+        "launch_date": "input.launch_date"
+      }
+    },
+    {
+      "id": "teaser_posts",
+      "type": "transform",
+      "description": "Generate pre-launch teaser content",
+      "input_map": {
+        "messaging_framework": "input.messaging_framework",
+        "roadmap_milestones": "input.roadmap_milestones",
+        "launch_date": "input.launch_date"
+      }
+    },
+    {
+      "id": "faq_posts",
+      "type": "transform",
+      "description": "Create FAQ-style educational posts",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "pricing_highlights": "input.pricing_highlights"
+      }
+    },
+    {
+      "id": "cta_variants",
+      "type": "transform",
+      "description": "Generate CTA variations for different contexts",
+      "input_map": {
+        "messaging_framework": "input.messaging_framework",
+        "pricing_highlights": "input.pricing_highlights"
+      }
+    },
+    {
+      "id": "countdown_series",
+      "type": "transform",
+      "description": "Create countdown series (7 days, 3 days, 1 day, launch)",
+      "input_map": {
+        "brand_name": "input.brand_name",
+        "launch_date": "input.launch_date",
+        "roadmap_milestones": "input.roadmap_milestones"
+      }
+    }
+  ]
+}

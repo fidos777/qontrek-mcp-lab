@@ -1,0 +1,32 @@
+{
+  "id": "attendance_local_workflow.v1",
+  "description": "Generate attendance summary and manager note suggestion",
+  "version": "1.0.0",
+  "persona_id": "izzara_friendly_consultant.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "process_attendance",
+      "type": "ai_generate",
+      "description": "Generate attendance summary using Izzara persona",
+      "input_mapping": {
+        "employee_name": "{{input.employee_name}}",
+        "employee_id": "{{input.employee_id}}",
+        "action": "{{input.action}}",
+        "notes": "{{input.notes}}"
+      },
+      "prompt_template": "Attendance record:\nEmployee: {{employee_name}} ({{employee_id}})\nAction: {{action}}\n{{#if notes}}Notes: {{notes}}{{/if}}\n\nGenerate:\n1. A short attendance summary sentence\n2. Optional manager note suggestion (how to respond/encourage if needed)\n\nUse supportive, HR-friendly tone. No policy enforcement, just soft narrative.",
+      "output_keys": ["attendance_summary", "manager_note"]
+    }
+  ],
+  "output_schema": {
+    "attendance_summary": {
+      "type": "string",
+      "description": "Summary of attendance action"
+    },
+    "manager_note": {
+      "type": "string",
+      "description": "Suggested manager response or note"
+    }
+  }
+}

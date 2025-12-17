@@ -1,0 +1,64 @@
+{
+  "name": "launchkit.pricing.v1",
+  "version": "1.0.0",
+  "description": "Pricing & Monetization Strategy - Generates pricing tiers and models",
+  "type": "synthetic",
+  "steps": [
+    {
+      "id": "tiers",
+      "type": "transform",
+      "description": "Generate pricing tiers based on ICP segments",
+      "input_map": {
+        "icp": "input.icp",
+        "value_proposition": "input.value_proposition",
+        "business_model_type": "input.business_model_type"
+      }
+    },
+    {
+      "id": "billing_model",
+      "type": "transform",
+      "description": "Define billing model (monthly, annual, usage-based)",
+      "input_map": {
+        "business_model_type": "input.business_model_type",
+        "icp": "input.icp"
+      }
+    },
+    {
+      "id": "price_points",
+      "type": "transform",
+      "description": "Calculate price points with rationale",
+      "input_map": {
+        "icp": "input.icp",
+        "value_proposition": "input.value_proposition",
+        "revenue_goal": "input.revenue_goal"
+      }
+    },
+    {
+      "id": "add_ons",
+      "type": "transform",
+      "description": "Identify add-ons and upsells",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "business_model_type": "input.business_model_type"
+      }
+    },
+    {
+      "id": "commission_model",
+      "type": "transform",
+      "description": "Define commission structure for consultants/partners",
+      "input_map": {
+        "business_model_type": "input.business_model_type",
+        "revenue_goal": "input.revenue_goal"
+      }
+    },
+    {
+      "id": "pricing_narrative",
+      "type": "transform",
+      "description": "Create pricing narrative and positioning",
+      "input_map": {
+        "value_proposition": "input.value_proposition",
+        "icp": "input.icp"
+      }
+    }
+  ]
+}

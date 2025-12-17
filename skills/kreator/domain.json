@@ -1,0 +1,66 @@
+{
+  "domain": "kreator",
+  "name": "Kreator Marketing Skills",
+  "version": "1.0.0",
+  "description": "Marketing, branding, and creative content generation skills for SMEs and enterprises",
+  "owner": "Qontrek",
+  "maintainer": "kreator-team@qontrek.com",
+  "tags": [
+    "marketing",
+    "branding",
+    "content",
+    "creative",
+    "design",
+    "copywriting"
+  ],
+  "capabilities": [
+    "Brand slogan and tagline generation",
+    "Social media graphic pack creation",
+    "Landing page content generation",
+    "Pitch deck slide generation",
+    "Video storyboard creation"
+  ],
+  "dependencies": [],
+  "runtime": {
+    "python": ">=3.8",
+    "libraries": []
+  },
+  "skills": [
+    {
+      "id": "brandpack.slogan.v1",
+      "name": "Brand Slogan Generator",
+      "status": "production",
+      "description": "Generates brand slogans and taglines based on brand identity and positioning"
+    },
+    {
+      "id": "graphicgen.socialpack.v1",
+      "name": "Social Media Graphics Generator",
+      "status": "development",
+      "description": "Creates social media graphic packs with templates and copy"
+    },
+    {
+      "id": "pagegen.landingpage.v1",
+      "name": "Landing Page Generator",
+      "status": "development",
+      "description": "Generates landing page content with headlines, copy, and CTAs"
+    },
+    {
+      "id": "slidegen.pitchdeck.v1",
+      "name": "Pitch Deck Generator",
+      "status": "lab",
+      "description": "Creates pitch deck slides with structure and content"
+    },
+    {
+      "id": "videogen.storyboard.v1",
+      "name": "Video Storyboard Generator",
+      "status": "lab",
+      "description": "Generates video storyboards with scenes and scripts"
+    }
+  ],
+  "metadata": {
+    "created": "2024-12-07",
+    "updated": "2024-12-07",
+    "license": "Proprietary",
+    "documentation": "https://docs.qontrek.com/skills/kreator"
+  }
+}

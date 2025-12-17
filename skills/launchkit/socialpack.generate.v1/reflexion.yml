@@ -1,0 +1,29 @@
+version: "1.0"
+
+quality_checks:
+  - name: "engagement"
+    check: "hooks are attention-grabbing"
+    weight: 0.4
+  
+  - name: "platform_fit"
+    check: "content fits platform constraints"
+    weight: 0.3
+  
+  - name: "brand_consistency"
+    check: "tone matches brand voice"
+    weight: 0.3
+
+rewrite_triggers:
+  - condition: "quality_score < 0.7"
+    action: "regenerate weak content"
+    max_attempts: 2
+  
+  - condition: "character_limit_exceeded"
+    action: "shorten content"
+
+error_recovery:
+  - error: "missing_content_type"
+    action: "generate placeholder content"
+  
+  - error: "generation_failed"
+    action: "return partial pack with errors"

@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Brand Context Normalizer",
+  "description": "Transforms creative workflow outputs into structured business context (mission, positioning, ICP, messaging)",
+  "type": "object",
+  "required": ["brand", "creative"],
+  "properties": {
+    "brand": {
+      "type": "object",
+      "description": "Brand context from brand_context.json model",
+      "required": ["brand_name", "industry", "target_audience", "brand_values"],
+      "properties": {
+        "brand_name": {"type": "string"},
+        "industry": {"type": "string"},
+        "target_audience": {"type": "string"},
+        "brand_values": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tone": {"type": "string"},
+        "value_proposition": {"type": "string"}
+      }
+    },
+    "creative": {
+      "type": "object",
+      "description": "Creative workflow outputs to normalize",
+      "properties": {
+        "slogan": {
+          "type": "object",
+          "description": "Output from brandpack.slogan.v1",
+          "properties": {
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "slogans": {"type": "array"},
+                "brand_analysis": {"type": "object"}
+              }
+            }
+          }
+        },
+        "landing_page": {
+          "type": "object",
+          "description": "Output from pagegen.landingpage.v1",
+          "properties": {
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "sections": {"type": "array"},
+                "meta": {"type": "object"}
+              }
+            }
+          }
+        },
+        "social_pack": {
+          "type": "object",
+          "description": "Output from graphicgen.socialpack.v1",
+          "properties": {
+            "status": {"type": "string"},
+            "output": {
+              "type": "object",
+              "properties": {
+                "graphics": {"type": "array"},
+                "campaign_name": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

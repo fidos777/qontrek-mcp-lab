@@ -1,0 +1,36 @@
+{
+  "id": "kuasaturbo.loancheck.v1",
+  "description": "Generate loan eligibility assessment and document checklist",
+  "version": "1.0.0",
+  "persona_id": "jordan_cfo_analyst.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "assess_loan",
+      "type": "ai_generate",
+      "description": "Generate loan assessment using Jordan persona",
+      "input_mapping": {
+        "monthly_income": "{{input.monthly_income}}",
+        "loan_amount": "{{input.loan_amount}}",
+        "loan_tenure": "{{input.loan_tenure}}",
+        "existing_commitments": "{{input.existing_commitments}}"
+      },
+      "prompt_template": "Loan inquiry:\nMonthly Income: MYR {{monthly_income}}\nLoan Amount: MYR {{loan_amount}}\nTenure: {{loan_tenure}} months\nExisting Commitments: MYR {{existing_commitments}}\n\nGenerate:\n1. A rough narrative about loan likelihood (high-level, indicative only)\n2. List of documents/info client should prepare\n3. Important disclaimers\n\nUse careful, analytical tone. Always state 'indicative only, subject to bank approval'. No absolute promises.",
+      "output_keys": ["assessment_narrative", "document_checklist", "disclaimers"]
+    }
+  ],
+  "output_schema": {
+    "assessment_narrative": {
+      "type": "string",
+      "description": "High-level loan likelihood assessment (indicative)"
+    },
+    "document_checklist": {
+      "type": "array",
+      "description": "List of required documents"
+    },
+    "disclaimers": {
+      "type": "array",
+      "description": "Important disclaimers about approval"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "invoice_gen_workflow.v1",
+  "description": "Generate simple invoice summary for client",
+  "version": "1.0.0",
+  "persona_id": "jordan_cfo_analyst.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "generate_invoice",
+      "type": "ai_generate",
+      "description": "Generate invoice text using Jordan persona",
+      "input_mapping": {
+        "client_name": "{{input.client_name}}",
+        "service_description": "{{input.service_description}}",
+        "amount": "{{input.amount}}",
+        "due_date": "{{input.due_date}}"
+      },
+      "prompt_template": "Generate a professional invoice summary for:\nClient: {{client_name}}\nService: {{service_description}}\nAmount: MYR {{amount}}\n{{#if due_date}}Due Date: {{due_date}}{{/if}}\n\nFormat as clear, professional invoice text with payment instructions. Use minimal BBNU, keep it formal and clear.",
+      "output_keys": ["invoice_text", "payment_note"]
+    }
+  ],
+  "output_schema": {
+    "invoice_text": {
+      "type": "string",
+      "description": "Formatted invoice summary"
+    },
+    "payment_note": {
+      "type": "string",
+      "description": "Payment instructions"
+    }
+  }
+}

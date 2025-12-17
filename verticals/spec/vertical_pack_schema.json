@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vertical Pack Schema",
+  "description": "L4 Vertical Pack Format - Purely structural industry metadata (NO personality, NO tone, NO behavior)",
+  "type": "object",
+  "required": ["industry_identity", "entities", "skills", "workflows", "compliance", "statuses"],
+  "properties": {
+    "industry_identity": {
+      "type": "object",
+      "description": "Industry identification block - structural only",
+      "required": ["industry_name", "industry_code", "description"],
+      "properties": {
+        "industry_name": {
+          "type": "string",
+          "description": "Human-readable industry name",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "industry_code": {
+          "type": "string",
+          "description": "Unique industry identifier (kebab-case)",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "description": {
+          "type": "string",
+          "description": "Factual industry description (NO personality)",
+          "minLength": 10,
+          "maxLength": 500
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon identifier or emoji",
+          "maxLength": 50
+        }
+      },
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "description": "Entity structure definitions - data fields only",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "object",
+          "required": ["required", "optional"],
+          "properties": {
+            "required": {
+              "type": "array",
+              "description": "Required fields for this entity",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "optional": {
+              "type": "array",
+              "description": "Optional fields for this entity",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "object",
+      "description": "Functional skill mappings ONLY (NO behavioral skills)",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "string",
+          "description": "Skill ID in format: domain.skill.version",
+          "pattern": "^[a-z]+\\.[a-z_.]+\\.v[0-9]+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "workflows": {
+      "type": "object",
+      "description": "Workflow mappings - references to existing workflows",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "string",
+          "description": "Workflow ID in format: name.workflow.version",
+          "pattern": "^[a-z]+\\.[a-z_.]+\\.v[0-9]+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "widgets": {
+      "type": "object",
+      "description": "Widget metadata - UI structure ONLY (NO logic, NO behavior)",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "object",
+          "required": ["type", "fields"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["form", "table", "card", "list", "detail"],
+              "description": "Widget type"
+            },
+            "fields": {
+              "type": "array",
+              "description": "Field definitions",
+              "items": {
+                "type": "object",
+                "required": ["name", "type"],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Field name"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["text", "number", "email", "phone", "date", "select", "textarea", "file"],
+                    "description": "Field type"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Display label"
+                  },
+                  "required": {
+                    "type": "boolean",
+                    "description": "Whether field is required"
+                  },
+                  "validation": {
+                    "type": "object",
+                    "description": "Validation rules (declarative only)",
+                    "properties": {
+                      "min": {"type": "number"},
+                      "max": {"type": "number"},
+                      "pattern": {"type": "string"},
+                      "minLength": {"type": "number"},
+                      "maxLength": {"type": "number"}
+                    }
+                  },
+                  "options": {
+                    "type": "array",
+                    "description": "Options for select fields",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "workflow_entrypoint": {
+              "type": "string",
+              "description": "Workflow ID this widget can trigger",
+              "pattern": "^[a-z]+\\.[a-z_.]+\\.v[0-9]+$"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "compliance": {
+      "type": "object",
+      "description": "Industry compliance requirements (NOT governance - that's L7)",
+      "properties": {
+        "required_documents": {
+          "type": "array",
+          "description": "Documents required by industry regulations",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclaimers": {
+          "type": "array",
+          "description": "Legal disclaimers required by industry",
+          "items": {
+            "type": "string"
+          }
+        },
+        "industry_rules": {
+          "type": "array",
+          "description": "Industry-specific rules (factual, not behavioral)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "statuses": {
+      "type": "array",
+      "description": "Valid status values for entities in this vertical",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z_]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Pack metadata",
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

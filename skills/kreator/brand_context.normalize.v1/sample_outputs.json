@@ -1,0 +1,78 @@
+{
+  "outputs": [
+    {
+      "id": "sample_001_output",
+      "input_reference": "sample_001",
+      "response": {
+        "status": "success",
+        "output": {
+          "brand_name": "FlowMind",
+          "mission": "To deliver efficiency and through efficiency, helping users reclaim 10+ hours every week.",
+          "positioning": "For Remote workers and digital nomads aged 25-40, we are the professional SaaS/Productivity solution that delivers save 10+ hours weekly. Excellence in Efficiency.",
+          "value_proposition": "Reclaim 10+ Hours Every Week. Save 10+ Hours Weekly, Seamless Integration, Adaptive AI.",
+          "icp": {
+            "demographics": "Remote workers and digital nomads aged 25-40",
+            "psychographics": [
+              "results-oriented",
+              "efficiency-focused",
+              "data-driven"
+            ],
+            "pain_points": [
+              "Time constraints and inefficiency",
+              "Manual repetitive tasks",
+              "Disconnected tools and workflows"
+            ],
+            "goals": [
+              "Improve efficiency",
+              "Achieve better results",
+              "Save time and resources"
+            ]
+          },
+          "brand_themes": [
+            "simplicity",
+            "productivity",
+            "efficiency",
+            "innovation"
+          ],
+          "unified_tone": "professional",
+          "narrative": "FlowMind is a SaaS/Productivity company serving Remote workers and digital nomads aged 25-40. Our mission is to deliver efficiency and through efficiency, helping users reclaim 10+ hours every week. We are positioned as the professional solution that delivers time savings. Our core themes are simplicity, productivity, efficiency, innovation.",
+          "messaging_framework": {
+            "tone": "professional",
+            "voice_guidelines": {
+              "voice": "Clear, confident, results-oriented",
+              "language": "Use data-driven language, avoid jargon",
+              "style": "Direct and authoritative"
+            },
+            "key_messages": [
+              "Reclaim 10+ Hours Every Week. Save 10+ Hours Weekly, Seamless Integration, Adaptive AI.",
+              "Excellence in Efficiency",
+              "Easy to use, powerful results",
+              "Get more done, faster",
+              "Save time and resources"
+            ],
+            "do": [
+              "Use professional language",
+              "Focus on benefits over features",
+              "Be consistent across channels"
+            ],
+            "dont": [
+              "Use jargon or technical terms",
+              "Make unsubstantiated claims",
+              "Deviate from brand tone"
+            ]
+          },
+          "metadata": {
+            "normalized_at": "2024-12-07T17:18:15.912037",
+            "version": "1.0.0",
+            "sources": {
+              "slogan": true,
+              "landing_page": true,
+              "social_pack": true
+            }
+          }
+        },
+        "errors": []
+      }
+    }
+  ]
+}

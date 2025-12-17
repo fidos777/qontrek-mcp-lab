@@ -1,0 +1,23 @@
+# KuasaTurbo Rate Limit Configuration
+# Phase XVI - Rate Limiting Layer
+
+# Default limits applied to all endpoints unless overridden
+default:
+  minute: 30
+  hour: 500
+  day: 5000
+
+# Endpoint-specific limits
+# Key format matches endpoint keys used in enforce_rate_limit()
+service_execute:
+  minute: 20
+  hour: 200
+  day: 2000
+
+creative_generate:
+  minute: 10
+  hour: 100
+  day: 1000
+
+# Health and auth endpoints are NOT rate limited
+# They are excluded in the service logic

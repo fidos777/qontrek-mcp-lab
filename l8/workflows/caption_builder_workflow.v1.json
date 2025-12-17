@@ -1,0 +1,28 @@
+{
+  "id": "caption_builder_workflow.v1",
+  "description": "Generate engaging social media captions with hooks and CTAs",
+  "version": "1.0.0",
+  "persona_id": "zeyti_bbnu_creator.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "generate_captions",
+      "type": "ai_generate",
+      "description": "Generate 3-5 caption variations using Zeyti persona",
+      "input_mapping": {
+        "post_topic": "{{input.post_topic}}",
+        "tone": "{{input.tone}}",
+        "platform": "{{input.platform}}",
+        "include_hashtags": "{{input.include_hashtags}}"
+      },
+      "prompt_template": "Generate 3-5 engaging captions for {{platform}} about {{post_topic}} with {{tone}} tone. Each caption should have: 1 strong hook, 1-2 body lines, 1 clear CTA. Use BBNU style (Bahasa Baku + Non-Baku mix), catchy, scroll-stopper style. {{#if include_hashtags}}Include relevant hashtags.{{/if}}",
+      "output_keys": ["captions"]
+    }
+  ],
+  "output_schema": {
+    "captions": {
+      "type": "array",
+      "description": "List of 3-5 caption variations with hooks and CTAs"
+    }
+  }
+}

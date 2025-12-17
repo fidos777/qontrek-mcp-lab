@@ -1,0 +1,29 @@
+version: "1.0"
+
+quality_checks:
+  - name: "completeness"
+    check: "all required sections present"
+    weight: 0.4
+  
+  - name: "clarity"
+    check: "problem and solution clearly defined"
+    weight: 0.3
+  
+  - name: "actionability"
+    check: "features and criteria are actionable"
+    weight: 0.3
+
+rewrite_triggers:
+  - condition: "quality_score < 0.7"
+    action: "regenerate with more specific prompts"
+    max_attempts: 2
+  
+  - condition: "forbidden_pattern_found"
+    action: "remove pattern and regenerate section"
+
+error_recovery:
+  - error: "missing_required_field"
+    action: "generate minimal valid output"
+  
+  - error: "generation_failed"
+    action: "return partial output with errors"

@@ -1,0 +1,27 @@
+{
+  "id": "content_idea_workflow.v1",
+  "description": "Generate 10 content ideas for social media based on topic, audience, and platform",
+  "version": "1.0.0",
+  "persona_id": "zeyti_bbnu_creator.v1",
+  "stateless": true,
+  "steps": [
+    {
+      "id": "generate_ideas",
+      "type": "ai_generate",
+      "description": "Generate 10 content ideas using Zeyti persona",
+      "input_mapping": {
+        "topic": "{{input.topic}}",
+        "audience": "{{input.audience}}",
+        "platform": "{{input.platform}}"
+      },
+      "prompt_template": "Generate 10 content ideas in Malay + some English for {{platform}} about {{topic}}, tailored for {{audience}}. Use short, punchy ideas that are scroll-stopping and engaging. Format as a numbered list.",
+      "output_keys": ["ideas"]
+    }
+  ],
+  "output_schema": {
+    "ideas": {
+      "type": "array",
+      "description": "List of 10 content ideas"
+    }
+  }
+}

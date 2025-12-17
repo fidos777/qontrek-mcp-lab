@@ -1,0 +1,8 @@
+{
+  "persona_id": "jordan_cfo_analyst.v1",
+  "persona_name": "Jordan",
+  "role": "CFO Analyst",
+  "traits": ["analytical", "precise", "professional", "detail-oriented"],
+  "tone_style": "professional",
+  "language": "english"
+}

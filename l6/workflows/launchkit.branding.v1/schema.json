@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LaunchKit Branding Workflow Input",
+  "description": "Converts normalized brand context into Brand Bible Lite",
+  "type": "object",
+  "required": [
+    "brand_name",
+    "mission",
+    "positioning",
+    "value_proposition",
+    "icp",
+    "brand_themes",
+    "unified_tone",
+    "messaging_framework"
+  ],
+  "properties": {
+    "brand_name": {
+      "type": "string",
+      "description": "Brand name"
+    },
+    "mission": {
+      "type": "string",
+      "description": "Mission statement"
+    },
+    "positioning": {
+      "type": "string",
+      "description": "Positioning statement"
+    },
+    "value_proposition": {
+      "type": "string",
+      "description": "Value proposition"
+    },
+    "icp": {
+      "type": "object",
+      "description": "Ideal Customer Profile",
+      "properties": {
+        "demographics": {"type": "string"},
+        "psychographics": {"type": "array"},
+        "pain_points": {"type": "array"},
+        "goals": {"type": "array"}
+      }
+    },
+    "brand_themes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Core brand themes"
+    },
+    "unified_tone": {
+      "type": "string",
+      "description": "Unified brand tone"
+    },
+    "messaging_framework": {
+      "type": "object",
+      "description": "Messaging framework with guidelines"
+    },
+    "narrative": {
+      "type": "string",
+      "description": "Brand narrative (optional)"
+    }
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Persona Pack Schema",
+  "description": "L5 Persona Pack Format - Defines HOW agents speak and behave (NOT WHAT they do)",
+  "type": "object",
+  "required": [
+    "identity",
+    "language_profile",
+    "tone",
+    "structure",
+    "persuasion",
+    "rhetoric_rules",
+    "channels",
+    "rubric_targets",
+    "constraints"
+  ],
+  "properties": {
+    "identity": {
+      "type": "object",
+      "description": "Persona identification",
+      "required": ["persona_id", "persona_name", "role", "description"],
+      "properties": {
+        "persona_id": {
+          "type": "string",
+          "description": "Unique persona identifier (kebab-case)",
+          "pattern": "^[a-z0-9]+(_[a-z0-9]+)*\\.v[0-9]+$"
+        },
+        "persona_name": {
+          "type": "string",
+          "description": "Human-readable persona name",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "description": "Persona's role or archetype",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "description": "Persona description",
+          "minLength": 10,
+          "maxLength": 500
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Avatar emoji or icon"
+        }
+      },
+      "additionalProperties": false
+    },
+    "language_profile": {
+      "type": "object",
+      "description": "Language and code-switching behavior",
+      "required": [
+        "primary_language",
+        "english_ratio",
+        "bbnu_ratio",
+        "code_switching_rules"
+      ],
+      "properties": {
+        "primary_language": {
+          "type": "string",
+          "enum": ["malay", "english", "bilingual"],
+          "description": "Primary language mode"
+        },
+        "english_ratio": {
+          "type": "number",
+          "description": "Percentage of English usage (0-100)",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "bbnu_ratio": {
+          "type": "number",
+          "description": "Percentage of Bahasa Baku Non-Ubaku usage (0-100)",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "code_switching_rules": {
+          "type": "array",
+          "description": "Rules for when to switch languages",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "vocabulary_level": {
+          "type": "string",
+          "enum": ["simple", "moderate", "advanced", "technical"],
+          "description": "Vocabulary complexity level"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tone": {
+      "type": "object",
+      "description": "Tone and emotional delivery",
+      "required": ["primary_tone", "emotional_range", "formality_level"],
+      "properties": {
+        "primary_tone": {
+          "type": "string",
+          "enum": [
+            "friendly",
+            "professional",
+            "casual",
+            "authoritative",
+            "empathetic",
+            "enthusiastic",
+            "analytical",
+            "confident"
+          ],
+          "description": "Primary tone of voice"
+        },
+        "emotional_range": {
+          "type": "array",
+          "description": "Allowed emotional expressions",
+          "items": {
+            "type": "string",
+            "enum": [
+              "warm",
+              "excited",
+              "calm",
+              "confident",
+              "supportive",
+              "neutral",
+              "serious"
+            ]
+          },
+          "minItems": 1
+        },
+        "formality_level": {
+          "type": "number",
+          "description": "Formality level (1=very casual, 5=very formal)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "humor_allowed": {
+          "type": "boolean",
+          "description": "Whether humor is appropriate"
+        },
+        "empathy_level": {
+          "type": "number",
+          "description": "Empathy expression level (1=low, 5=high)",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "structure": {
+      "type": "object",
+      "description": "Message structure and formatting preferences",
+      "required": ["message_length", "paragraph_style", "use_bullets"],
+      "properties": {
+        "message_length": {
+          "type": "string",
+          "enum": ["concise", "moderate", "detailed", "comprehensive"],
+          "description": "Preferred message length"
+        },
+        "paragraph_style": {
+          "type": "string",
+          "enum": ["short", "medium", "long"],
+          "description": "Paragraph length preference"
+        },
+        "use_bullets": {
+          "type": "boolean",
+          "description": "Whether to use bullet points"
+        },
+        "use_emojis": {
+          "type": "boolean",
+          "description": "Whether to use emojis"
+        },
+        "greeting_style": {
+          "type": "string",
+          "description": "How to greet users"
+        },
+        "closing_style": {
+          "type": "string",
+          "description": "How to close messages"
+        }
+      },
+      "additionalProperties": false
+    },
+    "persuasion": {
+      "type": "object",
+      "description": "Persuasion and influence tactics",
+      "required": ["persuasion_level", "tactics_allowed"],
+      "properties": {
+        "persuasion_level": {
+          "type": "number",
+          "description": "Persuasion intensity (1=subtle, 5=strong)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "tactics_allowed": {
+          "type": "array",
+          "description": "Allowed persuasion tactics",
+          "items": {
+            "type": "string",
+            "enum": [
+              "social_proof",
+              "scarcity",
+              "authority",
+              "reciprocity",
+              "consistency",
+              "liking",
+              "urgency",
+              "storytelling",
+              "data_driven",
+              "emotional_appeal"
+            ]
+          }
+        },
+        "call_to_action_style": {
+          "type": "string",
+          "enum": ["soft", "moderate", "strong", "direct"],
+          "description": "How to present calls to action"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rhetoric_rules": {
+      "type": "array",
+      "description": "Specific rhetoric and communication rules",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "channels": {
+      "type": "object",
+      "description": "Channel-specific adaptations",
+      "properties": {
+        "whatsapp": {
+          "type": "object",
+          "properties": {
+            "max_message_length": {"type": "number"},
+            "use_emojis": {"type": "boolean"},
+            "response_speed": {"type": "string", "enum": ["immediate", "quick", "measured"]}
+          }
+        },
+        "email": {
+          "type": "object",
+          "properties": {
+            "subject_line_style": {"type": "string"},
+            "signature": {"type": "string"},
+            "formality_adjustment": {"type": "number", "minimum": -2, "maximum": 2}
+          }
+        },
+        "chat": {
+          "type": "object",
+          "properties": {
+            "message_chunking": {"type": "boolean"},
+            "typing_indicators": {"type": "boolean"}
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rubric_targets": {
+      "type": "object",
+      "description": "Target scores for L7 governance rubric (1-5 scale)",
+      "required": [
+        "clarity",
+        "tone_consistency",
+        "persuasion_control",
+        "personalization",
+        "structure",
+        "compliance"
+      ],
+      "properties": {
+        "clarity": {
+          "type": "number",
+          "description": "Message clarity target (1=unclear, 5=crystal clear)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "tone_consistency": {
+          "type": "number",
+          "description": "Tone consistency target (1=inconsistent, 5=perfectly consistent)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "persuasion_control": {
+          "type": "number",
+          "description": "Persuasion appropriateness (1=off-target, 5=perfectly calibrated)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "personalization": {
+          "type": "number",
+          "description": "Personalization level (1=generic, 5=highly personalized)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "structure": {
+          "type": "number",
+          "description": "Message structure quality (1=poor, 5=excellent)",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "compliance": {
+          "type": "number",
+          "description": "Compliance with persona rules (1=poor, 5=perfect)",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Behavioral constraints and boundaries",
+      "required": ["forbidden_topics", "required_disclaimers"],
+      "properties": {
+        "forbidden_topics": {
+          "type": "array",
+          "description": "Topics this persona should avoid",
+          "items": {
+            "type": "string"
+          }
+        },
+        "required_disclaimers": {
+          "type": "array",
+          "description": "Disclaimers that must be included",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_response_length": {
+          "type": "number",
+          "description": "Maximum response length in characters"
+        },
+        "must_avoid_phrases": {
+          "type": "array",
+          "description": "Phrases to avoid",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Pack metadata",
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

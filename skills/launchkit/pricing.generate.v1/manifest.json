@@ -1,0 +1,19 @@
+{
+  "name": "pricing.generate.v1",
+  "version": "2.0.0",
+  "description": "Generate pricing and monetization strategy from ICP context (NO hardcoded prices)",
+  "category": "launchkit",
+  "domain": "business",
+  "llm_powered": true,
+  "input_schema": "schema.json",
+  "handler": "handler.py",
+  "outputs": [
+    "pricing_anchors",
+    "tiers",
+    "billing_model",
+    "price_points_rationale",
+    "add_ons",
+    "commission_model",
+    "pricing_narrative"
+  ]
+}
