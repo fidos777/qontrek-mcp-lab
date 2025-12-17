@@ -353,29 +353,36 @@ def handle_fetch_proof(arguments):
 
 def handle_export_attestation(arguments):
     """
-    C-2.12: MCP ATTESTATION EXPORT
+    C-4.12: MCP ATTESTATION EXPORT (ENHANCED WITH C-4 FORMATTER)
     
-    Updated to format through adapter from Proof Ledger.
+    Updated to use C-4 AttestationFormatter for deterministic,
+    multi-format attestation generation from Proof Ledger.
+    
     C-2 FIX #2: Sources data from ledger, not runners.
+    C-4: Uses read-only attestation formatter with no signing authority.
     """
-    from lib.execution_adapter import ReadOnlyExecutionAdapter
+    from lib.attestation.formatter import AttestationFormatter
     
     invocation_id = arguments["invocation_id"]
     
-    # C-2 FIX #2: Get proof data from ledger, format as attestation
-    adapter = ReadOnlyExecutionAdapter()
-    proof_data = adapter.get_proof_data(invocation_id)
+    # C-4: USE READ-ONLY ATTESTATION FORMATTER
+    # Formatter has no signing authority or credentials
+    formatter = AttestationFormatter()
     
-    # Format as attestation
+    # C-4: GENERATE MULTI-FORMAT ATTESTATION
     attestation = {
-        "format": "json",
         "invocation_id": invocation_id,
-        "attestation_data": proof_data,
+        "formats": {
+            "human_readable": formatter.format_human_readable(invocation_id),
+            "machine_verifiable": formatter.format_machine_verifiable(invocation_id),
+            "partner_api": formatter.format_partner_api(invocation_id)
+        },
         "exported_at": datetime.now().isoformat(),
-        "signature": f"0x{hashlib.sha256(f'attestation_{invocation_id}'.encode()).hexdigest()}"
+        "formatter_version": "1.0.0-c4",
+        "authority_disclaimer": "formatting_only_no_signing_authority"  # C-4: No authority
     }
     
-    log("info", "Attestation exported from ledger", 
+    log("info", "Multi-format attestation exported via C-4 formatter", 
         invocation_id=invocation_id)
     
     return {
