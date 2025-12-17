@@ -14,11 +14,24 @@ from lib.logger import log
 from kuasaturbo.database.connection import get_db_connection
 
 # C-1.1: CANONICAL TOOL SURFACE - EXACTLY 3 TOOLS ALLOWED
-TOOLS_ALLOWED = {
+# C1-H2: NORMALIZED TOOL NAMES - Strip whitespace and assert no leading/trailing spaces
+_RAW_TOOLS = [
     "invoke_workflow",
     "fetch_proof", 
     "export_attestation"
-}
+]
+
+# Normalize tool names and assert no whitespace variance
+TOOLS_ALLOWED = set()
+for tool_name in _RAW_TOOLS:
+    normalized_name = tool_name.strip()
+    
+    # Hard assertion: reject tool names with leading/trailing whitespace
+    if normalized_name != tool_name:
+        raise ValueError(f"CRITICAL: Tool name '{tool_name}' contains leading/trailing whitespace. "
+                        f"Canonical tool identifiers MUST be exact string matches with no whitespace variance.")
+    
+    TOOLS_ALLOWED.add(normalized_name)
 
 # C-1.3: HARD SCHEMA VALIDATION - Strict schemas for each tool
 TOOL_SCHEMAS = {
