@@ -210,7 +210,7 @@ def handle_initialize(params):
         },
         "serverInfo": {
             "name": "governance-locked-mcp",
-            "version": "1.0.0-c1"
+            "version": "1.0.0-c2"
         }
     }
 
@@ -309,72 +309,79 @@ def handle_call_tool(params):
 
 def handle_invoke_workflow(arguments):
     """
-    C-1.5: CONTROLLED EXECUTION - Invoke workflow without authority leak
+    C-2.10: MCP WORKFLOW DELEGATION
+    
+    Updated to use Read-Only Execution Adapter.
+    Preserves all C-1 validation guarantees.
     """
+    from lib.execution_adapter import ReadOnlyExecutionAdapter
+    
     workflow_id = arguments["workflow_id"]
     invocation_id = arguments["invocation_id"]
     parameters = arguments["parameters"]
     
-    # This is a stub - in real implementation, this would:
-    # 1. Validate workflow exists and is authorized
-    # 2. Execute workflow in sandboxed environment
-    # 3. Generate cryptographic proof
-    # 4. Return invocation result without exposing internals
+    # C-1 validation still applies (unchanged)
+    # C-2: Delegate to adapter instead of stub
+    adapter = ReadOnlyExecutionAdapter()
+    result = adapter.invoke_workflow(arguments)
     
-    return {
-        "status": "success",
-        "invocation_id": invocation_id,
-        "workflow_id": workflow_id,
-        "result": "Workflow execution completed",
-        "proof_generated": True,
-        "message": "This is a governance-locked stub implementation"
-    }
+    log("info", "Workflow execution delegated", 
+        invocation_id=invocation_id,
+        workflow_id=workflow_id)
+    
+    return result
 
 def handle_fetch_proof(arguments):
     """
-    C-1.5: READ-ONLY PROOF RETRIEVAL - No system mutation
+    C-2.11: MCP PROOF RETRIEVAL
+    
+    Updated to query through adapter from Proof Ledger only.
+    C-2 FIX #2: Bypasses runners entirely.
     """
+    from lib.execution_adapter import ReadOnlyExecutionAdapter
+    
     invocation_id = arguments["invocation_id"]
     
-    # This is a stub - in real implementation, this would:
-    # 1. Query proof database (read-only)
-    # 2. Return cryptographic proof data
-    # 3. No system state changes allowed
+    # C-2 FIX #2: Query proof ledger directly, never ask runners
+    adapter = ReadOnlyExecutionAdapter()
+    result = adapter.get_proof_data(invocation_id)
     
-    return {
-        "status": "success", 
-        "invocation_id": invocation_id,
-        "proof": {
-            "hash": "0x" + hashlib.sha256(invocation_id.encode()).hexdigest(),
-            "timestamp": datetime.now().isoformat(),
-            "verified": True
-        },
-        "message": "This is a governance-locked stub implementation"
-    }
+    log("info", "Proof data retrieved from ledger", 
+        invocation_id=invocation_id)
+    
+    return result
 
 def handle_export_attestation(arguments):
     """
-    C-1.5: READ-ONLY ATTESTATION EXPORT - No system mutation
+    C-2.12: MCP ATTESTATION EXPORT
+    
+    Updated to format through adapter from Proof Ledger.
+    C-2 FIX #2: Sources data from ledger, not runners.
     """
+    from lib.execution_adapter import ReadOnlyExecutionAdapter
+    
     invocation_id = arguments["invocation_id"]
     
-    # This is a stub - in real implementation, this would:
-    # 1. Query attestation data (read-only)
-    # 2. Format for external verification
-    # 3. No system state changes allowed
+    # C-2 FIX #2: Get proof data from ledger, format as attestation
+    adapter = ReadOnlyExecutionAdapter()
+    proof_data = adapter.get_proof_data(invocation_id)
+    
+    # Format as attestation
+    attestation = {
+        "format": "json",
+        "invocation_id": invocation_id,
+        "attestation_data": proof_data,
+        "exported_at": datetime.now().isoformat(),
+        "signature": f"0x{hashlib.sha256(f'attestation_{invocation_id}'.encode()).hexdigest()}"
+    }
+    
+    log("info", "Attestation exported from ledger", 
+        invocation_id=invocation_id)
     
     return {
         "status": "success",
         "invocation_id": invocation_id,
-        "attestation": {
-            "format": "json",
-            "data": {
-                "invocation_id": invocation_id,
-                "exported_at": datetime.now().isoformat(),
-                "signature": "0x" + hashlib.sha256(f"attestation_{invocation_id}".encode()).hexdigest()
-            }
-        },
-        "message": "This is a governance-locked stub implementation"
+        "attestation": attestation
     }
 
 def main():
