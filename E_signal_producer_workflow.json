@@ -1,0 +1,111 @@
+{
+  "name": "Sprint E Signal Producer",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/signal",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-signal-receiver",
+      "name": "Signal Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "demand_signals",
+        "columns": "signal_type,payload",
+        "additionalFields": {},
+        "options": {}
+      },
+      "id": "supabase-insert",
+      "name": "Insert Signal",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [460, 300],
+      "credentials": {
+        "supabaseApi": {
+          "id": "supabase-credentials",
+          "name": "Supabase API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "signal_type",
+              "value": "={{ $json.body.signal_type }}"
+            }
+          ],
+          "object": [
+            {
+              "name": "payload", 
+              "value": "={{ $json.body.payload }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-signal-data",
+      "name": "Format Signal Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [350, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"signal_received\", \"timestamp\": new Date().toISOString() } }}"
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response", 
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [570, 300]
+    }
+  ],
+  "connections": {
+    "Signal Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Signal Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Signal Data": {
+      "main": [
+        [
+          {
+            "node": "Insert Signal",
+            "type": "main", 
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Signal": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "sprint-e-v1"
+}
