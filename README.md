@@ -3,6 +3,7 @@
 ## Governance Status
 - Constitution: CIVOS v1.6
 - Phase 1: STRUCTURAL FOUNDATION — ✅ SEALED
+- Session 2 (Work Type Mapping) — ✅ SEALED
 - Sprint G (Constitutional Freeze): SEALED
 - Decision Authority: Human-only
 - Proof Custody: Enforced at database layer
