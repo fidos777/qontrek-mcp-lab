@@ -17,4 +17,4 @@ Phase 1 establishes the non-authoritative substrate for:
 - HOLD & boundary signaling
 - human training reflection
 
-No decision authority exists at this layer. All artifacts are observational and append-only.
+No decision authority exists at this layer. All artifacts are observational and append-only.# fidos-ai-factory
